@@ -31,7 +31,7 @@ class KinaBankGateway
     /**
      * @var string
      */
-    private $gatewayUrl = 'https://egateway.victoriabank.md/cgi-bin/cgi_link';
+    private $gatewayUrl = 'https://egateway.kinabank.md/cgi-bin/cgi_link';
 
     /**
      * @var string

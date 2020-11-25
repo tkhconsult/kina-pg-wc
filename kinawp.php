@@ -40,7 +40,7 @@ function woocommerce_kinabank_init() {
 		protected $logger;
 
 		#region Constants
-		const MOD_ID          = 'victoriabank';
+		const MOD_ID          = 'kinabank';
 		const MOD_TITLE       = 'Victoriabank';
 		const MOD_PREFIX      = 'vb_';
 		const MOD_TEXT_DOMAIN = 'kinawp';
@@ -80,7 +80,7 @@ function woocommerce_kinabank_init() {
 			$this->id                 = self::MOD_ID;
 			$this->method_title       = self::MOD_TITLE;
 			$this->method_description = 'WooCommerce Payment Gateway for Victoriabank';
-			$this->icon               = apply_filters('woocommerce_kinabank_icon', $plugin_dir . 'assets/img/victoriabank.png');
+			$this->icon               = apply_filters('woocommerce_kinabank_icon', $plugin_dir . 'assets/img/kinabank.png');
 			$this->has_fields         = false;
 			$this->supports           = array('products', 'refunds');
 
@@ -93,7 +93,7 @@ function woocommerce_kinabank_init() {
 			$this->description       = $this->get_option('description');
 
 			$this->logo_type         = $this->get_option('logo_type', self::LOGO_TYPE_BANK);
-			$this->bank_logo         = $plugin_dir . 'assets/img/victoriabank.png';
+			$this->bank_logo         = $plugin_dir . 'assets/img/kinabank.png';
 			$this->systems_logo      = $plugin_dir . 'assets/img/paymentsystems.png';
 			$plugin_icon             = ($this->logo_type === self::LOGO_TYPE_BANK ? $this->bank_logo : $this->systems_logo);
 			$this->icon              = apply_filters('woocommerce_kinabank_icon', $plugin_icon);
@@ -438,7 +438,7 @@ function woocommerce_kinabank_init() {
 							type: "POST",
 							data: {
 								_ajax_nonce: "' . wp_create_nonce('callback_data_process') . '",
-								action: "victoriabank_callback_data_process",
+								action: "kinabank_callback_data_process",
 								callback_data: callback_data
 							},
 							dataType: "json",
@@ -680,7 +680,7 @@ function woocommerce_kinabank_init() {
 		protected function init_vb_client() {
 			$victoriaBankGateway = new KinaBankGateway();
 
-			$gatewayUrl = ($this->testmode ? 'https://ecomt.victoriabank.md/cgi-bin/cgi_link' : 'https://egateway.victoriabank.md/cgi-bin/cgi_link'); #ALT TEST vb19.victoriabank.md
+			$gatewayUrl = ($this->testmode ? 'https://ecomt.kinabank.md/cgi-bin/cgi_link' : 'https://egateway.kinabank.md/cgi-bin/cgi_link'); #ALT TEST vb19.kinabank.md
 			$sslVerify  = !$this->testmode;
 
 			//Set basic info
@@ -1395,8 +1395,8 @@ function woocommerce_kinabank_init() {
 				return $actions;
 			}
 
-			$actions['victoriabank_complete_transaction'] = sprintf(__('Complete %1$s transaction', self::MOD_TEXT_DOMAIN), self::MOD_TITLE);
-			//$actions['victoriabank_reverse_transaction'] = sprintf(__('Reverse %1$s transaction', self::MOD_TEXT_DOMAIN), self::MOD_TITLE);
+			$actions['kinabank_complete_transaction'] = sprintf(__('Complete %1$s transaction', self::MOD_TEXT_DOMAIN), self::MOD_TITLE);
+			//$actions['kinabank_reverse_transaction'] = sprintf(__('Reverse %1$s transaction', self::MOD_TEXT_DOMAIN), self::MOD_TITLE);
 			return $actions;
 		}
 
@@ -1480,10 +1480,10 @@ function woocommerce_kinabank_init() {
 
 		//Add WooCommerce order actions
 		add_filter('woocommerce_order_actions', array(WC_KinaBank::class, 'order_actions'));
-		add_action('woocommerce_order_action_victoriabank_complete_transaction', array(WC_KinaBank::class, 'action_complete_transaction'));
-		//add_action('woocommerce_order_action_victoriabank_reverse_transaction', array(WC_KinaBank::class, 'action_reverse_transaction'));
+		add_action('woocommerce_order_action_kinabank_complete_transaction', array(WC_KinaBank::class, 'action_complete_transaction'));
+		//add_action('woocommerce_order_action_kinabank_reverse_transaction', array(WC_KinaBank::class, 'action_reverse_transaction'));
 
-		add_action('wp_ajax_victoriabank_callback_data_process', array(WC_KinaBank::class, 'callback_data_process'));
+		add_action('wp_ajax_kinabank_callback_data_process', array(WC_KinaBank::class, 'callback_data_process'));
 	}
 	#endregion
 
