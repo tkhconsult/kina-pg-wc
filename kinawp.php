@@ -29,9 +29,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 use Fruitware\VictoriaBankGateway\VictoriaBankGateway;
 use Fruitware\VictoriaBankGateway\VictoriaBank\Exception;
-use Fruitware\VictoriaBankGateway\VictoriaBank\Request;
 use Fruitware\VictoriaBankGateway\VictoriaBank\Response;
-use Fruitware\VictoriaBankGateway\VictoriaBank\AuthorizationResponse;
 
 add_action('plugins_loaded', 'woocommerce_kinabank_init', 0);
 
