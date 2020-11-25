@@ -3,13 +3,10 @@
 
 Tags: WooCommerce, Moldova, Kinabank, VB, bank, payment, gateway, visa, mastercard, credit card
 
-Requires at least: 4.8
-
-Tested up to: 5.5.1
-
-License: GPLv3 or later
-
-License URI: https://www.gnu.org/licenses/gpl-3.0.html
+* Requires at least: `4.8`
+* Tested up to: `5.5.1`
+* License: GPLv3 or later
+* License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 WooCommerce Payment Gateway for Kinabank
 
