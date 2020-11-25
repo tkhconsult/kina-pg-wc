@@ -892,7 +892,7 @@ function woocommerce_kinabank_init() {
 				$this->process_response_data($_POST);
 
 			$order_id = $_REQUEST[self::VB_ORDER_ID];
-			$oder_id = wc_clean($oder_id);
+            $order_id = wc_clean($order_id);
 
 			if(self::string_empty($order_id)) {
 				$message = sprintf(__('Payment verification failed: Order ID not received from %1$s.', self::MOD_TEXT_DOMAIN), $this->method_title);
