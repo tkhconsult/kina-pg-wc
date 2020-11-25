@@ -56,20 +56,20 @@ function woocommerce_kinabank_init() {
 		const SUPPORTED_CURRENCIES = ['MDL', 'EUR', 'USD'];
 		const ORDER_TEMPLATE       = 'Order #%1$s';
 
-		const VB_ORDER    = 'ORDER';
-		const VB_ORDER_ID = 'order_id';
+		const KB_ORDER    = 'ORDER';
+		const KB_ORDER_ID = 'order_id';
 
-		const VB_RRN      = self::MOD_PREFIX . 'RRN';
-		const VB_INT_REF  = self::MOD_PREFIX . 'INT_REF';
-		const VB_APPROVAL = self::MOD_PREFIX . 'APPROVAL';
-		const VB_CARD     = self::MOD_PREFIX . 'CARD';
+		const KB_RRN      = self::MOD_PREFIX . 'RRN';
+		const KB_INT_REF  = self::MOD_PREFIX . 'INT_REF';
+		const KB_APPROVAL = self::MOD_PREFIX . 'APPROVAL';
+		const KB_CARD     = self::MOD_PREFIX . 'CARD';
 
 		//e-Commerce Gateway merchant interface (CGI/WWW forms version)
 		//Appendix A: P_SIGN creation/verification in the Merchant System
 		//https://github.com/TkhConsult/KinaBankGateway/blob/master/doc/e-Gateway_Merchant_CGI_2.1.pdf
-		const VB_SIGNATURE_FIRST   = '0001';
-		const VB_SIGNATURE_PREFIX  = '3020300C06082A864886F70D020505000410';
-		const VB_SIGNATURE_PADDING = '00';
+		const KB_SIGNATURE_FIRST   = '0001';
+		const KB_SIGNATURE_PREFIX  = '3020300C06082A864886F70D020505000410';
+		const KB_SIGNATURE_PADDING = '00';
 		#endregion
 
 		public function __construct() {
@@ -700,9 +700,9 @@ function woocommerce_kinabank_init() {
 
 			//Set security options - provided by the bank
 			$kinaBankGateway->setSecurityOptions(
-				self::VB_SIGNATURE_FIRST,
-				self::VB_SIGNATURE_PREFIX,
-				self::VB_SIGNATURE_PADDING,
+				self::KB_SIGNATURE_FIRST,
+				self::KB_SIGNATURE_PREFIX,
+				self::KB_SIGNATURE_PADDING,
 				$this->vb_public_key,
 				$this->vb_private_key,
 				$this->vb_bank_public_key,
@@ -791,8 +791,8 @@ function woocommerce_kinabank_init() {
 		public function complete_transaction($order_id, $order) {
 			$this->log(sprintf('%1$s: OrderID=%2$s', __FUNCTION__, $order_id));
 
-			$rrn = get_post_meta($order_id, strtolower(self::VB_RRN), true);
-			$intRef = get_post_meta($order_id, strtolower(self::VB_INT_REF), true);
+			$rrn = get_post_meta($order_id, strtolower(self::KB_RRN), true);
+			$intRef = get_post_meta($order_id, strtolower(self::KB_INT_REF), true);
 			$order_total = $this->get_order_net_total($order);
 			$order_currency = $order->get_currency();
 
@@ -820,8 +820,8 @@ function woocommerce_kinabank_init() {
 		public function refund_transaction($order_id, $order, $amount = null) {
 			$this->log(sprintf('%1$s: OrderID=%2$s Amount=%3$s', __FUNCTION__, $order_id, $amount));
 
-			$rrn = get_post_meta($order_id, strtolower(self::VB_RRN), true);
-			$intRef = get_post_meta($order_id, strtolower(self::VB_INT_REF), true);
+			$rrn = get_post_meta($order_id, strtolower(self::KB_RRN), true);
+			$intRef = get_post_meta($order_id, strtolower(self::KB_INT_REF), true);
 			$order_total = $order->get_total();
 			$order_currency = $order->get_currency();
 
@@ -886,7 +886,7 @@ function woocommerce_kinabank_init() {
 			if($_SERVER['REQUEST_METHOD'] === 'POST')
 				$this->process_response_data($_POST);
 
-			$order_id = $_REQUEST[self::VB_ORDER_ID];
+			$order_id = $_REQUEST[self::KB_ORDER_ID];
             $order_id = wc_clean($order_id);
 
 			if(self::string_empty($order_id)) {
@@ -1211,7 +1211,7 @@ function woocommerce_kinabank_init() {
 			$order_email = $order->get_billing_email();
 			$language = $this->get_language();
 
-			$backRefUrl = add_query_arg(self::VB_ORDER_ID, urlencode($order_id), $this->get_redirect_url());
+			$backRefUrl = add_query_arg(self::KB_ORDER_ID, urlencode($order_id), $this->get_redirect_url());
 
 			//Request payment authorization - redirects to the banks page
 			$kinaBankGateway = $this->init_vb_client();
@@ -1420,19 +1420,19 @@ function woocommerce_kinabank_init() {
 				return $fields;
 			}
 
-			$fields[self::VB_RRN] = array(
+			$fields[self::KB_RRN] = array(
 				'label' => __('Retrieval Reference Number (RRN)'),
-				'value' => $order->get_meta(strtolower(self::VB_RRN), true),
+				'value' => $order->get_meta(strtolower(self::KB_RRN), true),
 			);
 
-			$fields[self::VB_APPROVAL] = array(
+			$fields[self::KB_APPROVAL] = array(
 				'label' => __('Authorization code'),
-				'value' => $order->get_meta(strtolower(self::VB_APPROVAL), true),
+				'value' => $order->get_meta(strtolower(self::KB_APPROVAL), true),
 			);
 
-			$fields[self::VB_CARD] = array(
+			$fields[self::KB_CARD] = array(
 				'label' => __('Card number'),
-				'value' => $order->get_meta(strtolower(self::VB_CARD), true),
+				'value' => $order->get_meta(strtolower(self::KB_CARD), true),
 			);
 
 			return $fields;
