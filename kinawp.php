@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WooCommerce Victoriabank Payment Gateway
  * Description: WooCommerce Payment Gateway for Victoriabank
- * Plugin URI: https://github.com/alexminza/wc-victoriabank
+ * Plugin URI: https://github.com/tkhconsult/kinawp
  * Version: 1.3.1
  * Author: Alexander Minza
  * Author URI: https://profiles.wordpress.org/alexminza
@@ -18,7 +18,7 @@
  * WC tested up to: 4.5.2
  */
 
-//Looking to contribute code to this plugin? Go ahead and fork the repository over at GitHub https://github.com/alexminza/wc-victoriabank
+//Looking to contribute code to this plugin? Go ahead and fork the repository over at GitHub https://github.com/tkhconsult/kinawp
 //This plugin is based on VictoriaBankGateway by Fruitware https://github.com/Fruitware/VictoriaBankGateway (https://packagist.org/packages/fruitware/victoria-bank-gateway)
 
 if(!defined('ABSPATH')) {
