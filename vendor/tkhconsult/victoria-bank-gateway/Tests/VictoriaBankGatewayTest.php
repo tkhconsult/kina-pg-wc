@@ -1,19 +1,19 @@
 <?php
 
-namespace TkhConsult\VictoriaBankGateway\Tests;
+namespace TkhConsult\KinaBankGateway\Tests;
 
-use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
+use TkhConsult\KinaBankGateway\KinaBankGateway;
 use PHPUnit_Framework_TestCase;
 
 /**
- * Class VictoriaBankGatewayTest
+ * Class KinaBankGatewayTest
  *
- * @package TkhConsult\VictoriaBankGateway\Tests
+ * @package TkhConsult\KinaBankGateway\Tests
  */
-class VictoriaBankGatewayTest extends PHPUnit_Framework_TestCase
+class KinaBankGatewayTest extends PHPUnit_Framework_TestCase
 {
     public function testInit() {
-        $victoriaBankGatewayTest =  new VictoriaBankGateway();
+        $victoriaBankGatewayTest =  new KinaBankGateway();
         $victoriaBankGatewayTest
             ->configureFromEnv(__DIR__.'/certificates')
             ->setDebug(false)

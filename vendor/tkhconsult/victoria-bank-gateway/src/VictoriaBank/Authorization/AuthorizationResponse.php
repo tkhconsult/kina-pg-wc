@@ -1,13 +1,13 @@
 <?php
 
-namespace TkhConsult\VictoriaBankGateway\VictoriaBank\Authorization;
+namespace TkhConsult\KinaBankGateway\KinaBank\Authorization;
 
-use TkhConsult\VictoriaBankGateway\VictoriaBank\Response;
+use TkhConsult\KinaBankGateway\KinaBank\Response;
 
 /**
  * Class AuthorizationResponse
  *
- * @package TkhConsult\VictoriaBankGateway\VictoriaBank\Authorization
+ * @package TkhConsult\KinaBankGateway\KinaBank\Authorization
  */
 class AuthorizationResponse extends Response
 {

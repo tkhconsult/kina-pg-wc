@@ -1,11 +1,11 @@
 <?php
 
-namespace TkhConsult\VictoriaBankGateway\VictoriaBank;
+namespace TkhConsult\KinaBankGateway\KinaBank;
 
 /**
  * Interface RequestInterface
  *
- * @package TkhConsult\VictoriaBankGateway\VictoriaBank
+ * @package TkhConsult\KinaBankGateway\KinaBank
  */
 interface RequestInterface
 {

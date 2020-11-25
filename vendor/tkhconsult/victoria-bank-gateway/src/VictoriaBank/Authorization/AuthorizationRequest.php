@@ -1,16 +1,16 @@
 <?php
 
-namespace TkhConsult\VictoriaBankGateway\VictoriaBank\Authorization;
+namespace TkhConsult\KinaBankGateway\KinaBank\Authorization;
 
-use TkhConsult\VictoriaBankGateway\VictoriaBank\Exception;
-use TkhConsult\VictoriaBankGateway\VictoriaBank\Form;
-use TkhConsult\VictoriaBankGateway\VictoriaBank\Request;
-use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
+use TkhConsult\KinaBankGateway\KinaBank\Exception;
+use TkhConsult\KinaBankGateway\KinaBank\Form;
+use TkhConsult\KinaBankGateway\KinaBank\Request;
+use TkhConsult\KinaBankGateway\KinaBankGateway;
 
 /**
  * Class AuthorizationRequest
  *
- * @package TkhConsult\VictoriaBankGateway\VictoriaBank\Authorization
+ * @package TkhConsult\KinaBankGateway\KinaBank\Authorization
  */
 class AuthorizationRequest extends Request
 {
@@ -60,13 +60,13 @@ class AuthorizationRequest extends Request
 
     /**
      *
-     * @throws \TkhConsult\VictoriaBankGateway\VictoriaBank\Exception
+     * @throws \TkhConsult\KinaBankGateway\KinaBank\Exception
      */
     protected function init()
     {
         parent::init();
         #Set TRX type
-        $this->_requestFields[self::TRTYPE] = VictoriaBankGateway::TRX_TYPE_AUTHORIZATION;
+        $this->_requestFields[self::TRTYPE] = KinaBankGateway::TRX_TYPE_AUTHORIZATION;
         #Set TRX signature
         $order                              = $this->_requestFields[self::ORDER];
         $nonce                              = $this->_requestFields[self::NONCE];

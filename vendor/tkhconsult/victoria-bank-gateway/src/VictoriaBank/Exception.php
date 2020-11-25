@@ -1,11 +1,11 @@
 <?php
 
-namespace TkhConsult\VictoriaBankGateway\VictoriaBank;
+namespace TkhConsult\KinaBankGateway\KinaBank;
 
 /**
  * Class Exception
  *
- * @package TkhConsult\VictoriaBankGateway\VictoriaBank
+ * @package TkhConsult\KinaBankGateway\KinaBank
  */
 class Exception extends \Exception
 {

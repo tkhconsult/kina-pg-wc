@@ -1,15 +1,15 @@
 <?php
 
-namespace TkhConsult\VictoriaBankGateway\VictoriaBank\Reversal;
+namespace TkhConsult\KinaBankGateway\KinaBank\Reversal;
 
-use TkhConsult\VictoriaBankGateway\VictoriaBank\Exception;
-use TkhConsult\VictoriaBankGateway\VictoriaBank\Request;
-use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
+use TkhConsult\KinaBankGateway\KinaBank\Exception;
+use TkhConsult\KinaBankGateway\KinaBank\Request;
+use TkhConsult\KinaBankGateway\KinaBankGateway;
 
 /**
  * Class ReversalRequest
  *
- * @package TkhConsult\VictoriaBankGateway\VictoriaBank\Reversal
+ * @package TkhConsult\KinaBankGateway\KinaBank\Reversal
  */
 class ReversalRequest extends Request
 {
@@ -41,14 +41,14 @@ class ReversalRequest extends Request
     ];
 
     /**
-     * @return \TkhConsult\VictoriaBankGateway\VictoriaBank\Request|void
-     * @throws \TkhConsult\VictoriaBankGateway\VictoriaBank\Exception
+     * @return \TkhConsult\KinaBankGateway\KinaBank\Request|void
+     * @throws \TkhConsult\KinaBankGateway\KinaBank\Exception
      */
     protected function init()
     {
         parent::init();
         #Set TRX type
-        $this->_requestFields[self::TRTYPE] = VictoriaBankGateway::TRX_TYPE_REVERSAL;
+        $this->_requestFields[self::TRTYPE] = KinaBankGateway::TRX_TYPE_REVERSAL;
         #Set TRX signature
         $order                              = $this->_requestFields[self::ORDER];
         $nonce                              = $this->_requestFields[self::NONCE];

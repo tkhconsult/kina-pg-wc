@@ -1,18 +1,18 @@
 <?php /** @noinspection ALL */
 
-namespace TkhConsult\VictoriaBankGateway;
+namespace TkhConsult\KinaBankGateway;
 
 use DateTime;
 use DateTimeZone;
-use TkhConsult\VictoriaBankGateway\VictoriaBank;
-use TkhConsult\VictoriaBankGateway\VictoriaBank\ResponseInterface;
+use TkhConsult\KinaBankGateway\KinaBank;
+use TkhConsult\KinaBankGateway\KinaBank\ResponseInterface;
 
 /**
- * Class VictoriaBankGateway
+ * Class KinaBankGateway
  *
- * @package TkhConsult\VictoriaBankGateway
+ * @package TkhConsult\KinaBankGateway
  */
-class VictoriaBankGateway
+class KinaBankGateway
 {
     const TRX_TYPE_AUTHORIZATION = 0;
     const TRX_TYPE_COMPLETION    = 21;
@@ -92,7 +92,7 @@ class VictoriaBankGateway
     private $merchantAddress;
 
     /**
-     * VictoriaBankGateway constructor.
+     * KinaBankGateway constructor.
      */
     public function __construct()
     {
@@ -103,7 +103,7 @@ class VictoriaBankGateway
      * @param string $certDir
      *
      * @return $this
-     * @throws \TkhConsult\VictoriaBankGateway\VictoriaBank\Exception
+     * @throws \TkhConsult\KinaBankGateway\KinaBank\Exception
      */
     public function configureFromEnv($certDir)
     {
@@ -219,7 +219,7 @@ class VictoriaBankGateway
 
     /**
      * Set Timezone name
-     * Used to calculate the timezone offset sent to VictoriaBank
+     * Used to calculate the timezone offset sent to KinaBank
      *
      * @param $tzName
      *
@@ -261,13 +261,13 @@ class VictoriaBankGateway
      * @param string $lang
      *
      * @return $this
-     * @throws VictoriaBank\Exception
+     * @throws KinaBank\Exception
      */
     public function setDefaultLanguage($lang)
     {
         $lang = strtolower(trim($lang));
         if (!in_array($lang, $this->supportedLanguages, true)) {
-            throw new VictoriaBank\Exception("The language '{$lang}' is not accepted by VictoriaBank");
+            throw new KinaBank\Exception("The language '{$lang}' is not accepted by KinaBank");
         }
         $this->defaultLanguage = $lang;
 
@@ -389,15 +389,15 @@ class VictoriaBankGateway
     public function setSecurityOptions($signatureFirst, $signaturePrefix, $signaturePadding, $publicKeyPath, $privateKeyPath, $bankPublicKeyPath, $privateKeyPass='')
     {
         #Request security options
-        VictoriaBank\Request::$signatureFirst   = $signatureFirst;
-        VictoriaBank\Request::$signaturePrefix  = $signaturePrefix;
-        VictoriaBank\Request::$signaturePadding = $signaturePadding;
-        VictoriaBank\Request::$publicKeyPath    = $publicKeyPath;
-        VictoriaBank\Request::$privateKeyPath   = $privateKeyPath;
-        VictoriaBank\Request::$privateKeyPass   = $privateKeyPass;
+        KinaBank\Request::$signatureFirst   = $signatureFirst;
+        KinaBank\Request::$signaturePrefix  = $signaturePrefix;
+        KinaBank\Request::$signaturePadding = $signaturePadding;
+        KinaBank\Request::$publicKeyPath    = $publicKeyPath;
+        KinaBank\Request::$privateKeyPath   = $privateKeyPath;
+        KinaBank\Request::$privateKeyPass   = $privateKeyPass;
         #Response security options
-        VictoriaBank\Response::$signaturePrefix   = $signaturePrefix;
-        VictoriaBank\Response::$bankPublicKeyPath = $bankPublicKeyPath;
+        KinaBank\Response::$signaturePrefix   = $signaturePrefix;
+        KinaBank\Response::$bankPublicKeyPath = $bankPublicKeyPath;
 
         return $this;
     }
@@ -413,38 +413,38 @@ class VictoriaBankGateway
      * @param string $clientEmail Client e-mail address
      * @param string $language    Transaction forms language
      *
-     * @throws VictoriaBank\Exception
+     * @throws KinaBank\Exception
      */
     public function requestAuthorization($orderId, $amount, $backRefUrl, $currency = null, $description = null, $clientEmail = null, $language = null)
     {
         try {
             /** @noinspection PhpUnhandledExceptionInspection */
-            $request = new VictoriaBank\Authorization\AuthorizationRequest(
+            $request = new KinaBank\Authorization\AuthorizationRequest(
                 [
-                    VictoriaBank\Authorization\AuthorizationRequest::TERMINAL      => $this->terminal,
-                    VictoriaBank\Authorization\AuthorizationRequest::ORDER         => static::normalizeOrderId($orderId),
-                    VictoriaBank\Authorization\AuthorizationRequest::AMOUNT        => static::normalizeAmount($amount),
-                    VictoriaBank\Authorization\AuthorizationRequest::CURRENCY      => $currency ? $currency : $this->defaultCurrency,
-                    VictoriaBank\Authorization\AuthorizationRequest::TIMESTAMP     => $this->getTransactionTimestamp(),
-                    VictoriaBank\Authorization\AuthorizationRequest::NONCE         => $this->generateNonce(),
-                    VictoriaBank\Authorization\AuthorizationRequest::DESC          => $description ? $description : "Order {$orderId} payment",
-                    VictoriaBank\Authorization\AuthorizationRequest::EMAIL         => (string)$clientEmail,
-                    VictoriaBank\Authorization\AuthorizationRequest::COUNTRY       => $this->countryCode,
-                    VictoriaBank\Authorization\AuthorizationRequest::BACKREF       => $backRefUrl,
-                    VictoriaBank\Authorization\AuthorizationRequest::MERCH_GMT     => $this->getMerchantGmtTimezoneOffset(),
-                    VictoriaBank\Authorization\AuthorizationRequest::LANG          => $language ? $language : $this->defaultLanguage,
-                    VictoriaBank\Authorization\AuthorizationRequest::MERCHANT      => $this->merchant,
-                    VictoriaBank\Authorization\AuthorizationRequest::MERCH_NAME    => $this->merchantName,
-                    VictoriaBank\Authorization\AuthorizationRequest::MERCH_URL     => $this->merchantUrl,
-                    VictoriaBank\Authorization\AuthorizationRequest::MERCH_ADDRESS => $this->merchantAddress,
+                    KinaBank\Authorization\AuthorizationRequest::TERMINAL      => $this->terminal,
+                    KinaBank\Authorization\AuthorizationRequest::ORDER         => static::normalizeOrderId($orderId),
+                    KinaBank\Authorization\AuthorizationRequest::AMOUNT        => static::normalizeAmount($amount),
+                    KinaBank\Authorization\AuthorizationRequest::CURRENCY      => $currency ? $currency : $this->defaultCurrency,
+                    KinaBank\Authorization\AuthorizationRequest::TIMESTAMP     => $this->getTransactionTimestamp(),
+                    KinaBank\Authorization\AuthorizationRequest::NONCE         => $this->generateNonce(),
+                    KinaBank\Authorization\AuthorizationRequest::DESC          => $description ? $description : "Order {$orderId} payment",
+                    KinaBank\Authorization\AuthorizationRequest::EMAIL         => (string)$clientEmail,
+                    KinaBank\Authorization\AuthorizationRequest::COUNTRY       => $this->countryCode,
+                    KinaBank\Authorization\AuthorizationRequest::BACKREF       => $backRefUrl,
+                    KinaBank\Authorization\AuthorizationRequest::MERCH_GMT     => $this->getMerchantGmtTimezoneOffset(),
+                    KinaBank\Authorization\AuthorizationRequest::LANG          => $language ? $language : $this->defaultLanguage,
+                    KinaBank\Authorization\AuthorizationRequest::MERCHANT      => $this->merchant,
+                    KinaBank\Authorization\AuthorizationRequest::MERCH_NAME    => $this->merchantName,
+                    KinaBank\Authorization\AuthorizationRequest::MERCH_URL     => $this->merchantUrl,
+                    KinaBank\Authorization\AuthorizationRequest::MERCH_ADDRESS => $this->merchantAddress,
                 ], $this->gatewayUrl, $this->debug, $this->sslVerify
             );
             $request->request();
-        } catch (VictoriaBank\Exception $e) {
+        } catch (KinaBank\Exception $e) {
             if ($this->debug) {
                 throw $e;
             } else {
-                throw new VictoriaBank\Exception(
+                throw new KinaBank\Exception(
                     'Authorization request to the payment gateway failed. Please contact '.$this->merchantUrl.' for further details'
                 );
             }
@@ -459,30 +459,30 @@ class VictoriaBankGateway
      * @param string $currency Order currency: 3-character currency code
      *
      * @return mixed|void
-     * @throws VictoriaBank\Exception
+     * @throws KinaBank\Exception
      */
     public function requestCompletion($orderId, $amount, $rrn, $intRef, $currency = null)
     {
         try {
-            $request = new VictoriaBank\Completion\CompletionRequest(
+            $request = new KinaBank\Completion\CompletionRequest(
                 [
-                    VictoriaBank\Completion\CompletionRequest::TERMINAL  => $this->terminal,
-                    VictoriaBank\Completion\CompletionRequest::ORDER     => static::normalizeOrderId($orderId),
-                    VictoriaBank\Completion\CompletionRequest::AMOUNT    => static::normalizeAmount($amount),
-                    VictoriaBank\Completion\CompletionRequest::CURRENCY  => $currency ? $currency : $this->defaultCurrency,
-                    VictoriaBank\Completion\CompletionRequest::TIMESTAMP => $this->getTransactionTimestamp(),
-                    VictoriaBank\Completion\CompletionRequest::NONCE     => $this->generateNonce(),
-                    VictoriaBank\Completion\CompletionRequest::RRN       => $rrn,
-                    VictoriaBank\Completion\CompletionRequest::INT_REF   => $intRef,
+                    KinaBank\Completion\CompletionRequest::TERMINAL  => $this->terminal,
+                    KinaBank\Completion\CompletionRequest::ORDER     => static::normalizeOrderId($orderId),
+                    KinaBank\Completion\CompletionRequest::AMOUNT    => static::normalizeAmount($amount),
+                    KinaBank\Completion\CompletionRequest::CURRENCY  => $currency ? $currency : $this->defaultCurrency,
+                    KinaBank\Completion\CompletionRequest::TIMESTAMP => $this->getTransactionTimestamp(),
+                    KinaBank\Completion\CompletionRequest::NONCE     => $this->generateNonce(),
+                    KinaBank\Completion\CompletionRequest::RRN       => $rrn,
+                    KinaBank\Completion\CompletionRequest::INT_REF   => $intRef,
                 ], $this->gatewayUrl, $this->debug, $this->sslVerify
             );
 
             return $request->request();
-        } catch (VictoriaBank\Exception $e) {
+        } catch (KinaBank\Exception $e) {
             if ($this->debug) {
                 throw $e;
             } else {
-                throw new VictoriaBank\Exception(
+                throw new KinaBank\Exception(
                     'Completion request to the payment gateway failed. Please contact '.$this->merchantUrl.' for further details.'.$e->getMessage()
                 );
             }
@@ -497,30 +497,30 @@ class VictoriaBankGateway
      * @param string $currency Order currency: 3-character currency code
      *
      * @return mixed|void
-     * @throws VictoriaBank\Exception
+     * @throws KinaBank\Exception
      */
     public function requestReversal($orderId, $amount, $rrn, $intRef, $currency = null)
     {
         try {
-            $request = new VictoriaBank\Reversal\ReversalRequest(
+            $request = new KinaBank\Reversal\ReversalRequest(
                 [
-                    VictoriaBank\Reversal\ReversalRequest::TERMINAL  => $this->terminal,
-                    VictoriaBank\Reversal\ReversalRequest::ORDER     => static::normalizeOrderId($orderId),
-                    VictoriaBank\Reversal\ReversalRequest::AMOUNT    => static::normalizeAmount($amount),
-                    VictoriaBank\Reversal\ReversalRequest::CURRENCY  => $currency ? $currency : $this->defaultCurrency,
-                    VictoriaBank\Reversal\ReversalRequest::TIMESTAMP => $this->getTransactionTimestamp(),
-                    VictoriaBank\Reversal\ReversalRequest::NONCE     => $this->generateNonce(),
-                    VictoriaBank\Reversal\ReversalRequest::RRN       => $rrn,
-                    VictoriaBank\Reversal\ReversalRequest::INT_REF   => $intRef,
+                    KinaBank\Reversal\ReversalRequest::TERMINAL  => $this->terminal,
+                    KinaBank\Reversal\ReversalRequest::ORDER     => static::normalizeOrderId($orderId),
+                    KinaBank\Reversal\ReversalRequest::AMOUNT    => static::normalizeAmount($amount),
+                    KinaBank\Reversal\ReversalRequest::CURRENCY  => $currency ? $currency : $this->defaultCurrency,
+                    KinaBank\Reversal\ReversalRequest::TIMESTAMP => $this->getTransactionTimestamp(),
+                    KinaBank\Reversal\ReversalRequest::NONCE     => $this->generateNonce(),
+                    KinaBank\Reversal\ReversalRequest::RRN       => $rrn,
+                    KinaBank\Reversal\ReversalRequest::INT_REF   => $intRef,
                 ], $this->gatewayUrl, $this->debug, $this->sslVerify
             );
 
             return $request->request();
-        } catch (VictoriaBank\Exception $e) {
+        } catch (KinaBank\Exception $e) {
             if ($this->debug) {
                 throw $e;
             } else {
-                throw new VictoriaBank\Exception(
+                throw new KinaBank\Exception(
                     'Reversal request to the payment gateway failed. Please contact '.$this->merchantUrl.' for further details.'.$e->getMessage()
                 );
             }
@@ -533,30 +533,30 @@ class VictoriaBankGateway
      * @param array $post
      *
      * @return ResponseInterface
-     * @throws VictoriaBank\Exception
+     * @throws KinaBank\Exception
      */
     public function getResponseObject(array $post)
     {
-        if (!isset($post[VictoriaBank\Response::TRTYPE])) {
-            throw new VictoriaBank\Exception('Invalid response data');
+        if (!isset($post[KinaBank\Response::TRTYPE])) {
+            throw new KinaBank\Exception('Invalid response data');
         }
-        switch ($post[VictoriaBank\Response::TRTYPE]) {
-            case VictoriaBank\Authorization\AuthorizationResponse::TRX_TYPE:
-                return new VictoriaBank\Authorization\AuthorizationResponse($post);
+        switch ($post[KinaBank\Response::TRTYPE]) {
+            case KinaBank\Authorization\AuthorizationResponse::TRX_TYPE:
+                return new KinaBank\Authorization\AuthorizationResponse($post);
                 break;
-            case VictoriaBank\Completion\CompletionResponse::TRX_TYPE:
-                return new VictoriaBank\Completion\CompletionResponse($post);
+            case KinaBank\Completion\CompletionResponse::TRX_TYPE:
+                return new KinaBank\Completion\CompletionResponse($post);
                 break;
-            case VictoriaBank\Reversal\ReversalResponse::TRX_TYPE:
-                return new VictoriaBank\Reversal\ReversalResponse($post);
+            case KinaBank\Reversal\ReversalResponse::TRX_TYPE:
+                return new KinaBank\Reversal\ReversalResponse($post);
                 break;
             default:
-                throw new VictoriaBank\Exception('No response object found for the provided data');
+                throw new KinaBank\Exception('No response object found for the provided data');
         }
     }
 
     /**
-     * VictoriaBank accepts order ID not less than 6 characters long
+     * KinaBank accepts order ID not less than 6 characters long
      *
      * @param string|int $code
      *
@@ -568,7 +568,7 @@ class VictoriaBankGateway
     }
 
     /**
-     * VictoriaBank accepts order ID not less than 6 characters long
+     * KinaBank accepts order ID not less than 6 characters long
      *
      * @param string $code
      *

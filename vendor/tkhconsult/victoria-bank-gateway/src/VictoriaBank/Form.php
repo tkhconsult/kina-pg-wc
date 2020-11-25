@@ -1,11 +1,11 @@
 <?php
 
-namespace TkhConsult\VictoriaBankGateway\VictoriaBank;
+namespace TkhConsult\KinaBankGateway\KinaBank;
 
 /**
  * Class Form
  *
- * @package TkhConsult\VictoriaBankGateway\VictoriaBank
+ * @package TkhConsult\KinaBankGateway\KinaBank
  */
 class Form
 {

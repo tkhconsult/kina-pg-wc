@@ -16,7 +16,7 @@
  */
 
 //Looking to contribute code to this plugin? Go ahead and fork the repository over at GitHub https://github.com/tkhconsult/kinawp
-//This plugin is based on VictoriaBankGateway by TkhConsult https://github.com/TkhConsult/VictoriaBankGateway (https://packagist.org/packages/tkhconsult/victoria-bank-gateway)
+//This plugin is based on KinaBankGateway by TkhConsult https://github.com/TkhConsult/KinaBankGateway (https://packagist.org/packages/tkhconsult/victoria-bank-gateway)
 
 if(!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
@@ -24,9 +24,9 @@ if(!defined('ABSPATH')) {
 
 require_once(__DIR__ . '/vendor/autoload.php');
 
-use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
-use TkhConsult\VictoriaBankGateway\VictoriaBank\Exception;
-use TkhConsult\VictoriaBankGateway\VictoriaBank\Response;
+use TkhConsult\KinaBankGateway\KinaBankGateway;
+use TkhConsult\KinaBankGateway\KinaBank\Exception;
+use TkhConsult\KinaBankGateway\KinaBank\Response;
 
 add_action('plugins_loaded', 'woocommerce_kinabank_init', 0);
 
@@ -36,7 +36,7 @@ function woocommerce_kinabank_init() {
 
 	load_plugin_textdomain('kinawp', false, dirname(plugin_basename(__FILE__)) . '/languages');
 
-	class WC_VictoriaBank extends WC_Payment_Gateway {
+	class WC_KinaBank extends WC_Payment_Gateway {
 		protected $logger;
 
 		#region Constants
@@ -66,7 +66,7 @@ function woocommerce_kinabank_init() {
 
 		//e-Commerce Gateway merchant interface (CGI/WWW forms version)
 		//Appendix A: P_SIGN creation/verification in the Merchant System
-		//https://github.com/TkhConsult/VictoriaBankGateway/blob/master/doc/e-Gateway_Merchant_CGI_2.1.pdf
+		//https://github.com/TkhConsult/KinaBankGateway/blob/master/doc/e-Gateway_Merchant_CGI_2.1.pdf
 		const VB_SIGNATURE_FIRST   = '0001';
 		const VB_SIGNATURE_PREFIX  = '3020300C06082A864886F70D020505000410';
 		const VB_SIGNATURE_PADDING = '00';
@@ -678,7 +678,7 @@ function woocommerce_kinabank_init() {
 		#endregion
 
 		protected function init_vb_client() {
-			$victoriaBankGateway = new VictoriaBankGateway();
+			$victoriaBankGateway = new KinaBankGateway();
 
 			$gatewayUrl = ($this->testmode ? 'https://ecomt.victoriabank.md/cgi-bin/cgi_link' : 'https://egateway.victoriabank.md/cgi-bin/cgi_link'); #ALT TEST vb19.victoriabank.md
 			$sslVerify  = !$this->testmode;
@@ -873,7 +873,7 @@ function woocommerce_kinabank_init() {
 			if($amount <= 0)
 				return false;
 
-			if($trxType === VictoriaBankGateway::TRX_TYPE_REVERSAL)
+			if($trxType === KinaBankGateway::TRX_TYPE_REVERSAL)
 				return $amount <= $order_total;
 
 			return $amount == $order_total;
@@ -961,7 +961,7 @@ function woocommerce_kinabank_init() {
 			}
 
 			#region Extract bank response params
-			$order_id  = VictoriaBankGateway::deNormalizeOrderId($bankResponse->{Response::ORDER});
+			$order_id  = KinaBankGateway::deNormalizeOrderId($bankResponse->{Response::ORDER});
 			$amount    = $bankResponse->{Response::AMOUNT};
 			$currency  = $bankResponse->{Response::CURRENCY};
 			$approval  = $bankResponse->{Response::APPROVAL};
@@ -1003,7 +1003,7 @@ function woocommerce_kinabank_init() {
 
 			if($check_result && $this->check_transaction($order, $bankResponse)) {
 				switch($bankResponse::TRX_TYPE) {
-					case VictoriaBankGateway::TRX_TYPE_AUTHORIZATION:
+					case KinaBankGateway::TRX_TYPE_AUTHORIZATION:
 						if($order->is_paid())
 							return true; //Duplicate callback notification from the bank
 
@@ -1037,7 +1037,7 @@ function woocommerce_kinabank_init() {
 						return true;
 						break;
 
-					case VictoriaBankGateway::TRX_TYPE_COMPLETION:
+					case KinaBankGateway::TRX_TYPE_COMPLETION:
 						//Funds successfully transferred on bank side
 						$message = sprintf(__('Payment completed via %1$s: %2$s', self::MOD_TEXT_DOMAIN), $this->method_title, http_build_query($bankParams));
 						$message = $this->get_order_message($message);
@@ -1049,7 +1049,7 @@ function woocommerce_kinabank_init() {
 						return true;
 						break;
 
-					case VictoriaBankGateway::TRX_TYPE_REVERSAL:
+					case KinaBankGateway::TRX_TYPE_REVERSAL:
 						//Reversal successfully applied on bank side
 						$message = sprintf(__('Refund of %1$s %2$s via %3$s approved: %4$s', self::MOD_TEXT_DOMAIN), $amount, $currency, $this->method_title, http_build_query($bankParams));
 						$message = $this->get_order_message($message);
@@ -1468,25 +1468,25 @@ function woocommerce_kinabank_init() {
 	}
 
 	//Check if WooCommerce is active
-	if(!WC_VictoriaBank::is_wc_active())
+	if(!WC_KinaBank::is_wc_active())
 		return;
 
 	//Add gateway to WooCommerce
-	add_filter('woocommerce_payment_gateways', array(WC_VictoriaBank::class, 'add_gateway'));
+	add_filter('woocommerce_payment_gateways', array(WC_KinaBank::class, 'add_gateway'));
 
 	#region Admin init
 	if(is_admin()) {
-		add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(WC_VictoriaBank::class, 'plugin_links'));
+		add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(WC_KinaBank::class, 'plugin_links'));
 
 		//Add WooCommerce order actions
-		add_filter('woocommerce_order_actions', array(WC_VictoriaBank::class, 'order_actions'));
-		add_action('woocommerce_order_action_victoriabank_complete_transaction', array(WC_VictoriaBank::class, 'action_complete_transaction'));
-		//add_action('woocommerce_order_action_victoriabank_reverse_transaction', array(WC_VictoriaBank::class, 'action_reverse_transaction'));
+		add_filter('woocommerce_order_actions', array(WC_KinaBank::class, 'order_actions'));
+		add_action('woocommerce_order_action_victoriabank_complete_transaction', array(WC_KinaBank::class, 'action_complete_transaction'));
+		//add_action('woocommerce_order_action_victoriabank_reverse_transaction', array(WC_KinaBank::class, 'action_reverse_transaction'));
 
-		add_action('wp_ajax_victoriabank_callback_data_process', array(WC_VictoriaBank::class, 'callback_data_process'));
+		add_action('wp_ajax_victoriabank_callback_data_process', array(WC_KinaBank::class, 'callback_data_process'));
 	}
 	#endregion
 
 	//Add WooCommerce email templates actions
-	add_filter('woocommerce_email_order_meta_fields', array(WC_VictoriaBank::class, 'email_order_meta_fields'), 10, 3);
+	add_filter('woocommerce_email_order_meta_fields', array(WC_KinaBank::class, 'email_order_meta_fields'), 10, 3);
 }

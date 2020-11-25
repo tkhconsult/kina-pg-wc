@@ -1,15 +1,15 @@
-# Welcome to VictoriaBank Merchant e-Commerce Library 👋
+# Welcome to KinaBank Merchant e-Commerce Library 👋
 
-[![GitHub issues](https://img.shields.io/github/issues/TkhConsult/VictoriaBankGateway)](https://github.com/TkhConsult/VictoriaBankGateway/issues)
+[![GitHub issues](https://img.shields.io/github/issues/TkhConsult/KinaBankGateway)](https://github.com/TkhConsult/KinaBankGateway/issues)
 [![Version](https://img.shields.io/packagist/v/tkhconsult/victoria-bank-gateway)](https://packagist.org/packages/tkhconsult/victoria-bank-gateway)
 ![Packagist](https://img.shields.io/packagist/l/tkhconsult/victoria-bank-gateway)
 [![Donate](https://img.shields.io/badge/donate-PayPal-%2337a556)]( https://paypal.me/tkhconsult?locale.x=en_US)
 
 ---
 
-> Packagist package (library) to give any php-based website an access to the interface of VictoriaBank (Republic Of Moldova) that merchant systems use to process credit card based e- commerce transactions using the standard CGI/WWW forms posting method. This interface transparently supports various cardholder authentication protocols such as 3-D Secure and Secure Code as well as legacy unauthenticated SSL commerce transactions.
+> Packagist package (library) to give any php-based website an access to the interface of KinaBank (Republic Of Moldova) that merchant systems use to process credit card based e- commerce transactions using the standard CGI/WWW forms posting method. This interface transparently supports various cardholder authentication protocols such as 3-D Secure and Secure Code as well as legacy unauthenticated SSL commerce transactions.
 
-#### 🏠 [Homepage](https://github.com/TkhConsult/VictoriaBankGateway)
+#### 🏠 [Homepage](https://github.com/TkhConsult/KinaBankGateway)
 
 ## Install
 
@@ -70,7 +70,7 @@ VICTORIA_BANK_MERCHANT_PRIVATE_KEY=private.pem
 VICTORIA_BANK_MERCHANT_BANK_PUBLIC_KEY=victoria_pub.pem
 
 # Default Merchant shop timezone
-# Used to calculate the timezone offset sent to VictoriaBank
+# Used to calculate the timezone offset sent to KinaBank
 VICTORIA_BANK_MERCHANT_TIMEZONE_NAME='Europe/Chisinau'
 
 # Merchant shop 2-character country code. 
@@ -95,9 +95,9 @@ VICTORIA_BANK_MERCHANT_DEFAULT_LANGUAGE=ro
 ```php
 <?php
 
-use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
+use TkhConsult\KinaBankGateway\KinaBankGateway;
 
-$victoriaBankGateway = new VictoriaBankGateway();
+$victoriaBankGateway = new KinaBankGateway();
 
 $certDir = '/path/to/cert/dir';
 $victoriaBankGateway
@@ -115,10 +115,10 @@ You can reproduce implementation of the configureFromEnv() method
 ```php
 <?php
 
-use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
+use TkhConsult\KinaBankGateway\KinaBankGateway;
 $backRefUrl = getenv('VICTORIA_BANK_MERCHANT_URL').'/after-payment/';
 
-/** @var VictoriaBankGateway $victoriaBankGateway */
+/** @var KinaBankGateway $victoriaBankGateway */
 $victoriaBankGateway
     ->requestAuthorization($orderId = 1, $amount = 1, $backRefUrl, $currency = null, $description = null, $clientEmail = null, $language = null)
 ;
@@ -129,12 +129,12 @@ $victoriaBankGateway
 ```php
 <?php
 
-use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
-use TkhConsult\VictoriaBankGateway\VictoriaBank\Exception;
-use TkhConsult\VictoriaBankGateway\VictoriaBank\Response;
-use TkhConsult\VictoriaBankGateway\VictoriaBank\AuthorizationResponse;
+use TkhConsult\KinaBankGateway\KinaBankGateway;
+use TkhConsult\KinaBankGateway\KinaBank\Exception;
+use TkhConsult\KinaBankGateway\KinaBank\Response;
+use TkhConsult\KinaBankGateway\KinaBank\AuthorizationResponse;
 
-/** @var VictoriaBankGateway $victoriaBankGateway */
+/** @var KinaBankGateway $victoriaBankGateway */
 $bankResponse = $victoriaBankGateway->getResponseObject($_POST);
 
 if (!$bankResponse->isValid()) {
@@ -142,7 +142,7 @@ if (!$bankResponse->isValid()) {
 }
 
 switch ($bankResponse::TRX_TYPE) {
-    case VictoriaBankGateway::TRX_TYPE_AUTHORIZATION:
+    case KinaBankGateway::TRX_TYPE_AUTHORIZATION:
         $amount         = $bankResponse->{Response::AMOUNT};
         $bankOrderCode  = $bankResponse->{Response::ORDER};
         $rrn            = $bankResponse->{Response::RRN};
@@ -156,11 +156,11 @@ switch ($bankResponse::TRX_TYPE) {
         $victoriaBankGateway->requestCompletion($amount, $bankOrderCode, $rrn, $intRef, $currency = null);
         break;
 
-    case VictoriaBankGateway::TRX_TYPE_COMPLETION:
+    case KinaBankGateway::TRX_TYPE_COMPLETION:
         # Funds successfully transferred on bank side
         break;
 
-    case VictoriaBankGateway::TRX_TYPE_REVERSAL:
+    case KinaBankGateway::TRX_TYPE_REVERSAL:
         # Reversal successfully applied on bank size
         break;
 
@@ -176,9 +176,9 @@ switch ($bankResponse::TRX_TYPE) {
 ```php
 <?php
 
-use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
+use TkhConsult\KinaBankGateway\KinaBankGateway;
 
-/** @var VictoriaBankGateway $victoriaBankGateway */
+/** @var KinaBankGateway $victoriaBankGateway */
 $victoriaBankGateway
     ->requestReversal($orderId = 1, $amount = 1, $rrn = 'xxx', $intRef = 'yyy', $currency = null)
 ;
@@ -193,7 +193,7 @@ $victoriaBankGateway
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/TkhConsult/VictoriaBankGateway/issues).
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/TkhConsult/KinaBankGateway/issues).
 
 ## Show your support 
 

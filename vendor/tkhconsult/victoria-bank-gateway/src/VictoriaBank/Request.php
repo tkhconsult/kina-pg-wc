@@ -1,30 +1,30 @@
 <?php
 
-namespace TkhConsult\VictoriaBankGateway\VictoriaBank;
+namespace TkhConsult\KinaBankGateway\KinaBank;
 
-use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
+use TkhConsult\KinaBankGateway\KinaBankGateway;
 
 /**
  * Class Request
  *
- * @package TkhConsult\VictoriaBankGateway\VictoriaBank
+ * @package TkhConsult\KinaBankGateway\KinaBank
  */
 abstract class Request implements RequestInterface
 {
     /**
-     * Provided by VictoriaBank
+     * Provided by KinaBank
      * @var null
      */
     static public $signatureFirst;
 
     /**
-     * Provided by VictoriaBank
+     * Provided by KinaBank
      * @var null
      */
     static public $signaturePrefix;
 
     /**
-     * Provided by VictoriaBank
+     * Provided by KinaBank
      * @var string
      */
     static public $signaturePadding;
@@ -189,11 +189,11 @@ abstract class Request implements RequestInterface
             throw new Exception('Failed to generate transaction signature: Private key not accessible');
         }
         $data = [
-            'ORDER' => VictoriaBankGateway::normalizeOrderId($order),
+            'ORDER' => KinaBankGateway::normalizeOrderId($order),
             'NONCE' => $nonce,
             'TIMESTAMP' => $timestamp,
             'TRTYPE' => $trType,
-            'AMOUNT' => VictoriaBankGateway::normalizeAmount($amount),
+            'AMOUNT' => KinaBankGateway::normalizeAmount($amount),
         ];
         if (!$rsaKeyResource = openssl_get_privatekey($rsaKey, self::$privateKeyPass)) {
             die ('Failed get private key');

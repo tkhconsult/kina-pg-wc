@@ -5,12 +5,12 @@
         "version_normalized": "1.1.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/TkhConsult/VictoriaBankGateway.git",
+            "url": "https://github.com/TkhConsult/KinaBankGateway.git",
             "reference": "afef4aac14f8f3d9f8d2fe3d0152af080588a598"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/TkhConsult/VictoriaBankGateway/zipball/afef4aac14f8f3d9f8d2fe3d0152af080588a598",
+            "url": "https://api.github.com/repos/TkhConsult/KinaBankGateway/zipball/afef4aac14f8f3d9f8d2fe3d0152af080588a598",
             "reference": "afef4aac14f8f3d9f8d2fe3d0152af080588a598",
             "shasum": ""
         },
@@ -30,7 +30,7 @@
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "TkhConsult\\VictoriaBankGateway\\": "src/"
+                "TkhConsult\\KinaBankGateway\\": "src/"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -52,7 +52,7 @@
             }
         ],
         "description": "Victoria bank e-Commerce Gateway merchant interface",
-        "homepage": "https://github.com/TkhConsult/VictoriaBankGateway",
+        "homepage": "https://github.com/TkhConsult/KinaBankGateway",
         "keywords": [
             "Bank",
             "gateway",

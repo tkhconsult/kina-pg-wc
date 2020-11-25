@@ -1,15 +1,15 @@
 <?php
 
-namespace TkhConsult\VictoriaBankGateway\VictoriaBank\Completion;
+namespace TkhConsult\KinaBankGateway\KinaBank\Completion;
 
-use TkhConsult\VictoriaBankGateway\VictoriaBank\Exception;
-use TkhConsult\VictoriaBankGateway\VictoriaBank\Request;
-use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
+use TkhConsult\KinaBankGateway\KinaBank\Exception;
+use TkhConsult\KinaBankGateway\KinaBank\Request;
+use TkhConsult\KinaBankGateway\KinaBankGateway;
 
 /**
  * Class CompletionRequest
  *
- * @package TkhConsult\VictoriaBankGateway\VictoriaBank\Completion
+ * @package TkhConsult\KinaBankGateway\KinaBank\Completion
  */
 class CompletionRequest extends Request
 {
@@ -41,14 +41,14 @@ class CompletionRequest extends Request
     ];
 
     /**
-     * @return \TkhConsult\VictoriaBankGateway\VictoriaBank\Request|void
-     * @throws \TkhConsult\VictoriaBankGateway\VictoriaBank\Exception
+     * @return \TkhConsult\KinaBankGateway\KinaBank\Request|void
+     * @throws \TkhConsult\KinaBankGateway\KinaBank\Exception
      */
     protected function init()
     {
         parent::init();
         #Set TRX type
-        $this->_requestFields[self::TRTYPE] = VictoriaBankGateway::TRX_TYPE_COMPLETION;
+        $this->_requestFields[self::TRTYPE] = KinaBankGateway::TRX_TYPE_COMPLETION;
         #Set TRX signature
         $order                              = $this->_requestFields[self::ORDER];
         $nonce                              = $this->_requestFields[self::NONCE];

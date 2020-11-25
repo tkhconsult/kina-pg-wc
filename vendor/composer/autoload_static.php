@@ -9,12 +9,12 @@ class ComposerStaticInit50478dfc75549edea87a587529262f06
     public static $prefixLengthsPsr4 = array (
         'F' => 
         array (
-            'TkhConsult\\VictoriaBankGateway\\' => 30,
+            'TkhConsult\\KinaBankGateway\\' => 30,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'TkhConsult\\VictoriaBankGateway\\' =>
+        'TkhConsult\\KinaBankGateway\\' =>
         array (
             0 => __DIR__ . '/..' . '/tkhconsult/victoria-bank-gateway/src',
         ),

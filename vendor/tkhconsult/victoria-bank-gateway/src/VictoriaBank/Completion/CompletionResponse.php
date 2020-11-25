@@ -1,13 +1,13 @@
 <?php
 
-namespace TkhConsult\VictoriaBankGateway\VictoriaBank\Completion;
+namespace TkhConsult\KinaBankGateway\KinaBank\Completion;
 
-use TkhConsult\VictoriaBankGateway\VictoriaBank\Response;
+use TkhConsult\KinaBankGateway\KinaBank\Response;
 
 /**
  * Class CompletionResponse
  *
- * @package TkhConsult\VictoriaBankGateway\VictoriaBank\Completion
+ * @package TkhConsult\KinaBankGateway\KinaBank\Completion
  */
 class CompletionResponse extends Response
 {

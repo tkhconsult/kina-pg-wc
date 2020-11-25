@@ -1,13 +1,13 @@
 <?php
 
-namespace TkhConsult\VictoriaBankGateway\VictoriaBank\Reversal;
+namespace TkhConsult\KinaBankGateway\KinaBank\Reversal;
 
-use TkhConsult\VictoriaBankGateway\VictoriaBank\Response;
+use TkhConsult\KinaBankGateway\KinaBank\Response;
 
 /**
  * Class ReversalResponse
  *
- * @package TkhConsult\VictoriaBankGateway\VictoriaBank\Reversal
+ * @package TkhConsult\KinaBankGateway\KinaBank\Reversal
  */
 class ReversalResponse extends Response
 {

@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'TkhConsult\\VictoriaBankGateway\\' => array($vendorDir . '/tkhconsult/victoria-bank-gateway/src'),
+    'TkhConsult\\KinaBankGateway\\' => array($vendorDir . '/tkhconsult/victoria-bank-gateway/src'),
 );

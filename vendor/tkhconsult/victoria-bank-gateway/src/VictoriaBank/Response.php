@@ -1,8 +1,8 @@
 <?php
 
-namespace TkhConsult\VictoriaBankGateway\VictoriaBank;
+namespace TkhConsult\KinaBankGateway\KinaBank;
 
-use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
+use TkhConsult\KinaBankGateway\KinaBankGateway;
 
 /**
  * Class Response
@@ -10,13 +10,13 @@ use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
 abstract class Response implements ResponseInterface
 {
     /**
-     * Public key is provided by VictoriaBank
+     * Public key is provided by KinaBank
      * @var string
      */
     static public $bankPublicKeyPath;
 
     /**
-     * Provided by VictoriaBank
+     * Provided by KinaBank
      * @var string
      */
     static public $signaturePrefix;
@@ -76,8 +76,8 @@ abstract class Response implements ResponseInterface
             }
         }
 
-        $this->_responseFields[self::ORDER] = VictoriaBankGateway::normalizeOrderId($this->_responseFields[self::ORDER]);
-        $this->_responseFields[self::AMOUNT] = VictoriaBankGateway::normalizeAmount($this->_responseFields[self::AMOUNT]);
+        $this->_responseFields[self::ORDER] = KinaBankGateway::normalizeOrderId($this->_responseFields[self::ORDER]);
+        $this->_responseFields[self::AMOUNT] = KinaBankGateway::normalizeAmount($this->_responseFields[self::AMOUNT]);
 
         return $this;
     }
