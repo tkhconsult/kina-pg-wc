@@ -543,7 +543,7 @@ function woocommerce_kinabank_init() {
 						$pemData = file_get_contents($tmpName);
 
 						if($pemData !== false) {
-							$result = self::save_temp_file($pemData, $pemType);
+							$result = $this->save_temp_file($pemData, $pemType);
 
 							if(!self::string_empty($result)) {
 								//Overwrite advanced setting value
@@ -557,7 +557,7 @@ function woocommerce_kinabank_init() {
 					}
 				}
 			} catch(Exception $ex) {
-				self::log($ex, WC_Log_Levels::ERROR);
+				$this->log($ex, WC_Log_Levels::ERROR);
 			}
 
 			//Preserve existing value
@@ -575,7 +575,7 @@ function woocommerce_kinabank_init() {
 				if(!is_readable($pemFile)) {
 					if(self::is_overwritable($pemFile)) {
 						if(!self::string_empty($pemData)) {
-							$result = self::save_temp_file($pemData, $pemType);
+							$result = $this->save_temp_file($pemData, $pemType);
 
 							if(!self::string_empty($result)) {
 								$this->update_option($pemOptionName, $result);
@@ -585,7 +585,7 @@ function woocommerce_kinabank_init() {
 					}
 				}
 			} catch(Exception $ex) {
-				self::log($ex, WC_Log_Levels::ERROR);
+				$this->log($ex, WC_Log_Levels::ERROR);
 			}
 		}
 
@@ -605,7 +605,7 @@ function woocommerce_kinabank_init() {
 					return __('Invalid public key', self::MOD_TEXT_DOMAIN);
 				}
 			} catch(Exception $ex) {
-				self::log($ex, WC_Log_Levels::ERROR);
+				$this->log($ex, WC_Log_Levels::ERROR);
 				return __('Could not validate public key', self::MOD_TEXT_DOMAIN);
 			}
 		}
@@ -626,7 +626,7 @@ function woocommerce_kinabank_init() {
 					return __('Invalid private key or wrong private key passphrase', self::MOD_TEXT_DOMAIN);
 				}
 			} catch(Exception $ex) {
-				self::log($ex, WC_Log_Levels::ERROR);
+				$this->log($ex, WC_Log_Levels::ERROR);
 				return __('Could not validate private key', self::MOD_TEXT_DOMAIN);
 			}
 		}
@@ -642,28 +642,28 @@ function woocommerce_kinabank_init() {
 				if(!is_readable($file))
 					return __('File not readable', self::MOD_TEXT_DOMAIN);
 			} catch(Exception $ex) {
-				self::log($ex, WC_Log_Levels::ERROR);
+				$this->log($ex, WC_Log_Levels::ERROR);
 				return __('Could not validate file', self::MOD_TEXT_DOMAIN);
 			}
 		}
 
 		protected function log_openssl_errors() {
 			while($opensslError = openssl_error_string())
-				self::log($opensslError, WC_Log_Levels::ERROR);
+				$this->log($opensslError, WC_Log_Levels::ERROR);
 		}
 
-		static function save_temp_file($fileData, $fileSuffix = '') {
+		protected function save_temp_file($fileData, $fileSuffix = '') {
 			//http://www.pathname.com/fhs/pub/fhs-2.3.html#TMPTEMPORARYFILES
 			$tempFileName = sprintf('%1$s%2$s_', self::MOD_PREFIX, $fileSuffix);
 			$temp_file = tempnam(get_temp_dir(),  $tempFileName);
 
 			if(!$temp_file) {
-				self::log(sprintf(__('Unable to create temporary file: %1$s', self::MOD_TEXT_DOMAIN), $temp_file), WC_Log_Levels::ERROR);
+				$this->log(sprintf(__('Unable to create temporary file: %1$s', self::MOD_TEXT_DOMAIN), $temp_file), WC_Log_Levels::ERROR);
 				return null;
 			}
 
 			if(false === file_put_contents($temp_file, $fileData)) {
-				self::log(sprintf(__('Unable to save data to temporary file: %1$s', self::MOD_TEXT_DOMAIN), $temp_file), WC_Log_Levels::ERROR);
+				$this->log(sprintf(__('Unable to save data to temporary file: %1$s', self::MOD_TEXT_DOMAIN), $temp_file), WC_Log_Levels::ERROR);
 				return null;
 			}
 
@@ -741,7 +741,7 @@ function woocommerce_kinabank_init() {
 
 		#region Order status
 		public function order_status_completed($order_id) {
-			self::log(sprintf('%1$s: OrderID=%2$s', __FUNCTION__, $order_id));
+			$this->log(sprintf('%1$s: OrderID=%2$s', __FUNCTION__, $order_id));
 
 			if(!$this->transaction_auto)
 				return;
@@ -760,7 +760,7 @@ function woocommerce_kinabank_init() {
 		}
 
 		public function order_status_cancelled($order_id) {
-			self::log(sprintf('%1$s: OrderID=%2$s', __FUNCTION__, $order_id));
+			$this->log(sprintf('%1$s: OrderID=%2$s', __FUNCTION__, $order_id));
 
 			if(!$this->transaction_auto)
 				return;
@@ -779,7 +779,7 @@ function woocommerce_kinabank_init() {
 		}
 
 		public function order_status_refunded($order_id) {
-			self::log(sprintf('%1$s: OrderID=%2$s', __FUNCTION__, $order_id));
+			$this->log(sprintf('%1$s: OrderID=%2$s', __FUNCTION__, $order_id));
 
 			$order = wc_get_order($order_id);
 
@@ -792,7 +792,7 @@ function woocommerce_kinabank_init() {
 		#endregion
 
 		public function complete_transaction($order_id, $order) {
-			self::log(sprintf('%1$s: OrderID=%2$s', __FUNCTION__, $order_id));
+			$this->log(sprintf('%1$s: OrderID=%2$s', __FUNCTION__, $order_id));
 
 			$rrn = get_post_meta($order_id, strtolower(self::VB_RRN), true);
 			$intRef = get_post_meta($order_id, strtolower(self::VB_INT_REF), true);
@@ -806,7 +806,7 @@ function woocommerce_kinabank_init() {
 				$completion_result = $victoriaBankGateway->requestCompletion($order_id, $order_total, $rrn, $intRef, $order_currency);
 				$validate_result = self::validate_response_form($completion_result);
 			} catch(Exception $ex) {
-				self::log($ex, WC_Log_Levels::ERROR);
+				$this->log($ex, WC_Log_Levels::ERROR);
 			}
 
 			if(!$validate_result) {
@@ -821,7 +821,7 @@ function woocommerce_kinabank_init() {
 		}
 
 		public function refund_transaction($order_id, $order, $amount = null) {
-			self::log(sprintf('%1$s: OrderID=%2$s Amount=%3$s', __FUNCTION__, $order_id, $amount));
+			$this->log(sprintf('%1$s: OrderID=%2$s Amount=%3$s', __FUNCTION__, $order_id, $amount));
 
 			$rrn = get_post_meta($order_id, strtolower(self::VB_RRN), true);
 			$intRef = get_post_meta($order_id, strtolower(self::VB_INT_REF), true);
@@ -835,7 +835,7 @@ function woocommerce_kinabank_init() {
 
 			if($amount <= 0 || $amount > $order_total) {
 				$message = sprintf(__('Invalid refund amount', self::MOD_TEXT_DOMAIN));
-				self::log($message, WC_Log_Levels::ERROR);
+				$this->log($message, WC_Log_Levels::ERROR);
 
 				return new WP_Error('error', $message);
 			}
@@ -846,7 +846,7 @@ function woocommerce_kinabank_init() {
 				$reversal_result = $victoriaBankGateway->requestReversal($order_id, $amount, $rrn, $intRef, $order_currency);
 				$validate_result = self::validate_response_form($reversal_result);
 			} catch(Exception $ex) {
-				self::log($ex, WC_Log_Levels::ERROR);
+				$this->log($ex, WC_Log_Levels::ERROR);
 			}
 
 			if(!$validate_result) {
@@ -894,7 +894,7 @@ function woocommerce_kinabank_init() {
 
 			if(self::string_empty($order_id)) {
 				$message = sprintf(__('Payment verification failed: Order ID not received from %1$s.', self::MOD_TEXT_DOMAIN), $this->method_title);
-				self::log($message, WC_Log_Levels::ERROR);
+				$this->log($message, WC_Log_Levels::ERROR);
 
 				wc_add_notice($message, 'error');
 				$this->settings_admin_notice();
@@ -906,7 +906,7 @@ function woocommerce_kinabank_init() {
 			$order = wc_get_order($order_id);
 			if(!$order) {
 				$message = sprintf(__('Order #%1$s not found as received from %2$s.', self::MOD_TEXT_DOMAIN), $order_id, $this->method_title);
-				self::log($message, WC_Log_Levels::ERROR);
+				$this->log($message, WC_Log_Levels::ERROR);
 
 				wc_add_notice($message, 'error');
 				$this->settings_admin_notice();
@@ -919,7 +919,7 @@ function woocommerce_kinabank_init() {
 				WC()->cart->empty_cart();
 
 				$message = sprintf(__('Order #%1$s paid successfully via %2$s.', self::MOD_TEXT_DOMAIN), $order_id, $this->method_title);
-				self::log($message, WC_Log_Levels::INFO);
+				$this->log($message, WC_Log_Levels::INFO);
 
 				wc_add_notice($message, 'success');
 
@@ -927,7 +927,7 @@ function woocommerce_kinabank_init() {
 				return true;
 			} else {
 				$message = sprintf(__('Order #%1$s payment failed via %2$s.', self::MOD_TEXT_DOMAIN), $order_id, $this->method_title);
-				self::log($message, WC_Log_Levels::ERROR);
+				$this->log($message, WC_Log_Levels::ERROR);
 
 				wc_add_notice($message, 'error');
 				$this->settings_admin_notice();
@@ -953,14 +953,14 @@ function woocommerce_kinabank_init() {
 		}
 
 		public function process_response_data($vbdata) {
-			self::log(sprintf('%1$s: %2$s', __FUNCTION__, self::print_var($vbdata)));
+			$this->log(sprintf('%1$s: %2$s', __FUNCTION__, self::print_var($vbdata)));
 
 			try {
 				$victoriaBankGateway = $this->init_vb_client();
 				$bankResponse = $victoriaBankGateway->getResponseObject($vbdata);
 				$check_result = $bankResponse->isValid();
 			} catch(Exception $ex) {
-				self::log($ex, WC_Log_Levels::ERROR);
+				$this->log($ex, WC_Log_Levels::ERROR);
 			}
 
 			#region Extract bank response params
@@ -992,14 +992,14 @@ function woocommerce_kinabank_init() {
 			#region Validate order
 			if(self::string_empty($order_id)) {
 				$message = sprintf(__('Order ID not received from %1$s.', self::MOD_TEXT_DOMAIN), $this->method_title);
-				self::log($message, WC_Log_Levels::ERROR);
+				$this->log($message, WC_Log_Levels::ERROR);
 				return false;
 			}
 
 			$order = wc_get_order($order_id);
 			if(!$order) {
 				$message = sprintf(__('Order #%1$s not found as received from %2$s.', self::MOD_TEXT_DOMAIN), $order_id, $this->method_title);
-				self::log($message, WC_Log_Levels::ERROR);
+				$this->log($message, WC_Log_Levels::ERROR);
 				return false;
 			}
 			#endregion
@@ -1019,7 +1019,7 @@ function woocommerce_kinabank_init() {
 
 						$message = sprintf(__('Payment authorized via %1$s: %2$s', self::MOD_TEXT_DOMAIN), $this->method_title, http_build_query($bankParams));
 						$message = $this->get_order_message($message);
-						self::log($message, WC_Log_Levels::INFO);
+						$this->log($message, WC_Log_Levels::INFO);
 						$order->add_order_note($message);
 
 						$this->mark_order_paid($order, $intRef);
@@ -1033,7 +1033,7 @@ function woocommerce_kinabank_init() {
 								break;
 
 							default:
-								self::log(sprintf('Unknown transaction type: %1$s Order ID: %2$s', $this->transaction_type, $order_id), WC_Log_Levels::ERROR);
+								$this->log(sprintf('Unknown transaction type: %1$s Order ID: %2$s', $this->transaction_type, $order_id), WC_Log_Levels::ERROR);
 								break;
 						}
 
@@ -1044,7 +1044,7 @@ function woocommerce_kinabank_init() {
 						//Funds successfully transferred on bank side
 						$message = sprintf(__('Payment completed via %1$s: %2$s', self::MOD_TEXT_DOMAIN), $this->method_title, http_build_query($bankParams));
 						$message = $this->get_order_message($message);
-						self::log($message, WC_Log_Levels::INFO);
+						$this->log($message, WC_Log_Levels::INFO);
 						$order->add_order_note($message);
 
 						$this->mark_order_paid($order, $intRef);
@@ -1056,7 +1056,7 @@ function woocommerce_kinabank_init() {
 						//Reversal successfully applied on bank side
 						$message = sprintf(__('Refund of %1$s %2$s via %3$s approved: %4$s', self::MOD_TEXT_DOMAIN), $amount, $currency, $this->method_title, http_build_query($bankParams));
 						$message = $this->get_order_message($message);
-						self::log($message, WC_Log_Levels::INFO);
+						$this->log($message, WC_Log_Levels::INFO);
 						$order->add_order_note($message);
 
 						if($order->get_total() == $order->get_total_refunded())
@@ -1066,13 +1066,13 @@ function woocommerce_kinabank_init() {
 						break;
 
 					default:
-						self::log(sprintf('Unknown bank response TRX_TYPE: %1$s Order ID: %2$s', $bankResponse::TRX_TYPE, $order_id), WC_Log_Levels::ERROR);
+						$this->log(sprintf('Unknown bank response TRX_TYPE: %1$s Order ID: %2$s', $bankResponse::TRX_TYPE, $order_id), WC_Log_Levels::ERROR);
 						break;
 				}
 			}
 
-			self::log(sprintf(__('Payment transaction check failed for order #%1$s.', self::MOD_TEXT_DOMAIN), $order_id), WC_Log_Levels::ERROR);
-			self::log(self::print_var($bankResponse), WC_Log_Levels::ERROR);
+			$this->log(sprintf(__('Payment transaction check failed for order #%1$s.', self::MOD_TEXT_DOMAIN), $order_id), WC_Log_Levels::ERROR);
+			$this->log(self::print_var($bankResponse), WC_Log_Levels::ERROR);
 
 			$message = sprintf(__('%1$s payment transaction check failed: %2$s', self::MOD_TEXT_DOMAIN), $this->method_title, join('; ', $bankResponse->getErrors()) . ' ' . http_build_query($bankParams));
 			$message = $this->get_order_message($message);
@@ -1142,15 +1142,15 @@ function woocommerce_kinabank_init() {
 		}
 
 		protected function validate_response_form($vbresponse) {
-			self::log(sprintf('%1$s: %2$s', __FUNCTION__, self::print_var($vbresponse)));
+			$this->log(sprintf('%1$s: %2$s', __FUNCTION__, self::print_var($vbresponse)));
 
 			if($vbresponse === false) {
 				$error = error_get_last();
 				if($error) {
 					$message = $error['message'];
 
-					self::log($message, WC_Log_Levels::ERROR);
-					self::log(self::print_var($error));
+					$this->log($message, WC_Log_Levels::ERROR);
+					$this->log(self::print_var($error));
 				}
 
 				return false;
@@ -1160,7 +1160,7 @@ function woocommerce_kinabank_init() {
 		}
 
 		protected function process_response_form($vbresponse) {
-			self::log(sprintf('%1$s: %2$s', __FUNCTION__, self::print_var($vbresponse)));
+			$this->log(sprintf('%1$s: %2$s', __FUNCTION__, self::print_var($vbresponse)));
 
 			$vbform = self::parse_response_form($vbresponse);
 			if(empty($vbform))
@@ -1233,7 +1233,7 @@ function woocommerce_kinabank_init() {
 				$order = wc_get_order($order_id);
 				$this->generate_form($order);
 			} catch(Exception $ex) {
-				self::log($ex, WC_Log_Levels::ERROR);
+				$this->log($ex, WC_Log_Levels::ERROR);
 
 				$message = sprintf(__('Payment initiation failed via %1$s.', self::MOD_TEXT_DOMAIN), $this->method_title);
 				wc_add_notice($message, 'error');
@@ -1349,7 +1349,7 @@ function woocommerce_kinabank_init() {
 			 }
 		}
 
-		static function log($message, $level = WC_Log_Levels::DEBUG) {
+        protected function log($message, $level = WC_Log_Levels::DEBUG) {
 			//https://woocommerce.wordpress.com/2017/01/26/improved-logging-in-woocommerce-2-7/
 			//https://stackoverflow.com/questions/1423157/print-php-call-stack
 			$this->logger->log($level, $message, $this->log_context);
@@ -1362,7 +1362,7 @@ function woocommerce_kinabank_init() {
 		}
 
 		protected function log_request($source) {
-			self::log(sprintf('%1$s: %2$s %3$s %4$s', $source, self::get_client_ip(), $_SERVER['REQUEST_METHOD'], self::print_var($_REQUEST)));
+			$this->log(sprintf('%1$s: %2$s %3$s %4$s', $source, self::get_client_ip(), $_SERVER['REQUEST_METHOD'], self::print_var($_REQUEST)));
 		}
 
 		static function static_log_request($source) {
