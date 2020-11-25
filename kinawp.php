@@ -8,7 +8,7 @@
  * Author URI: https://profiles.wordpress.org/alexminza
  * Developer: Alexander Minza
  * Developer URI: https://profiles.wordpress.org/alexminza
- * Text Domain: wc-victoriabank
+ * Text Domain: kinawp
  * Domain Path: /languages
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -37,7 +37,7 @@ function woocommerce_kinabank_init() {
 	if(!class_exists('WC_Payment_Gateway'))
 		return;
 
-	load_plugin_textdomain('wc-victoriabank', false, dirname(plugin_basename(__FILE__)) . '/languages');
+	load_plugin_textdomain('kinawp', false, dirname(plugin_basename(__FILE__)) . '/languages');
 
 	class WC_VictoriaBank extends WC_Payment_Gateway {
 		protected $logger;
@@ -46,7 +46,7 @@ function woocommerce_kinabank_init() {
 		const MOD_ID          = 'victoriabank';
 		const MOD_TITLE       = 'Victoriabank';
 		const MOD_PREFIX      = 'vb_';
-		const MOD_TEXT_DOMAIN = 'wc-victoriabank';
+		const MOD_TEXT_DOMAIN = 'kinawp';
 
 		const TRANSACTION_TYPE_CHARGE = 'charge';
 		const TRANSACTION_TYPE_AUTHORIZATION = 'authorization';
