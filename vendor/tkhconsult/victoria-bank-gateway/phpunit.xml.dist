@@ -33,20 +33,20 @@
     </logging>
 
     <php>
-        <env name="VICTORIA_BANK_MERCHANT_ID" value="100000010000000"/>
-        <env name="VICTORIA_BANK_MERCHANT_TERMINAL" value="10000000"/>
-        <env name="VICTORIA_BANK_MERCHANT_URL" value="http://example.com"/>
-        <env name="VICTORIA_BANK_MERCHANT_NAME" value="Merchant company name"/>
-        <env name="VICTORIA_BANK_MERCHANT_ADDRESS" value="Merchant address"/>
-        <env name="VICTORIA_BANK_SECURITY_SIGNATURE_FIRST" value="0001"/>
-        <env name="VICTORIA_BANK_SECURITY_SIGNATURE_PREFIX" value="3020300C06082A864886F70D020505000410"/>
-        <env name="VICTORIA_BANK_SECURITY_SIGNATURE_PADDING" value="00"/>
-        <env name="VICTORIA_BANK_MERCHANT_PUBLIC_KEY`" value="public.pem"/>
-        <env name="VICTORIA_BANK_MERCHANT_PRIVATE_KEY`" value="private.pem"/>
-        <env name="VICTORIA_BANK_MERCHANT_BANK_PUBLIC_KEY`" value="kina_pub.pem"/>
-        <env name="VICTORIA_BANK_MERCHANT_TIMEZONE_NAME`" value="Europe/Chisinau"/>
-        <env name="VICTORIA_BANK_MERCHANT_COUNTRY_CODE`" value="MD"/>
-        <env name="VICTORIA_BANK_MERCHANT_DEFAULT_CURRENCY`" value="MDL"/>
-        <env name="VICTORIA_BANK_MERCHANT_DEFAULT_LANGUAGE`" value="ro"/>
+        <env name="KINA_BANK_MERCHANT_ID" value="100000010000000"/>
+        <env name="KINA_BANK_MERCHANT_TERMINAL" value="10000000"/>
+        <env name="KINA_BANK_MERCHANT_URL" value="http://example.com"/>
+        <env name="KINA_BANK_MERCHANT_NAME" value="Merchant company name"/>
+        <env name="KINA_BANK_MERCHANT_ADDRESS" value="Merchant address"/>
+        <env name="KINA_BANK_SECURITY_SIGNATURE_FIRST" value="0001"/>
+        <env name="KINA_BANK_SECURITY_SIGNATURE_PREFIX" value="3020300C06082A864886F70D020505000410"/>
+        <env name="KINA_BANK_SECURITY_SIGNATURE_PADDING" value="00"/>
+        <env name="KINA_BANK_MERCHANT_PUBLIC_KEY`" value="public.pem"/>
+        <env name="KINA_BANK_MERCHANT_PRIVATE_KEY`" value="private.pem"/>
+        <env name="KINA_BANK_MERCHANT_BANK_PUBLIC_KEY`" value="kina_pub.pem"/>
+        <env name="KINA_BANK_MERCHANT_TIMEZONE_NAME`" value="Europe/Chisinau"/>
+        <env name="KINA_BANK_MERCHANT_COUNTRY_CODE`" value="MD"/>
+        <env name="KINA_BANK_MERCHANT_DEFAULT_CURRENCY`" value="MDL"/>
+        <env name="KINA_BANK_MERCHANT_DEFAULT_LANGUAGE`" value="ro"/>
     </php>
 </phpunit>

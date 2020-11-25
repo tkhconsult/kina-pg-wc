@@ -110,22 +110,22 @@ class KinaBankGateway
         $certDir = rtrim($certDir);
         // Set basic info
         $this
-            ->setMerchantId(getenv('VICTORIA_BANK_MERCHANT_ID'))
-            ->setMerchantTerminal(getenv('VICTORIA_BANK_MERCHANT_TERMINAL'))
-            ->setMerchantUrl(getenv('VICTORIA_BANK_MERCHANT_URL'))
-            ->setMerchantName(getenv('VICTORIA_BANK_MERCHANT_NAME'))
-            ->setMerchantAddress(getenv('VICTORIA_BANK_MERCHANT_ADDRESS'))
-            ->setTimezone(getenv('VICTORIA_BANK_MERCHANT_TIMEZONE_NAME'))
-            ->setCountryCode(getenv('VICTORIA_BANK_MERCHANT_COUNTRY_CODE'))
-            ->setDefaultCurrency(getenv('VICTORIA_BANK_MERCHANT_DEFAULT_CURRENCY'))
-            ->setDefaultLanguage(getenv('VICTORIA_BANK_MERCHANT_DEFAULT_LANGUAGE'));
+            ->setMerchantId(getenv('KINA_BANK_MERCHANT_ID'))
+            ->setMerchantTerminal(getenv('KINA_BANK_MERCHANT_TERMINAL'))
+            ->setMerchantUrl(getenv('KINA_BANK_MERCHANT_URL'))
+            ->setMerchantName(getenv('KINA_BANK_MERCHANT_NAME'))
+            ->setMerchantAddress(getenv('KINA_BANK_MERCHANT_ADDRESS'))
+            ->setTimezone(getenv('KINA_BANK_MERCHANT_TIMEZONE_NAME'))
+            ->setCountryCode(getenv('KINA_BANK_MERCHANT_COUNTRY_CODE'))
+            ->setDefaultCurrency(getenv('KINA_BANK_MERCHANT_DEFAULT_CURRENCY'))
+            ->setDefaultLanguage(getenv('KINA_BANK_MERCHANT_DEFAULT_LANGUAGE'));
         //Set security options - provided by the bank
-        $signatureFirst    = getenv('VICTORIA_BANK_SECURITY_SIGNATURE_FIRST');
-        $signaturePrefix   = getenv('VICTORIA_BANK_SECURITY_SIGNATURE_PREFIX');
-        $signaturePadding  = getenv('VICTORIA_BANK_SECURITY_SIGNATURE_PADDING');
-        $publicKeyPath     = $certDir.'/'.getenv('VICTORIA_BANK_MERCHANT_PUBLIC_KEY');
-        $privateKeyPath    = $certDir.'/'.getenv('VICTORIA_BANK_MERCHANT_PRIVATE_KEY');
-        $bankPublicKeyPath = $certDir.'/'.getenv('VICTORIA_BANK_MERCHANT_BANK_PUBLIC_KEY');
+        $signatureFirst    = getenv('KINA_BANK_SECURITY_SIGNATURE_FIRST');
+        $signaturePrefix   = getenv('KINA_BANK_SECURITY_SIGNATURE_PREFIX');
+        $signaturePadding  = getenv('KINA_BANK_SECURITY_SIGNATURE_PADDING');
+        $publicKeyPath     = $certDir.'/'.getenv('KINA_BANK_MERCHANT_PUBLIC_KEY');
+        $privateKeyPath    = $certDir.'/'.getenv('KINA_BANK_MERCHANT_PRIVATE_KEY');
+        $bankPublicKeyPath = $certDir.'/'.getenv('KINA_BANK_MERCHANT_BANK_PUBLIC_KEY');
         $this
             ->setSecurityOptions($signatureFirst, $signaturePrefix, $signaturePadding, $publicKeyPath, $privateKeyPath, $bankPublicKeyPath);
 

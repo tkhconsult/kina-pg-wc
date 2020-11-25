@@ -41,51 +41,51 @@ composer require symfony/dotenv
 
 ```dosini
 # Merchant ID assigned by bank
-VICTORIA_BANK_MERCHANT_ID=xxxxxxxxxxxxxxx
+KINA_BANK_MERCHANT_ID=xxxxxxxxxxxxxxx
 
 # Merchant Terminal ID assigned by bank 
-VICTORIA_BANK_MERCHANT_TERMINAL=xxxxxxxx
+KINA_BANK_MERCHANT_TERMINAL=xxxxxxxx
 
 # Merchant primary web site URL
-VICTORIA_BANK_MERCHANT_URL='http://example.com'
+KINA_BANK_MERCHANT_URL='http://example.com'
 
 # Merchant name (recognizable by cardholder)
-VICTORIA_BANK_MERCHANT_NAME='Merchant company name'
+KINA_BANK_MERCHANT_NAME='Merchant company name'
 
 # Merchant company registered office address
-VICTORIA_BANK_MERCHANT_ADDRESS='Merchant address'
+KINA_BANK_MERCHANT_ADDRESS='Merchant address'
 
 # Security options - provided by the bank
-VICTORIA_BANK_SECURITY_SIGNATURE_FIRST='0001'
-VICTORIA_BANK_SECURITY_SIGNATURE_PREFIX='A00B00C00D00EA864886F70D020505000410'
-VICTORIA_BANK_SECURITY_SIGNATURE_PADDING='00'
+KINA_BANK_SECURITY_SIGNATURE_FIRST='0001'
+KINA_BANK_SECURITY_SIGNATURE_PREFIX='A00B00C00D00EA864886F70D020505000410'
+KINA_BANK_SECURITY_SIGNATURE_PADDING='00'
 
 # Merchant public rsa key
-VICTORIA_BANK_MERCHANT_PUBLIC_KEY=public.pem
+KINA_BANK_MERCHANT_PUBLIC_KEY=public.pem
 
 # Merchant private rsa key
-VICTORIA_BANK_MERCHANT_PRIVATE_KEY=private.pem
+KINA_BANK_MERCHANT_PRIVATE_KEY=private.pem
 
 # The public part of the bank key that P_SIGN is encrypted in the response in PEM format.
-VICTORIA_BANK_MERCHANT_BANK_PUBLIC_KEY=kina_pub.pem
+KINA_BANK_MERCHANT_BANK_PUBLIC_KEY=kina_pub.pem
 
 # Default Merchant shop timezone
 # Used to calculate the timezone offset sent to KinaBank
-VICTORIA_BANK_MERCHANT_TIMEZONE_NAME='Europe/Chisinau'
+KINA_BANK_MERCHANT_TIMEZONE_NAME='Europe/Chisinau'
 
 # Merchant shop 2-character country code. 
 # Must be provided if merchant system is located 
 # in a country other than the gateway server's country. 
-VICTORIA_BANK_MERCHANT_COUNTRY_CODE=MD
+KINA_BANK_MERCHANT_COUNTRY_CODE=MD
 
 # Default currency for all operations: 3-character currency code 
-VICTORIA_BANK_MERCHANT_DEFAULT_CURRENCY=MDL
+KINA_BANK_MERCHANT_DEFAULT_CURRENCY=MDL
 
 # Default forms language
 # By default are available forms in en, ro, ru. 
 # If need forms in another languages please contact gateway
 # administrator
-VICTORIA_BANK_MERCHANT_DEFAULT_LANGUAGE=ro
+KINA_BANK_MERCHANT_DEFAULT_LANGUAGE=ro
 ```
 
 ### Step 2. Init Gateway client
@@ -116,7 +116,7 @@ You can reproduce implementation of the configureFromEnv() method
 <?php
 
 use TkhConsult\KinaBankGateway\KinaBankGateway;
-$backRefUrl = getenv('VICTORIA_BANK_MERCHANT_URL').'/after-payment/';
+$backRefUrl = getenv('KINA_BANK_MERCHANT_URL').'/after-payment/';
 
 /** @var KinaBankGateway $kinaBankGateway */
 $kinaBankGateway
