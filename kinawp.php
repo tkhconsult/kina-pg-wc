@@ -33,9 +33,9 @@ use Fruitware\VictoriaBankGateway\VictoriaBank\Request;
 use Fruitware\VictoriaBankGateway\VictoriaBank\Response;
 use Fruitware\VictoriaBankGateway\VictoriaBank\AuthorizationResponse;
 
-add_action('plugins_loaded', 'woocommerce_victoriabank_init', 0);
+add_action('plugins_loaded', 'woocommerce_kinabank_init', 0);
 
-function woocommerce_victoriabank_init() {
+function woocommerce_kinabank_init() {
 	if(!class_exists('WC_Payment_Gateway'))
 		return;
 
@@ -85,7 +85,7 @@ function woocommerce_victoriabank_init() {
 			$this->id                 = self::MOD_ID;
 			$this->method_title       = self::MOD_TITLE;
 			$this->method_description = 'WooCommerce Payment Gateway for Victoriabank';
-			$this->icon               = apply_filters('woocommerce_victoriabank_icon', $plugin_dir . 'assets/img/victoriabank.png');
+			$this->icon               = apply_filters('woocommerce_kinabank_icon', $plugin_dir . 'assets/img/victoriabank.png');
 			$this->has_fields         = false;
 			$this->supports           = array('products', 'refunds');
 
@@ -101,7 +101,7 @@ function woocommerce_victoriabank_init() {
 			$this->bank_logo         = $plugin_dir . 'assets/img/victoriabank.png';
 			$this->systems_logo      = $plugin_dir . 'assets/img/paymentsystems.png';
 			$plugin_icon             = ($this->logo_type === self::LOGO_TYPE_BANK ? $this->bank_logo : $this->systems_logo);
-			$this->icon              = apply_filters('woocommerce_victoriabank_icon', $plugin_icon);
+			$this->icon              = apply_filters('woocommerce_kinabank_icon', $plugin_icon);
 
 			$this->testmode          = 'yes' === $this->get_option('testmode', 'no');
 			$this->debug             = 'yes' === $this->get_option('debug', 'no');
@@ -284,7 +284,7 @@ function woocommerce_victoriabank_init() {
 
 				'connection_settings' => array(
 					'title'       => __('Connection Settings', self::MOD_TEXT_DOMAIN),
-					'description' => sprintf('%1$s<br /><br /><a href="#" id="woocommerce_victoriabank_basic_settings" class="button">%2$s</a>&nbsp;%3$s&nbsp;<a href="#" id="woocommerce_victoriabank_advanced_settings" class="button">%4$s</a>',
+					'description' => sprintf('%1$s<br /><br /><a href="#" id="woocommerce_kinabank_basic_settings" class="button">%2$s</a>&nbsp;%3$s&nbsp;<a href="#" id="woocommerce_kinabank_advanced_settings" class="button">%4$s</a>',
 						__('Use Basic settings to upload the key files received from the bank or configure manually using Advanced settings below.', self::MOD_TEXT_DOMAIN),
 						__('Basic settings&raquo;', self::MOD_TEXT_DOMAIN),
 						__('or', self::MOD_TEXT_DOMAIN),
@@ -355,12 +355,12 @@ function woocommerce_victoriabank_init() {
 					'custom_attributes' => array(
 						'readonly' => 'readonly'
 					),
-					'description' => sprintf('<a href="#" id="woocommerce_victoriabank_payment_notification_advanced" class="button">%1$s</a>',
+					'description' => sprintf('<a href="#" id="woocommerce_kinabank_payment_notification_advanced" class="button">%1$s</a>',
 						__('Advanced&raquo;', self::MOD_TEXT_DOMAIN)),
 				),
 				'vb_callback_data'  => array(
 					'title'       => __('Process callback data', self::MOD_TEXT_DOMAIN),
-					'description' => '<a href="#" id="woocommerce_victoriabank_callback_data_process" class="button">Process</a>',
+					'description' => '<a href="#" id="woocommerce_kinabank_callback_data_process" class="button">Process</a>',
 					'type'        => 'textarea',
 					'desc_tip'    => __('Manually process bank transaction response callback data received by email as part of the backup procedure.', self::MOD_TEXT_DOMAIN),
 					'placeholder' => __('Bank transaction response callback data', self::MOD_TEXT_DOMAIN),
@@ -396,9 +396,9 @@ function woocommerce_victoriabank_init() {
 
 			wc_enqueue_js('
 				jQuery(function() {
-					var vb_connection_basic_fields_ids      = "#woocommerce_victoriabank_vb_public_key_pem, #woocommerce_victoriabank_vb_bank_public_key_pem, #woocommerce_victoriabank_vb_private_key_pem, #woocommerce_victoriabank_vb_private_key_pass";
-					var vb_connection_advanced_fields_ids   = "#woocommerce_victoriabank_vb_public_key, #woocommerce_victoriabank_vb_bank_public_key, #woocommerce_victoriabank_vb_private_key, #woocommerce_victoriabank_vb_private_key_pass";
-					var vb_notification_advanced_fields_ids = "#woocommerce_victoriabank_vb_callback_data";
+					var vb_connection_basic_fields_ids      = "#woocommerce_kinabank_vb_public_key_pem, #woocommerce_kinabank_vb_bank_public_key_pem, #woocommerce_kinabank_vb_private_key_pem, #woocommerce_kinabank_vb_private_key_pass";
+					var vb_connection_advanced_fields_ids   = "#woocommerce_kinabank_vb_public_key, #woocommerce_kinabank_vb_bank_public_key, #woocommerce_kinabank_vb_private_key, #woocommerce_kinabank_vb_private_key_pass";
+					var vb_notification_advanced_fields_ids = "#woocommerce_kinabank_vb_callback_data";
 
 					var vb_connection_basic_fields      = jQuery(vb_connection_basic_fields_ids).closest("tr");
 					var vb_connection_advanced_fields   = jQuery(vb_connection_advanced_fields_ids).closest("tr");
@@ -410,24 +410,24 @@ function woocommerce_victoriabank_init() {
 						vb_notification_advanced_fields.hide();
 					});
 
-					jQuery("#woocommerce_victoriabank_basic_settings").on("click", function() {
+					jQuery("#woocommerce_kinabank_basic_settings").on("click", function() {
 						vb_connection_advanced_fields.hide();
 						vb_connection_basic_fields.show();
 						return false;
 					});
 
-					jQuery("#woocommerce_victoriabank_advanced_settings").on("click", function() {
+					jQuery("#woocommerce_kinabank_advanced_settings").on("click", function() {
 						vb_connection_basic_fields.hide();
 						vb_connection_advanced_fields.show();
 						return false;
 					});
 
-					jQuery("#woocommerce_victoriabank_payment_notification_advanced").on("click", function() {
+					jQuery("#woocommerce_kinabank_payment_notification_advanced").on("click", function() {
 						vb_notification_advanced_fields.show();
 						return false;
 					});
 
-					jQuery("#woocommerce_victoriabank_callback_data_process").on("click", function() {
+					jQuery("#woocommerce_kinabank_callback_data_process").on("click", function() {
 						if(!confirm("' . esc_js(__('Are you sure you want to process the entered bank transaction response callback data?', self::MOD_TEXT_DOMAIN)) . '"))
 							return false;
 
@@ -437,7 +437,7 @@ function woocommerce_victoriabank_init() {
 							return false;
 
 						$this.attr("disabled", true);
-						var callback_data = jQuery("#woocommerce_victoriabank_vb_callback_data").val();
+						var callback_data = jQuery("#woocommerce_kinabank_vb_callback_data").val();
 
 						jQuery.ajax({
 							type: "POST",
@@ -468,11 +468,11 @@ function woocommerce_victoriabank_init() {
 		}
 
 		public function process_admin_options() {
-			unset($_POST['woocommerce_victoriabank_vb_callback_data']);
+			unset($_POST['woocommerce_kinabank_vb_callback_data']);
 
-			$this->process_pem_setting('woocommerce_victoriabank_vb_public_key_pem', $this->vb_public_key_pem, 'woocommerce_victoriabank_vb_public_key', 'pubkey.pem');
-			$this->process_pem_setting('woocommerce_victoriabank_vb_bank_public_key_pem', $this->vb_bank_public_key_pem, 'woocommerce_victoriabank_vb_bank_public_key', 'victoria_pub.pem');
-			$this->process_pem_setting('woocommerce_victoriabank_vb_private_key_pem', $this->vb_private_key_pem, 'woocommerce_victoriabank_vb_private_key', 'key.pem');
+			$this->process_pem_setting('woocommerce_kinabank_vb_public_key_pem', $this->vb_public_key_pem, 'woocommerce_kinabank_vb_public_key', 'pubkey.pem');
+			$this->process_pem_setting('woocommerce_kinabank_vb_bank_public_key_pem', $this->vb_bank_public_key_pem, 'woocommerce_kinabank_vb_bank_public_key', 'victoria_pub.pem');
+			$this->process_pem_setting('woocommerce_kinabank_vb_private_key_pem', $this->vb_private_key_pem, 'woocommerce_kinabank_vb_private_key', 'key.pem');
 
 			return parent::process_admin_options();
 		}
