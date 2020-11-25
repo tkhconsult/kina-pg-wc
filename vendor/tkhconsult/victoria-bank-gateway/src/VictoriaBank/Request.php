@@ -1,13 +1,13 @@
 <?php
 
-namespace Fruitware\VictoriaBankGateway\VictoriaBank;
+namespace TkhConsult\VictoriaBankGateway\VictoriaBank;
 
-use Fruitware\VictoriaBankGateway\VictoriaBankGateway;
+use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
 
 /**
  * Class Request
  *
- * @package Fruitware\VictoriaBankGateway\VictoriaBank
+ * @package TkhConsult\VictoriaBankGateway\VictoriaBank
  */
 abstract class Request implements RequestInterface
 {

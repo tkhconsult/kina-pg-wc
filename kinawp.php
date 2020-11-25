@@ -16,7 +16,7 @@
  */
 
 //Looking to contribute code to this plugin? Go ahead and fork the repository over at GitHub https://github.com/tkhconsult/kinawp
-//This plugin is based on VictoriaBankGateway by Fruitware https://github.com/Fruitware/VictoriaBankGateway (https://packagist.org/packages/fruitware/victoria-bank-gateway)
+//This plugin is based on VictoriaBankGateway by TkhConsult https://github.com/TkhConsult/VictoriaBankGateway (https://packagist.org/packages/tkhconsult/victoria-bank-gateway)
 
 if(!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
@@ -24,9 +24,9 @@ if(!defined('ABSPATH')) {
 
 require_once(__DIR__ . '/vendor/autoload.php');
 
-use Fruitware\VictoriaBankGateway\VictoriaBankGateway;
-use Fruitware\VictoriaBankGateway\VictoriaBank\Exception;
-use Fruitware\VictoriaBankGateway\VictoriaBank\Response;
+use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
+use TkhConsult\VictoriaBankGateway\VictoriaBank\Exception;
+use TkhConsult\VictoriaBankGateway\VictoriaBank\Response;
 
 add_action('plugins_loaded', 'woocommerce_kinabank_init', 0);
 
@@ -66,7 +66,7 @@ function woocommerce_kinabank_init() {
 
 		//e-Commerce Gateway merchant interface (CGI/WWW forms version)
 		//Appendix A: P_SIGN creation/verification in the Merchant System
-		//https://github.com/Fruitware/VictoriaBankGateway/blob/master/doc/e-Gateway_Merchant_CGI_2.1.pdf
+		//https://github.com/TkhConsult/VictoriaBankGateway/blob/master/doc/e-Gateway_Merchant_CGI_2.1.pdf
 		const VB_SIGNATURE_FIRST   = '0001';
 		const VB_SIGNATURE_PREFIX  = '3020300C06082A864886F70D020505000410';
 		const VB_SIGNATURE_PADDING = '00';

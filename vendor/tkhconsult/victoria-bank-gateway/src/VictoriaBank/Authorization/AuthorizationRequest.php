@@ -1,16 +1,16 @@
 <?php
 
-namespace Fruitware\VictoriaBankGateway\VictoriaBank\Authorization;
+namespace TkhConsult\VictoriaBankGateway\VictoriaBank\Authorization;
 
-use Fruitware\VictoriaBankGateway\VictoriaBank\Exception;
-use Fruitware\VictoriaBankGateway\VictoriaBank\Form;
-use Fruitware\VictoriaBankGateway\VictoriaBank\Request;
-use Fruitware\VictoriaBankGateway\VictoriaBankGateway;
+use TkhConsult\VictoriaBankGateway\VictoriaBank\Exception;
+use TkhConsult\VictoriaBankGateway\VictoriaBank\Form;
+use TkhConsult\VictoriaBankGateway\VictoriaBank\Request;
+use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
 
 /**
  * Class AuthorizationRequest
  *
- * @package Fruitware\VictoriaBankGateway\VictoriaBank\Authorization
+ * @package TkhConsult\VictoriaBankGateway\VictoriaBank\Authorization
  */
 class AuthorizationRequest extends Request
 {
@@ -60,7 +60,7 @@ class AuthorizationRequest extends Request
 
     /**
      *
-     * @throws \Fruitware\VictoriaBankGateway\VictoriaBank\Exception
+     * @throws \TkhConsult\VictoriaBankGateway\VictoriaBank\Exception
      */
     protected function init()
     {

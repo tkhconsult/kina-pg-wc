@@ -1,11 +1,11 @@
 <?php
 
-namespace Fruitware\VictoriaBankGateway\VictoriaBank;
+namespace TkhConsult\VictoriaBankGateway\VictoriaBank;
 
 /**
  * Interface ResponseInterface
  *
- * @package Fruitware\VictoriaBankGateway\VictoriaBank
+ * @package TkhConsult\VictoriaBankGateway\VictoriaBank
  */
 interface ResponseInterface
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Fruitware\VictoriaBankGateway\Tests;
+namespace TkhConsult\VictoriaBankGateway\Tests;
 
-use Fruitware\VictoriaBankGateway\VictoriaBankGateway;
+use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
 use PHPUnit_Framework_TestCase;
 
 /**
  * Class VictoriaBankGatewayTest
  *
- * @package Fruitware\VictoriaBankGateway\Tests
+ * @package TkhConsult\VictoriaBankGateway\Tests
  */
 class VictoriaBankGatewayTest extends PHPUnit_Framework_TestCase
 {

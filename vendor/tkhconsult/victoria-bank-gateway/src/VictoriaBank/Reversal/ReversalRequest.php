@@ -1,17 +1,17 @@
 <?php
 
-namespace Fruitware\VictoriaBankGateway\VictoriaBank\Completion;
+namespace TkhConsult\VictoriaBankGateway\VictoriaBank\Reversal;
 
-use Fruitware\VictoriaBankGateway\VictoriaBank\Exception;
-use Fruitware\VictoriaBankGateway\VictoriaBank\Request;
-use Fruitware\VictoriaBankGateway\VictoriaBankGateway;
+use TkhConsult\VictoriaBankGateway\VictoriaBank\Exception;
+use TkhConsult\VictoriaBankGateway\VictoriaBank\Request;
+use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
 
 /**
- * Class CompletionRequest
+ * Class ReversalRequest
  *
- * @package Fruitware\VictoriaBankGateway\VictoriaBank\Completion
+ * @package TkhConsult\VictoriaBankGateway\VictoriaBank\Reversal
  */
-class CompletionRequest extends Request
+class ReversalRequest extends Request
 {
 
     #Sales completion message fields provided by the merchant system
@@ -20,7 +20,7 @@ class CompletionRequest extends Request
     const CURRENCY  = 'CURRENCY';       #Size: 3, Currency name. Must be the same as in authorization response.
     const RRN       = 'RRN';            #Size: 12, Retrieval reference number from authorization response.
     const INT_REF   = 'INT_REF';        #Size: 1-32, Internal reference number from authorization response.
-    const TRTYPE    = 'TRTYPE';         #Size: 2, Must be equal to "21" (Sales completion).
+    const TRTYPE    = 'TRTYPE';         #Size: 2, Must be equal to “24” (Reversal advice)
     const TERMINAL  = 'TERMINAL';       #Size: 8, Merchant terminal ID assigned by bank. Must be equal to "TERMINAL" field from authorization request.
     const TIMESTAMP = 'TIMESTAMP';      #Size: 14, Merchant transaction timestamp in GMT: YYYYMMDDHHMMSS. Timestamp difference between Internet shop and e-Gateway must not exceed 1 hour otherwise e-Gateway will reject this transaction.
     const NONCE     = 'NONCE';          #Size: 1-64, Merchant nonce. Must be filled with 8-32 unpredictable random bytes in hexadecimal format. Must be present if MAC is used.
@@ -41,14 +41,14 @@ class CompletionRequest extends Request
     ];
 
     /**
-     * @return \Fruitware\VictoriaBankGateway\VictoriaBank\Request|void
-     * @throws \Fruitware\VictoriaBankGateway\VictoriaBank\Exception
+     * @return \TkhConsult\VictoriaBankGateway\VictoriaBank\Request|void
+     * @throws \TkhConsult\VictoriaBankGateway\VictoriaBank\Exception
      */
     protected function init()
     {
         parent::init();
         #Set TRX type
-        $this->_requestFields[self::TRTYPE] = VictoriaBankGateway::TRX_TYPE_COMPLETION;
+        $this->_requestFields[self::TRTYPE] = VictoriaBankGateway::TRX_TYPE_REVERSAL;
         #Set TRX signature
         $order                              = $this->_requestFields[self::ORDER];
         $nonce                              = $this->_requestFields[self::NONCE];
@@ -67,34 +67,34 @@ class CompletionRequest extends Request
         if (!isset($this->_requestFields[self::AMOUNT]) || strlen($this->_requestFields[self::AMOUNT]) < 1 || strlen(
                                                                                                                   $this->_requestFields[self::AMOUNT]
                                                                                                               ) > 12) {
-            throw new Exception('Completion request failed: invalid '.self::AMOUNT);
+            throw new Exception('Reversal request failed: invalid '.self::AMOUNT);
         }
         if (!isset($this->_requestFields[self::CURRENCY]) || strlen($this->_requestFields[self::CURRENCY]) != 3) {
-            throw new Exception('Completion request failed: invalid '.self::CURRENCY);
+            throw new Exception('Reversal request failed: invalid '.self::CURRENCY);
         }
         if (!isset($this->_requestFields[self::ORDER]) || strlen($this->_requestFields[self::ORDER]) < 6 || strlen(
                                                                                                                 $this->_requestFields[self::ORDER]
                                                                                                             ) > 32) {
-            throw new Exception('Completion request failed: invalid '.self::ORDER);
+            throw new Exception('Reversal request failed: invalid '.self::ORDER);
         }
         if (!isset($this->_requestFields[self::TERMINAL]) || strlen($this->_requestFields[self::TERMINAL]) != 8) {
-            throw new Exception('Completion request failed: invalid '.self::TERMINAL);
+            throw new Exception('Reversal request failed: invalid '.self::TERMINAL);
         }
         if (!isset($this->_requestFields[self::TIMESTAMP]) || strlen($this->_requestFields[self::TIMESTAMP]) != 14) {
-            throw new Exception('Completion request failed: invalid '.self::TIMESTAMP);
+            throw new Exception('Reversal request failed: invalid '.self::TIMESTAMP);
         }
         if (!isset($this->_requestFields[self::NONCE]) || strlen($this->_requestFields[self::NONCE]) < 20 || strlen(
                                                                                                                  $this->_requestFields[self::NONCE]
                                                                                                              ) > 32) {
-            throw new Exception('Completion request failed: invalid '.self::NONCE);
+            throw new Exception('Reversal request failed: invalid '.self::NONCE);
         }
         if (!isset($this->_requestFields[self::RRN]) || strlen($this->_requestFields[self::RRN]) != 12) {
-            throw new Exception('Completion request failed: invalid '.self::RRN);
+            throw new Exception('Reversal request failed: invalid '.self::RRN);
         }
         if (!isset($this->_requestFields[self::INT_REF]) || strlen($this->_requestFields[self::INT_REF]) < 1 || strlen(
                                                                                                                     $this->_requestFields[self::INT_REF]
                                                                                                                 ) > 32) {
-            throw new Exception('Completion request failed: invalid '.self::INT_REF);
+            throw new Exception('Reversal request failed: invalid '.self::INT_REF);
         }
 
         return $this;
@@ -102,7 +102,7 @@ class CompletionRequest extends Request
 
     /**
      * Prepares the form to be submitted to the payment gateway and performs the redirect
-     * @return bool|string
+     * @return mixed
      */
     public function request()
     {

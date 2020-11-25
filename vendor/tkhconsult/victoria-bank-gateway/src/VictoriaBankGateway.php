@@ -1,16 +1,16 @@
 <?php /** @noinspection ALL */
 
-namespace Fruitware\VictoriaBankGateway;
+namespace TkhConsult\VictoriaBankGateway;
 
 use DateTime;
 use DateTimeZone;
-use Fruitware\VictoriaBankGateway\VictoriaBank;
-use Fruitware\VictoriaBankGateway\VictoriaBank\ResponseInterface;
+use TkhConsult\VictoriaBankGateway\VictoriaBank;
+use TkhConsult\VictoriaBankGateway\VictoriaBank\ResponseInterface;
 
 /**
  * Class VictoriaBankGateway
  *
- * @package Fruitware\VictoriaBankGateway
+ * @package TkhConsult\VictoriaBankGateway
  */
 class VictoriaBankGateway
 {
@@ -103,7 +103,7 @@ class VictoriaBankGateway
      * @param string $certDir
      *
      * @return $this
-     * @throws \Fruitware\VictoriaBankGateway\VictoriaBank\Exception
+     * @throws \TkhConsult\VictoriaBankGateway\VictoriaBank\Exception
      */
     public function configureFromEnv($certDir)
     {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Fruitware\VictoriaBankGateway\VictoriaBank;
+namespace TkhConsult\VictoriaBankGateway\VictoriaBank;
 
-use Fruitware\VictoriaBankGateway\VictoriaBankGateway;
+use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
 
 /**
  * Class Response

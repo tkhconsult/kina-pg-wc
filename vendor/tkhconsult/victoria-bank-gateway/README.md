@@ -1,20 +1,20 @@
 # Welcome to VictoriaBank Merchant e-Commerce Library 👋
 
-[![GitHub issues](https://img.shields.io/github/issues/Fruitware/VictoriaBankGateway)](https://github.com/Fruitware/VictoriaBankGateway/issues)
-[![Version](https://img.shields.io/packagist/v/fruitware/victoria-bank-gateway)](https://packagist.org/packages/fruitware/victoria-bank-gateway)
-![Packagist](https://img.shields.io/packagist/l/fruitware/victoria-bank-gateway)
-[![Donate](https://img.shields.io/badge/donate-PayPal-%2337a556)]( https://paypal.me/fruitware?locale.x=en_US)
+[![GitHub issues](https://img.shields.io/github/issues/TkhConsult/VictoriaBankGateway)](https://github.com/TkhConsult/VictoriaBankGateway/issues)
+[![Version](https://img.shields.io/packagist/v/tkhconsult/victoria-bank-gateway)](https://packagist.org/packages/tkhconsult/victoria-bank-gateway)
+![Packagist](https://img.shields.io/packagist/l/tkhconsult/victoria-bank-gateway)
+[![Donate](https://img.shields.io/badge/donate-PayPal-%2337a556)]( https://paypal.me/tkhconsult?locale.x=en_US)
 
 ---
 
 > Packagist package (library) to give any php-based website an access to the interface of VictoriaBank (Republic Of Moldova) that merchant systems use to process credit card based e- commerce transactions using the standard CGI/WWW forms posting method. This interface transparently supports various cardholder authentication protocols such as 3-D Secure and Secure Code as well as legacy unauthenticated SSL commerce transactions.
 
-#### 🏠 [Homepage](https://github.com/Fruitware/VictoriaBankGateway)
+#### 🏠 [Homepage](https://github.com/TkhConsult/VictoriaBankGateway)
 
 ## Install
 
 ```sh
-composer require fruitware/victoria-bank-gateway
+composer require tkhconsult/victoria-bank-gateway
 ```
 
 ### Requirements
@@ -95,7 +95,7 @@ VICTORIA_BANK_MERCHANT_DEFAULT_LANGUAGE=ro
 ```php
 <?php
 
-use Fruitware\VictoriaBankGateway\VictoriaBankGateway;
+use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
 
 $victoriaBankGateway = new VictoriaBankGateway();
 
@@ -115,7 +115,7 @@ You can reproduce implementation of the configureFromEnv() method
 ```php
 <?php
 
-use Fruitware\VictoriaBankGateway\VictoriaBankGateway;
+use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
 $backRefUrl = getenv('VICTORIA_BANK_MERCHANT_URL').'/after-payment/';
 
 /** @var VictoriaBankGateway $victoriaBankGateway */
@@ -129,10 +129,10 @@ $victoriaBankGateway
 ```php
 <?php
 
-use Fruitware\VictoriaBankGateway\VictoriaBankGateway;
-use Fruitware\VictoriaBankGateway\VictoriaBank\Exception;
-use Fruitware\VictoriaBankGateway\VictoriaBank\Response;
-use Fruitware\VictoriaBankGateway\VictoriaBank\AuthorizationResponse;
+use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
+use TkhConsult\VictoriaBankGateway\VictoriaBank\Exception;
+use TkhConsult\VictoriaBankGateway\VictoriaBank\Response;
+use TkhConsult\VictoriaBankGateway\VictoriaBank\AuthorizationResponse;
 
 /** @var VictoriaBankGateway $victoriaBankGateway */
 $bankResponse = $victoriaBankGateway->getResponseObject($_POST);
@@ -176,7 +176,7 @@ switch ($bankResponse::TRX_TYPE) {
 ```php
 <?php
 
-use Fruitware\VictoriaBankGateway\VictoriaBankGateway;
+use TkhConsult\VictoriaBankGateway\VictoriaBankGateway;
 
 /** @var VictoriaBankGateway $victoriaBankGateway */
 $victoriaBankGateway
@@ -186,17 +186,17 @@ $victoriaBankGateway
 
 ## Author
 
-👤 Lovely handcrafted by **Fruitware team**
+👤 Lovely handcrafted by **TkhConsult team**
 
-* Twitter: [@fruitware](https://twitter.com/fruitware)
-* Github: [@fruitware](https://github.com/fruitware)
+* Twitter: [@tkhconsult](https://twitter.com/tkhconsult)
+* Github: [@tkhconsult](https://github.com/tkhconsult)
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Fruitware/VictoriaBankGateway/issues).
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/TkhConsult/VictoriaBankGateway/issues).
 
 ## Show your support 
 
 Give a ⭐ if this project helped you!
 
-[![Donate](https://img.shields.io/badge/donate-PayPal-%2337a556)]( https://paypal.me/fruitware?locale.x=en_US)
+[![Donate](https://img.shields.io/badge/donate-PayPal-%2337a556)]( https://paypal.me/tkhconsult?locale.x=en_US)

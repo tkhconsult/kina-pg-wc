@@ -1,5 +1,5 @@
 {
-    "name": "fruitware/victoria-bank-gateway",
+    "name": "tkhconsult/victoria-bank-gateway",
     "type": "library",
     "description": "Victoria bank e-Commerce Gateway merchant interface",
     "keywords": [
@@ -8,7 +8,7 @@
         "payment",
         "gateway"
     ],
-    "homepage": "https://github.com/Fruitware/VictoriaBankGateway",
+    "homepage": "https://github.com/TkhConsult/VictoriaBankGateway",
     "license": "MIT",
     "authors": [
         {
@@ -19,7 +19,7 @@
         },
         {
             "name": "Serge Beresnev",
-            "email": "serge@fruitware.ru",
+            "email": "serge@tkhconsult.ru",
             "homepage": "https://github.com/keriat",
             "role": "Developer"
         }
@@ -45,7 +45,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Fruitware\\VictoriaBankGateway\\": "src/"
+            "TkhConsult\\VictoriaBankGateway\\": "src/"
         }
     }
 }

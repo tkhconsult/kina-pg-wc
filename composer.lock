@@ -7,16 +7,16 @@
     "content-hash": "bd79105ba1d9a394a5e8b0a0de9c1b9b",
     "packages": [
         {
-            "name": "fruitware/victoria-bank-gateway",
+            "name": "tkhconsult/victoria-bank-gateway",
             "version": "1.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Fruitware/VictoriaBankGateway.git",
+                "url": "https://github.com/TkhConsult/VictoriaBankGateway.git",
                 "reference": "afef4aac14f8f3d9f8d2fe3d0152af080588a598"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Fruitware/VictoriaBankGateway/zipball/afef4aac14f8f3d9f8d2fe3d0152af080588a598",
+                "url": "https://api.github.com/repos/TkhConsult/VictoriaBankGateway/zipball/afef4aac14f8f3d9f8d2fe3d0152af080588a598",
                 "reference": "afef4aac14f8f3d9f8d2fe3d0152af080588a598",
                 "shasum": ""
             },
@@ -34,7 +34,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Fruitware\\VictoriaBankGateway\\": "src/"
+                    "TkhConsult\\VictoriaBankGateway\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -50,13 +50,13 @@
                 },
                 {
                     "name": "Serge Beresnev",
-                    "email": "serge@fruitware.ru",
+                    "email": "serge@tkhconsult.ru",
                     "homepage": "https://github.com/keriat",
                     "role": "Developer"
                 }
             ],
             "description": "Victoria bank e-Commerce Gateway merchant interface",
-            "homepage": "https://github.com/Fruitware/VictoriaBankGateway",
+            "homepage": "https://github.com/TkhConsult/VictoriaBankGateway",
             "keywords": [
                 "Bank",
                 "gateway",
