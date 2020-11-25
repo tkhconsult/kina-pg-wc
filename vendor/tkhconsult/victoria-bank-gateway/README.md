@@ -1,8 +1,8 @@
 # Welcome to KinaBank Merchant e-Commerce Library 👋
 
 [![GitHub issues](https://img.shields.io/github/issues/TkhConsult/KinaBankGateway)](https://github.com/TkhConsult/KinaBankGateway/issues)
-[![Version](https://img.shields.io/packagist/v/tkhconsult/victoria-bank-gateway)](https://packagist.org/packages/tkhconsult/victoria-bank-gateway)
-![Packagist](https://img.shields.io/packagist/l/tkhconsult/victoria-bank-gateway)
+[![Version](https://img.shields.io/packagist/v/tkhconsult/kina-bank-gateway)](https://packagist.org/packages/tkhconsult/kina-bank-gateway)
+![Packagist](https://img.shields.io/packagist/l/tkhconsult/kina-bank-gateway)
 [![Donate](https://img.shields.io/badge/donate-PayPal-%2337a556)]( https://paypal.me/tkhconsult?locale.x=en_US)
 
 ---
@@ -14,7 +14,7 @@
 ## Install
 
 ```sh
-composer require tkhconsult/victoria-bank-gateway
+composer require tkhconsult/kina-bank-gateway
 ```
 
 ### Requirements
@@ -67,7 +67,7 @@ VICTORIA_BANK_MERCHANT_PUBLIC_KEY=public.pem
 VICTORIA_BANK_MERCHANT_PRIVATE_KEY=private.pem
 
 # The public part of the bank key that P_SIGN is encrypted in the response in PEM format.
-VICTORIA_BANK_MERCHANT_BANK_PUBLIC_KEY=victoria_pub.pem
+VICTORIA_BANK_MERCHANT_BANK_PUBLIC_KEY=kina_pub.pem
 
 # Default Merchant shop timezone
 # Used to calculate the timezone offset sent to KinaBank
@@ -97,10 +97,10 @@ VICTORIA_BANK_MERCHANT_DEFAULT_LANGUAGE=ro
 
 use TkhConsult\KinaBankGateway\KinaBankGateway;
 
-$victoriaBankGateway = new KinaBankGateway();
+$kinaBankGateway = new KinaBankGateway();
 
 $certDir = '/path/to/cert/dir';
-$victoriaBankGateway
+$kinaBankGateway
     ->configureFromEnv($certDir)
 ;
 ```
@@ -118,8 +118,8 @@ You can reproduce implementation of the configureFromEnv() method
 use TkhConsult\KinaBankGateway\KinaBankGateway;
 $backRefUrl = getenv('VICTORIA_BANK_MERCHANT_URL').'/after-payment/';
 
-/** @var KinaBankGateway $victoriaBankGateway */
-$victoriaBankGateway
+/** @var KinaBankGateway $kinaBankGateway */
+$kinaBankGateway
     ->requestAuthorization($orderId = 1, $amount = 1, $backRefUrl, $currency = null, $description = null, $clientEmail = null, $language = null)
 ;
 ```
@@ -134,8 +134,8 @@ use TkhConsult\KinaBankGateway\KinaBank\Exception;
 use TkhConsult\KinaBankGateway\KinaBank\Response;
 use TkhConsult\KinaBankGateway\KinaBank\AuthorizationResponse;
 
-/** @var KinaBankGateway $victoriaBankGateway */
-$bankResponse = $victoriaBankGateway->getResponseObject($_POST);
+/** @var KinaBankGateway $kinaBankGateway */
+$bankResponse = $kinaBankGateway->getResponseObject($_POST);
 
 if (!$bankResponse->isValid()) {
     throw new Exception('Invalid bank Auth response');
@@ -153,7 +153,7 @@ switch ($bankResponse::TRX_TYPE) {
         #
 
         # Funds locked on bank side - transfer the product/service to the customer and request completion
-        $victoriaBankGateway->requestCompletion($amount, $bankOrderCode, $rrn, $intRef, $currency = null);
+        $kinaBankGateway->requestCompletion($amount, $bankOrderCode, $rrn, $intRef, $currency = null);
         break;
 
     case KinaBankGateway::TRX_TYPE_COMPLETION:
@@ -178,8 +178,8 @@ switch ($bankResponse::TRX_TYPE) {
 
 use TkhConsult\KinaBankGateway\KinaBankGateway;
 
-/** @var KinaBankGateway $victoriaBankGateway */
-$victoriaBankGateway
+/** @var KinaBankGateway $kinaBankGateway */
+$kinaBankGateway
     ->requestReversal($orderId = 1, $amount = 1, $rrn = 'xxx', $intRef = 'yyy', $currency = null)
 ;
 ```

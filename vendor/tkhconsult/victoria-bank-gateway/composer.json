@@ -1,9 +1,9 @@
 {
-    "name": "tkhconsult/victoria-bank-gateway",
+    "name": "tkhconsult/kina-bank-gateway",
     "type": "library",
     "description": "Victoria bank e-Commerce Gateway merchant interface",
     "keywords": [
-        "victoria",
+        "kina",
         "bank",
         "payment",
         "gateway"

@@ -16,7 +16,7 @@ class ComposerStaticInit50478dfc75549edea87a587529262f06
     public static $prefixDirsPsr4 = array (
         'TkhConsult\\KinaBankGateway\\' =>
         array (
-            0 => __DIR__ . '/..' . '/tkhconsult/victoria-bank-gateway/src',
+            0 => __DIR__ . '/..' . '/tkhconsult/kina-bank-gateway/src',
         ),
     );
 

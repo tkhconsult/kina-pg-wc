@@ -7,7 +7,7 @@
     "content-hash": "bd79105ba1d9a394a5e8b0a0de9c1b9b",
     "packages": [
         {
-            "name": "tkhconsult/victoria-bank-gateway",
+            "name": "tkhconsult/kina-bank-gateway",
             "version": "1.1.0",
             "source": {
                 "type": "git",
@@ -61,7 +61,7 @@
                 "Bank",
                 "gateway",
                 "payment",
-                "victoria"
+                "kina"
             ],
             "time": "2019-11-26T04:10:48+00:00"
         }

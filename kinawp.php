@@ -16,7 +16,7 @@
  */
 
 //Looking to contribute code to this plugin? Go ahead and fork the repository over at GitHub https://github.com/tkhconsult/kinawp
-//This plugin is based on KinaBankGateway by TkhConsult https://github.com/TkhConsult/KinaBankGateway (https://packagist.org/packages/tkhconsult/victoria-bank-gateway)
+//This plugin is based on KinaBankGateway by TkhConsult https://github.com/TkhConsult/KinaBankGateway (https://packagist.org/packages/tkhconsult/kina-bank-gateway)
 
 if(!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
@@ -297,7 +297,7 @@ function woocommerce_kinabank_init() {
 				'vb_bank_public_key_pem' => array(
 					'title'       => __('Bank public key', self::MOD_TEXT_DOMAIN),
 					'type'        => 'file',
-					'description' => '<code>victoria_pub.pem</code>',
+					'description' => '<code>kina_pub.pem</code>',
 					'custom_attributes' => array(
 						'accept' => '.pem'
 					)
@@ -320,7 +320,7 @@ function woocommerce_kinabank_init() {
 				'vb_bank_public_key' => array(
 					'title'       => __('Bank public key file', self::MOD_TEXT_DOMAIN),
 					'type'        => 'text',
-					'description' => '<code>/path/to/victoria_pub.pem</code>',
+					'description' => '<code>/path/to/kina_pub.pem</code>',
 					'default'     => ''
 				),
 				'vb_private_key'  => array(
@@ -466,7 +466,7 @@ function woocommerce_kinabank_init() {
 			unset($_POST['woocommerce_kinabank_vb_callback_data']);
 
 			$this->process_pem_setting('woocommerce_kinabank_vb_public_key_pem', $this->vb_public_key_pem, 'woocommerce_kinabank_vb_public_key', 'pubkey.pem');
-			$this->process_pem_setting('woocommerce_kinabank_vb_bank_public_key_pem', $this->vb_bank_public_key_pem, 'woocommerce_kinabank_vb_bank_public_key', 'victoria_pub.pem');
+			$this->process_pem_setting('woocommerce_kinabank_vb_bank_public_key_pem', $this->vb_bank_public_key_pem, 'woocommerce_kinabank_vb_bank_public_key', 'kina_pub.pem');
 			$this->process_pem_setting('woocommerce_kinabank_vb_private_key_pem', $this->vb_private_key_pem, 'woocommerce_kinabank_vb_private_key', 'key.pem');
 
 			return parent::process_admin_options();
@@ -563,7 +563,7 @@ function woocommerce_kinabank_init() {
 
 		protected function initialize_keys() {
 			$this->initialize_key($this->vb_public_key, $this->vb_public_key_pem, 'vb_public_key', 'pubkey.pem');
-			$this->initialize_key($this->vb_bank_public_key, $this->vb_bank_public_key_pem, 'vb_bank_public_key', 'victoria_pub.pem');
+			$this->initialize_key($this->vb_bank_public_key, $this->vb_bank_public_key_pem, 'vb_bank_public_key', 'kina_pub.pem');
 			$this->initialize_key($this->vb_private_key, $this->vb_private_key_pem, 'vb_private_key', 'key.pem');
 		}
 
@@ -678,13 +678,13 @@ function woocommerce_kinabank_init() {
 		#endregion
 
 		protected function init_vb_client() {
-			$victoriaBankGateway = new KinaBankGateway();
+			$kinaBankGateway = new KinaBankGateway();
 
 			$gatewayUrl = ($this->testmode ? 'https://ecomt.kinabank.md/cgi-bin/cgi_link' : 'https://egateway.kinabank.md/cgi-bin/cgi_link'); #ALT TEST vb19.kinabank.md
 			$sslVerify  = !$this->testmode;
 
 			//Set basic info
-			$victoriaBankGateway
+			$kinaBankGateway
 				->setGatewayUrl($gatewayUrl)
 				->setSslVerify($sslVerify)
 				->setMerchantId($this->vb_merchant_id)
@@ -699,7 +699,7 @@ function woocommerce_kinabank_init() {
 				//->setDebug($this->debug)
 
 			//Set security options - provided by the bank
-			$victoriaBankGateway->setSecurityOptions(
+			$kinaBankGateway->setSecurityOptions(
 				self::VB_SIGNATURE_FIRST,
 				self::VB_SIGNATURE_PREFIX,
 				self::VB_SIGNATURE_PADDING,
@@ -708,7 +708,7 @@ function woocommerce_kinabank_init() {
 				$this->vb_bank_public_key,
 				$this->vb_private_key_pass);
 
-			return $victoriaBankGateway;
+			return $kinaBankGateway;
 		}
 
 		public function process_payment($order_id) {
@@ -799,8 +799,8 @@ function woocommerce_kinabank_init() {
 			//Funds locked on bank side - transfer the product/service to the customer and request completion
 			$validate_result = false;
 			try {
-				$victoriaBankGateway = $this->init_vb_client();
-				$completion_result = $victoriaBankGateway->requestCompletion($order_id, $order_total, $rrn, $intRef, $order_currency);
+				$kinaBankGateway = $this->init_vb_client();
+				$completion_result = $kinaBankGateway->requestCompletion($order_id, $order_total, $rrn, $intRef, $order_currency);
 				$validate_result = self::validate_response_form($completion_result);
 			} catch(Exception $ex) {
 				$this->log($ex, WC_Log_Levels::ERROR);
@@ -839,8 +839,8 @@ function woocommerce_kinabank_init() {
 
 			$validate_result = false;
 			try {
-				$victoriaBankGateway = $this->init_vb_client();
-				$reversal_result = $victoriaBankGateway->requestReversal($order_id, $amount, $rrn, $intRef, $order_currency);
+				$kinaBankGateway = $this->init_vb_client();
+				$reversal_result = $kinaBankGateway->requestReversal($order_id, $amount, $rrn, $intRef, $order_currency);
 				$validate_result = self::validate_response_form($reversal_result);
 			} catch(Exception $ex) {
 				$this->log($ex, WC_Log_Levels::ERROR);
@@ -953,8 +953,8 @@ function woocommerce_kinabank_init() {
 			$this->log(sprintf('%1$s: %2$s', __FUNCTION__, self::print_var($vbdata)));
 
 			try {
-				$victoriaBankGateway = $this->init_vb_client();
-				$bankResponse = $victoriaBankGateway->getResponseObject($vbdata);
+				$kinaBankGateway = $this->init_vb_client();
+				$bankResponse = $kinaBankGateway->getResponseObject($vbdata);
 				$check_result = $bankResponse->isValid();
 			} catch(Exception $ex) {
 				$this->log($ex, WC_Log_Levels::ERROR);
@@ -1214,8 +1214,8 @@ function woocommerce_kinabank_init() {
 			$backRefUrl = add_query_arg(self::VB_ORDER_ID, urlencode($order_id), $this->get_redirect_url());
 
 			//Request payment authorization - redirects to the banks page
-			$victoriaBankGateway = $this->init_vb_client();
-			$victoriaBankGateway->requestAuthorization(
+			$kinaBankGateway = $this->init_vb_client();
+			$kinaBankGateway->requestAuthorization(
 				$order_id,
 				$order_total,
 				$backRefUrl,

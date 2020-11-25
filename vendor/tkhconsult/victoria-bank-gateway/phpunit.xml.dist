@@ -43,7 +43,7 @@
         <env name="VICTORIA_BANK_SECURITY_SIGNATURE_PADDING" value="00"/>
         <env name="VICTORIA_BANK_MERCHANT_PUBLIC_KEY`" value="public.pem"/>
         <env name="VICTORIA_BANK_MERCHANT_PRIVATE_KEY`" value="private.pem"/>
-        <env name="VICTORIA_BANK_MERCHANT_BANK_PUBLIC_KEY`" value="victoria_pub.pem"/>
+        <env name="VICTORIA_BANK_MERCHANT_BANK_PUBLIC_KEY`" value="kina_pub.pem"/>
         <env name="VICTORIA_BANK_MERCHANT_TIMEZONE_NAME`" value="Europe/Chisinau"/>
         <env name="VICTORIA_BANK_MERCHANT_COUNTRY_CODE`" value="MD"/>
         <env name="VICTORIA_BANK_MERCHANT_DEFAULT_CURRENCY`" value="MDL"/>

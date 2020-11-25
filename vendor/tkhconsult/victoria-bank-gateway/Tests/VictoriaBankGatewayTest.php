@@ -13,8 +13,8 @@ use PHPUnit_Framework_TestCase;
 class KinaBankGatewayTest extends PHPUnit_Framework_TestCase
 {
     public function testInit() {
-        $victoriaBankGatewayTest =  new KinaBankGateway();
-        $victoriaBankGatewayTest
+        $kinaBankGatewayTest =  new KinaBankGateway();
+        $kinaBankGatewayTest
             ->configureFromEnv(__DIR__.'/certificates')
             ->setDebug(false)
             ->setDefaultLanguage('en')
