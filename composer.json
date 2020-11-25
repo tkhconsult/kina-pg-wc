@@ -1,8 +1,8 @@
 {
     "name": "tkhconsult/kinawp",
-    "description": "WooCommerce Victoriabank Payment Gateway",
+    "description": "WooCommerce Kinabank Payment Gateway",
     "type": "wordpress-plugin",
-    "keywords": ["WooCommerce", "Moldova", "Victoriabank", "VB", "payment", "gateway"],
+    "keywords": ["WooCommerce", "Moldova", "Kinabank", "VB", "payment", "gateway"],
     "homepage": "https://github.com/tkhconsult/kinawp",
     "license": "GPL-3.0-or-later",
     "authors": [

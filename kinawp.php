@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: WooCommerce Victoriabank Payment Gateway
- * Description: WooCommerce Payment Gateway for Victoriabank
+ * Plugin Name: WooCommerce Kinabank Payment Gateway
+ * Description: WooCommerce Payment Gateway for Kinabank
  * Plugin URI: https://github.com/tkhconsult/kinawp
  * Version: 1.3.1
  * Author: tkhconsult
@@ -41,7 +41,7 @@ function woocommerce_kinabank_init() {
 
 		#region Constants
 		const MOD_ID          = 'kinabank';
-		const MOD_TITLE       = 'Victoriabank';
+		const MOD_TITLE       = 'Kinabank';
 		const MOD_PREFIX      = 'vb_';
 		const MOD_TEXT_DOMAIN = 'kinawp';
 
@@ -79,7 +79,7 @@ function woocommerce_kinabank_init() {
 
 			$this->id                 = self::MOD_ID;
 			$this->method_title       = self::MOD_TITLE;
-			$this->method_description = 'WooCommerce Payment Gateway for Victoriabank';
+			$this->method_description = 'WooCommerce Payment Gateway for Kinabank';
 			$this->icon               = apply_filters('woocommerce_kinabank_icon', $plugin_dir . 'assets/img/kinabank.png');
 			$this->has_fields         = false;
 			$this->supports           = array('products', 'refunds');
