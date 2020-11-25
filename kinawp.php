@@ -4,10 +4,7 @@
  * Description: WooCommerce Payment Gateway for Victoriabank
  * Plugin URI: https://github.com/tkhconsult/kinawp
  * Version: 1.3.1
- * Author: Alexander Minza
- * Author URI: https://profiles.wordpress.org/alexminza
- * Developer: Alexander Minza
- * Developer URI: https://profiles.wordpress.org/alexminza
+ * Author: tkhconsult
  * Text Domain: kinawp
  * Domain Path: /languages
  * License: GPLv3 or later
