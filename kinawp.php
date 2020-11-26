@@ -283,14 +283,6 @@ function woocommerce_kinabank_init() {
 						__('Advanced settings&raquo;', self::MOD_TEXT_DOMAIN)),
 					'type'        => 'title'
 				),
-				'kb_prod_key_file' => array(
-					'title'       => __('PROD key', self::MOD_TEXT_DOMAIN),
-					'type'        => 'file',
-					'description' => '<code>prod.key</code>',
-					'custom_attributes' => array(
-						'accept' => '.key'
-					)
-				),
 				'kb_test_key_file' => array(
 					'title'       => __('TEST key', self::MOD_TEXT_DOMAIN),
 					'type'        => 'file',
@@ -299,19 +291,26 @@ function woocommerce_kinabank_init() {
 						'accept' => '.key'
 					)
 				),
-
-				'kb_prod_key'   => array(
-					'title'       => __('PROD key file', self::MOD_TEXT_DOMAIN),
-					'type'        => 'text',
-					'description' => '<code>/path/to/prod.key</code>',
-					'default'     => ''
-				),
+                'kb_prod_key_file' => array(
+                    'title'       => __('PROD key', self::MOD_TEXT_DOMAIN),
+                    'type'        => 'file',
+                    'description' => '<code>prod.key</code>',
+                    'custom_attributes' => array(
+                        'accept' => '.key'
+                    )
+                ),
 				'kb_test_key'  => array(
 					'title'       => __('TEST key file', self::MOD_TEXT_DOMAIN),
 					'type'        => 'text',
 					'description' => '<code>/path/to/test.key</code>',
 					'default'     => ''
 				),
+                'kb_prod_key'   => array(
+                    'title'       => __('PROD key file', self::MOD_TEXT_DOMAIN),
+                    'type'        => 'text',
+                    'description' => '<code>/path/to/prod.key</code>',
+                    'default'     => ''
+                ),
 				'payment_notification' => array(
 					'title'       => __('Payment Notification', self::MOD_TEXT_DOMAIN),
 					'description' => __('Provide this URL to the bank to enable online payment notifications.', self::MOD_TEXT_DOMAIN),
