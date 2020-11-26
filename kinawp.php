@@ -117,7 +117,6 @@ function woocommerce_kinabank_init() {
 
 			$this->kb_prod_key_file      = $this->get_option('kb_prod_key_file');
 			$this->kb_test_key_file     = $this->get_option('kb_test_key_file');
-			$this->kb_test_key_pass    = $this->get_option('kb_test_key_pass');
 
 			$this->kb_prod_key        = $this->get_option('kb_prod_key');
 			$this->kb_test_key       = $this->get_option('kb_test_key');
@@ -367,8 +366,8 @@ function woocommerce_kinabank_init() {
 
 			wc_enqueue_js('
 				jQuery(function() {
-					var kb_connection_basic_fields_ids      = "#woocommerce_kinabank_kb_prod_key_file, #woocommerce_kinabank_kb_test_key_file, #woocommerce_kinabank_kb_test_key_pass";
-					var kb_connection_advanced_fields_ids   = "#woocommerce_kinabank_kb_prod_key, #woocommerce_kinabank_kb_test_key, #woocommerce_kinabank_kb_test_key_pass";
+					var kb_connection_basic_fields_ids      = "#woocommerce_kinabank_kb_prod_key_file, #woocommerce_kinabank_kb_test_key_file";
+					var kb_connection_advanced_fields_ids   = "#woocommerce_kinabank_kb_prod_key, #woocommerce_kinabank_kb_test_key";
 					var kb_notification_advanced_fields_ids = "#woocommerce_kinabank_kb_callback_data";
 
 					var kb_connection_basic_fields      = jQuery(kb_connection_basic_fields_ids).closest("tr");
@@ -476,7 +475,7 @@ function woocommerce_kinabank_init() {
 				$validate_result = false;
 			}
 
-			$result = $this->validate_test_key($this->kb_test_key, $this->kb_test_key_pass);
+			$result = $this->validate_test_key($this->kb_test_key);
 			if(!self::string_empty($result)) {
 				$this->add_error(sprintf('<strong>%1$s</strong>: %2$s', __('TEST key file', self::MOD_TEXT_DOMAIN), $result));
 				$validate_result = false;
