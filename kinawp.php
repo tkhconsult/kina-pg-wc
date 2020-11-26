@@ -284,7 +284,7 @@ function woocommerce_kinabank_init() {
 					'type'        => 'title'
 				),
 				'kb_test_key_file' => array(
-					'title'       => __('TEST key', self::MOD_TEXT_DOMAIN),
+					'title'       => __('MAC secret key file for TEST', self::MOD_TEXT_DOMAIN),
 					'type'        => 'file',
 					'description' => '<code>test.key</code>',
 					'custom_attributes' => array(
@@ -292,7 +292,7 @@ function woocommerce_kinabank_init() {
 					)
 				),
                 'kb_prod_key_file' => array(
-                    'title'       => __('PROD key', self::MOD_TEXT_DOMAIN),
+                    'title'       => __('MAC secret key file for PROD', self::MOD_TEXT_DOMAIN),
                     'type'        => 'file',
                     'description' => '<code>prod.key</code>',
                     'custom_attributes' => array(
@@ -300,13 +300,13 @@ function woocommerce_kinabank_init() {
                     )
                 ),
 				'kb_test_key'  => array(
-					'title'       => __('TEST key file', self::MOD_TEXT_DOMAIN),
+					'title'       => __('MAC secret key path for TEST', self::MOD_TEXT_DOMAIN),
 					'type'        => 'text',
 					'description' => '<code>/path/to/test.key</code>',
 					'default'     => ''
 				),
                 'kb_prod_key'   => array(
-                    'title'       => __('PROD key file', self::MOD_TEXT_DOMAIN),
+                    'title'       => __('MAC secret key path for PROD', self::MOD_TEXT_DOMAIN),
                     'type'        => 'text',
                     'description' => '<code>/path/to/prod.key</code>',
                     'default'     => ''
