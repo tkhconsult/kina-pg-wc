@@ -380,11 +380,10 @@ class KinaBankGateway
      * @param        $signaturePadding
      * @param        $publicKeyPath
      * @param        $testKeyPath
-     * @param string $testKeyPass
      *
      * @return $this
      */
-    public function setSecurityOptions($signatureFirst, $signaturePrefix, $signaturePadding, $publicKeyPath, $testKeyPath, $testKeyPass='')
+    public function setSecurityOptions($signatureFirst, $signaturePrefix, $signaturePadding, $publicKeyPath, $testKeyPath)
     {
         #Request security options
         KinaBank\Request::$signatureFirst   = $signatureFirst;
@@ -392,7 +391,6 @@ class KinaBankGateway
         KinaBank\Request::$signaturePadding = $signaturePadding;
         KinaBank\Request::$publicKeyPath    = $publicKeyPath;
         KinaBank\Request::$testKeyPath   = $testKeyPath;
-        KinaBank\Request::$testKeyPass   = $testKeyPass;
         #Response security options
         KinaBank\Response::$signaturePrefix   = $signaturePrefix;
 

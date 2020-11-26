@@ -189,9 +189,6 @@ abstract class Request implements RequestInterface
             'TRTYPE' => $trType,
             'AMOUNT' => KinaBankGateway::normalizeAmount($amount),
         ];
-        if (!$rsaKeyResource = openssl_get_privatekey($rsaKey, self::$testKeyPass)) {
-            die ('Failed get test key');
-        }
         $rsaKeyDetails = openssl_pkey_get_details($rsaKeyResource);
         $rsaKeyLength  = $rsaKeyDetails['bits'] / 8;
         foreach ($data as $Id => $filed) {
