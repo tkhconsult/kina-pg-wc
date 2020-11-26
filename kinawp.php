@@ -560,12 +560,8 @@ function woocommerce_kinabank_init() {
 					return $validateResult;
 
 				$keyData = file_get_contents($keyFile);
-				$publicKey = openssl_pkey_get_public($keyData);
 
-				if(false !== $publicKey) {
-					openssl_pkey_free($publicKey);
-				} else {
-					$this->log_openssl_errors();
+				if($keyData == '') {
 					return __('Invalid public key', self::MOD_TEXT_DOMAIN);
 				}
 			} catch(Exception $ex) {
@@ -671,8 +667,7 @@ function woocommerce_kinabank_init() {
 				self::KB_SIGNATURE_PREFIX,
 				self::KB_SIGNATURE_PADDING,
 				$this->kb_prod_key,
-				$this->kb_test_key,
-				$this->kb_test_key_pass);
+				$this->kb_test_key);
 
 			return $kinaBankGateway;
 		}
