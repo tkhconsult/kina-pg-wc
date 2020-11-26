@@ -313,14 +313,6 @@ function woocommerce_kinabank_init() {
 					'description' => '<code>/path/to/test.key</code>',
 					'default'     => ''
 				),
-				'kb_test_key_pass' => array(
-					'title'       => __('TEST key passphrase', self::MOD_TEXT_DOMAIN),
-					'type'        => 'password',
-					'desc_tip'    => __('Leave empty if private key is not encrypted.', self::MOD_TEXT_DOMAIN),
-					'placeholder' => __('Optional', self::MOD_TEXT_DOMAIN),
-					'default'     => ''
-				),
-
 				'payment_notification' => array(
 					'title'       => __('Payment Notification', self::MOD_TEXT_DOMAIN),
 					'description' => __('Provide this URL to the bank to enable online payment notifications.', self::MOD_TEXT_DOMAIN),
@@ -582,14 +574,14 @@ function woocommerce_kinabank_init() {
 			}
 		}
 
-		protected function validate_test_key($keyFile, $keyPassphrase) {
+		protected function validate_test_key($keyFile) {
 			try {
 				$validateResult = $this->validate_file($keyFile);
 				if(!self::string_empty($validateResult))
 					return $validateResult;
 
 				$keyData = file_get_contents($keyFile);
-				$testKey = openssl_pkey_get_test($keyData, $keyPassphrase);
+				$testKey = '';
 
 				if(false !== $testKey) {
 					openssl_pkey_free($testKey);

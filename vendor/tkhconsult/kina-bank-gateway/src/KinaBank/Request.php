@@ -42,12 +42,6 @@ abstract class Request implements RequestInterface
     static public $testKeyPath;
 
     /**
-     * TEST key passphrase
-     * @var string
-     */
-    static public $testKeyPass;
-
-    /**
      * @var bool
      */
     protected $_debugMode = false;
