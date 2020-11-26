@@ -42,7 +42,7 @@ abstract class Request implements RequestInterface
     static public $privateKeyPath;
 
     /**
-     * Private key passphrase
+     * TEST key passphrase
      * @var string
      */
     static public $privateKeyPass;
@@ -186,7 +186,7 @@ abstract class Request implements RequestInterface
             throw new Exception('Failed to generate transaction signature: Invalid request params');
         }
         if (!file_exists(self::$privateKeyPath) || !$rsaKey = file_get_contents(self::$privateKeyPath)) {
-            throw new Exception('Failed to generate transaction signature: Private key not accessible');
+            throw new Exception('Failed to generate transaction signature: TEST key not accessible');
         }
         $data = [
             'ORDER' => KinaBankGateway::normalizeOrderId($order),

@@ -167,7 +167,7 @@ msgid "Bank public key"
 msgstr ""
 
 #: kinawp.php:311
-msgid "Private key"
+msgid "TEST key"
 msgstr ""
 
 #: kinawp.php:320 kinawp.php:506
@@ -179,11 +179,11 @@ msgid "Bank public key file"
 msgstr ""
 
 #: kinawp.php:332 kinawp.php:518
-msgid "Private key file"
+msgid "TEST key file"
 msgstr ""
 
 #: kinawp.php:338
-msgid "Private key passphrase"
+msgid "TEST key passphrase"
 msgstr ""
 
 #: kinawp.php:340

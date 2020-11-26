@@ -303,7 +303,7 @@ function woocommerce_kinabank_init() {
 					)
 				),
 				'kb_test_key_pem' => array(
-					'title'       => __('Private key', self::MOD_TEXT_DOMAIN),
+					'title'       => __('TEST key', self::MOD_TEXT_DOMAIN),
 					'type'        => 'file',
 					'description' => '<code>test.key</code>',
 					'custom_attributes' => array(
@@ -324,13 +324,13 @@ function woocommerce_kinabank_init() {
 					'default'     => ''
 				),
 				'kb_test_key'  => array(
-					'title'       => __('Private key file', self::MOD_TEXT_DOMAIN),
+					'title'       => __('TEST key file', self::MOD_TEXT_DOMAIN),
 					'type'        => 'text',
 					'description' => '<code>/path/to/test.key</code>',
 					'default'     => ''
 				),
 				'kb_test_key_pass' => array(
-					'title'       => __('Private key passphrase', self::MOD_TEXT_DOMAIN),
+					'title'       => __('TEST key passphrase', self::MOD_TEXT_DOMAIN),
 					'type'        => 'password',
 					'desc_tip'    => __('Leave empty if private key is not encrypted.', self::MOD_TEXT_DOMAIN),
 					'placeholder' => __('Optional', self::MOD_TEXT_DOMAIN),
@@ -510,7 +510,7 @@ function woocommerce_kinabank_init() {
 
 			$result = $this->validate_test_key($this->kb_test_key, $this->kb_test_key_pass);
 			if(!self::string_empty($result)) {
-				$this->add_error(sprintf('<strong>%1$s</strong>: %2$s', __('Private key file', self::MOD_TEXT_DOMAIN), $result));
+				$this->add_error(sprintf('<strong>%1$s</strong>: %2$s', __('TEST key file', self::MOD_TEXT_DOMAIN), $result));
 				$validate_result = false;
 			}
 
