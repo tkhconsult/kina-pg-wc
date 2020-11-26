@@ -191,9 +191,3 @@ $kinaBankGateway
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/TkhConsult/KinaBankGateway/issues).
-
-## Show your support 
-
-Give a ⭐ if this project helped you!
-
-[![Donate](https://img.shields.io/badge/donate-PayPal-%2337a556)]( https://paypal.me/tkhconsult?locale.x=en_US)
