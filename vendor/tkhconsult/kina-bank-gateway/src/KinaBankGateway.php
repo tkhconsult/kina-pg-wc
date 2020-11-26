@@ -124,7 +124,7 @@ class KinaBankGateway
         $signaturePrefix   = getenv('KINA_BANK_SECURITY_SIGNATURE_PREFIX');
         $signaturePadding  = getenv('KINA_BANK_SECURITY_SIGNATURE_PADDING');
         $publicKeyPath     = $certDir.'/'.getenv('KINA_BANK_MERCHANT_PROD_KEY');
-        $privateKeyPath    = $certDir.'/'.getenv('KINA_BANK_MERCHANT_PRIVATE_KEY');
+        $privateKeyPath    = $certDir.'/'.getenv('KINA_BANK_MERCHANT_TEST_KEY');
         $bankProdKeyPath = $certDir.'/'.getenv('KINA_BANK_MERCHANT_BANK_PROD_KEY');
         $this
             ->setSecurityOptions($signatureFirst, $signaturePrefix, $signaturePadding, $publicKeyPath, $privateKeyPath, $bankProdKeyPath);

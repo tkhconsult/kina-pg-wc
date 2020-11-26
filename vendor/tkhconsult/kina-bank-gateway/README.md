@@ -64,7 +64,7 @@ KINA_BANK_SECURITY_SIGNATURE_PADDING='00'
 KINA_BANK_MERCHANT_PROD_KEY=public.pem
 
 # Merchant private rsa key
-KINA_BANK_MERCHANT_PRIVATE_KEY=private.pem
+KINA_BANK_MERCHANT_TEST_KEY=private.pem
 
 # The public part of the bank key that P_SIGN is encrypted in the response in PEM format.
 KINA_BANK_MERCHANT_BANK_PROD_KEY=kina_pub.pem
