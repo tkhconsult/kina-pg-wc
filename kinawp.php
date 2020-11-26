@@ -116,10 +116,10 @@ function woocommerce_kinabank_init() {
 			$this->kb_merchant_address  = $this->get_option('kb_merchant_address');
 
 			$this->kb_prod_key_file      = $this->get_option('kb_prod_key_file');
-			$this->kb_test_key_file     = $this->get_option('kb_test_key_file');
+			$this->kb_test_key_file      = $this->get_option('kb_test_key_file');
 
-			$this->kb_prod_key        = $this->get_option('kb_prod_key');
-			$this->kb_test_key       = $this->get_option('kb_test_key');
+			$this->kb_prod_key           = $this->get_option('kb_prod_key');
+			$this->kb_test_key           = $this->get_option('kb_test_key');
 			#endregion
 
 			$this->initialize_keys();
