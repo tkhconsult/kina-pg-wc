@@ -43,7 +43,6 @@
         <env name="KINA_BANK_SECURITY_SIGNATURE_PADDING" value="00"/>
         <env name="KINA_BANK_MERCHANT_PROD_KEY`" value="public.key"/>
         <env name="KINA_BANK_MERCHANT_TEST_KEY`" value="test.key"/>
-        <env name="KINA_BANK_MERCHANT_BANK_PROD_KEY`" value="kina_pub.key"/>
         <env name="KINA_BANK_MERCHANT_TIMEZONE_NAME`" value="Europe/Chisinau"/>
         <env name="KINA_BANK_MERCHANT_COUNTRY_CODE`" value="MD"/>
         <env name="KINA_BANK_MERCHANT_DEFAULT_CURRENCY`" value="MDL"/>
