@@ -61,13 +61,13 @@ KINA_BANK_SECURITY_SIGNATURE_PREFIX='A00B00C00D00EA864886F70D020505000410'
 KINA_BANK_SECURITY_SIGNATURE_PADDING='00'
 
 # Merchant public rsa key
-KINA_BANK_MERCHANT_PUBLIC_KEY=public.pem
+KINA_BANK_MERCHANT_PROD_KEY=public.pem
 
 # Merchant private rsa key
 KINA_BANK_MERCHANT_PRIVATE_KEY=private.pem
 
 # The public part of the bank key that P_SIGN is encrypted in the response in PEM format.
-KINA_BANK_MERCHANT_BANK_PUBLIC_KEY=kina_pub.pem
+KINA_BANK_MERCHANT_BANK_PROD_KEY=kina_pub.pem
 
 # Default Merchant shop timezone
 # Used to calculate the timezone offset sent to KinaBank
