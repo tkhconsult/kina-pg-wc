@@ -159,7 +159,7 @@ msgid "Advanced settings&raquo;"
 msgstr ""
 
 #: kinawp.php:295
-msgid "Public key"
+msgid "PROD key"
 msgstr ""
 
 #: kinawp.php:303
@@ -171,7 +171,7 @@ msgid "Private key"
 msgstr ""
 
 #: kinawp.php:320 kinawp.php:506
-msgid "Public key file"
+msgid "PROD key file"
 msgstr ""
 
 #: kinawp.php:326 kinawp.php:512

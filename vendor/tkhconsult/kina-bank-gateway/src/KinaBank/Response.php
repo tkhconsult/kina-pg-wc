@@ -10,7 +10,7 @@ use TkhConsult\KinaBankGateway\KinaBankGateway;
 abstract class Response implements ResponseInterface
 {
     /**
-     * Public key is provided by KinaBank
+     * PROD key is provided by KinaBank
      * @var string
      */
     static public $bankPublicKeyPath;

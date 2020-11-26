@@ -287,7 +287,7 @@ function woocommerce_kinabank_init() {
 					'type'        => 'title'
 				),
 				'kb_prod_key_pem' => array(
-					'title'       => __('Public key', self::MOD_TEXT_DOMAIN),
+					'title'       => __('PROD key', self::MOD_TEXT_DOMAIN),
 					'type'        => 'file',
 					'description' => '<code>pubkey.pem</code>',
 					'custom_attributes' => array(
@@ -312,7 +312,7 @@ function woocommerce_kinabank_init() {
 				),
 
 				'kb_prod_key'   => array(
-					'title'       => __('Public key file', self::MOD_TEXT_DOMAIN),
+					'title'       => __('PROD key file', self::MOD_TEXT_DOMAIN),
 					'type'        => 'text',
 					'description' => '<code>/path/to/pubkey.pem</code>',
 					'default'     => ''
@@ -498,7 +498,7 @@ function woocommerce_kinabank_init() {
 
 			$result = $this->validate_prod_key($this->kb_prod_key);
 			if(!self::string_empty($result)) {
-				$this->add_error(sprintf('<strong>%1$s</strong>: %2$s', __('Public key file', self::MOD_TEXT_DOMAIN), $result));
+				$this->add_error(sprintf('<strong>%1$s</strong>: %2$s', __('PROD key file', self::MOD_TEXT_DOMAIN), $result));
 				$validate_result = false;
 			}
 
