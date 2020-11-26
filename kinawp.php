@@ -289,9 +289,9 @@ function woocommerce_kinabank_init() {
 				'kb_prod_key_pem' => array(
 					'title'       => __('PROD key', self::MOD_TEXT_DOMAIN),
 					'type'        => 'file',
-					'description' => '<code>pubkey.pem</code>',
+					'description' => '<code>prod.key</code>',
 					'custom_attributes' => array(
-						'accept' => '.pem'
+						'accept' => '.key'
 					)
 				),
 				'kb_bank_prod_key_pem' => array(
@@ -305,16 +305,16 @@ function woocommerce_kinabank_init() {
 				'kb_private_key_pem' => array(
 					'title'       => __('Private key', self::MOD_TEXT_DOMAIN),
 					'type'        => 'file',
-					'description' => '<code>key.pem</code>',
+					'description' => '<code>test.key</code>',
 					'custom_attributes' => array(
-						'accept' => '.pem'
+						'accept' => '.key'
 					)
 				),
 
 				'kb_prod_key'   => array(
 					'title'       => __('PROD key file', self::MOD_TEXT_DOMAIN),
 					'type'        => 'text',
-					'description' => '<code>/path/to/pubkey.pem</code>',
+					'description' => '<code>/path/to/prod.key</code>',
 					'default'     => ''
 				),
 				'kb_bank_prod_key' => array(
@@ -326,7 +326,7 @@ function woocommerce_kinabank_init() {
 				'kb_private_key'  => array(
 					'title'       => __('Private key file', self::MOD_TEXT_DOMAIN),
 					'type'        => 'text',
-					'description' => '<code>/path/to/key.pem</code>',
+					'description' => '<code>/path/to/test.key</code>',
 					'default'     => ''
 				),
 				'kb_private_key_pass' => array(
