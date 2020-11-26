@@ -576,13 +576,9 @@ function woocommerce_kinabank_init() {
 					return $validateResult;
 
 				$keyData = file_get_contents($keyFile);
-				$testKey = '';
 
-				if(false !== $testKey) {
-					openssl_pkey_free($testKey);
-				} else {
-					$this->log_openssl_errors();
-					return __('Invalid test key or wrong test key passphrase', self::MOD_TEXT_DOMAIN);
+				if($keyData == '') {
+					return __('Invalid test key', self::MOD_TEXT_DOMAIN);
 				}
 			} catch(Exception $ex) {
 				$this->log($ex, WC_Log_Levels::ERROR);
