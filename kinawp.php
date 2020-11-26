@@ -116,13 +116,11 @@ function woocommerce_kinabank_init() {
 			$this->kb_merchant_address  = $this->get_option('kb_merchant_address');
 
 			$this->kb_prod_key_file      = $this->get_option('kb_prod_key_file');
-			$this->kb_bank_prod_key_file = $this->get_option('kb_bank_prod_key_file');
 			$this->kb_test_key_file     = $this->get_option('kb_test_key_file');
 			$this->kb_test_key_pass    = $this->get_option('kb_test_key_pass');
 
 			$this->kb_prod_key        = $this->get_option('kb_prod_key');
 			$this->kb_test_key       = $this->get_option('kb_test_key');
-			$this->kb_bank_prod_key   = $this->get_option('kb_bank_prod_key');
 			#endregion
 
 			$this->initialize_keys();
@@ -294,14 +292,6 @@ function woocommerce_kinabank_init() {
 						'accept' => '.key'
 					)
 				),
-				'kb_bank_prod_key_file' => array(
-					'title'       => __('Bank public key', self::MOD_TEXT_DOMAIN),
-					'type'        => 'file',
-					'description' => '<code>kina_pub.key</code>',
-					'custom_attributes' => array(
-						'accept' => '.key'
-					)
-				),
 				'kb_test_key_file' => array(
 					'title'       => __('TEST key', self::MOD_TEXT_DOMAIN),
 					'type'        => 'file',
@@ -315,12 +305,6 @@ function woocommerce_kinabank_init() {
 					'title'       => __('PROD key file', self::MOD_TEXT_DOMAIN),
 					'type'        => 'text',
 					'description' => '<code>/path/to/prod.key</code>',
-					'default'     => ''
-				),
-				'kb_bank_prod_key' => array(
-					'title'       => __('Bank public key file', self::MOD_TEXT_DOMAIN),
-					'type'        => 'text',
-					'description' => '<code>/path/to/kina_pub.key</code>',
 					'default'     => ''
 				),
 				'kb_test_key'  => array(
@@ -391,8 +375,8 @@ function woocommerce_kinabank_init() {
 
 			wc_enqueue_js('
 				jQuery(function() {
-					var kb_connection_basic_fields_ids      = "#woocommerce_kinabank_kb_prod_key_file, #woocommerce_kinabank_kb_bank_prod_key_file, #woocommerce_kinabank_kb_test_key_file, #woocommerce_kinabank_kb_test_key_pass";
-					var kb_connection_advanced_fields_ids   = "#woocommerce_kinabank_kb_prod_key, #woocommerce_kinabank_kb_bank_prod_key, #woocommerce_kinabank_kb_test_key, #woocommerce_kinabank_kb_test_key_pass";
+					var kb_connection_basic_fields_ids      = "#woocommerce_kinabank_kb_prod_key_file, #woocommerce_kinabank_kb_test_key_file, #woocommerce_kinabank_kb_test_key_pass";
+					var kb_connection_advanced_fields_ids   = "#woocommerce_kinabank_kb_prod_key, #woocommerce_kinabank_kb_test_key, #woocommerce_kinabank_kb_test_key_pass";
 					var kb_notification_advanced_fields_ids = "#woocommerce_kinabank_kb_callback_data";
 
 					var kb_connection_basic_fields      = jQuery(kb_connection_basic_fields_ids).closest("tr");
@@ -466,7 +450,6 @@ function woocommerce_kinabank_init() {
 			unset($_POST['woocommerce_kinabank_kb_callback_data']);
 
 			$this->process_file_setting('woocommerce_kinabank_kb_prod_key_file', $this->kb_prod_key_file, 'woocommerce_kinabank_kb_prod_key', 'prod.key');
-			$this->process_file_setting('woocommerce_kinabank_kb_bank_prod_key_file', $this->kb_bank_prod_key_file, 'woocommerce_kinabank_kb_bank_prod_key', 'kina_pub.key');
 			$this->process_file_setting('woocommerce_kinabank_kb_test_key_file', $this->kb_test_key_file, 'woocommerce_kinabank_kb_test_key', 'test.key');
 
 			return parent::process_admin_options();
@@ -474,7 +457,6 @@ function woocommerce_kinabank_init() {
 
 		protected function check_settings() {
 			return !self::string_empty($this->kb_prod_key)
-				&& !self::string_empty($this->kb_bank_prod_key)
 				&& !self::string_empty($this->kb_test_key);
 		}
 
@@ -499,12 +481,6 @@ function woocommerce_kinabank_init() {
 			$result = $this->validate_prod_key($this->kb_prod_key);
 			if(!self::string_empty($result)) {
 				$this->add_error(sprintf('<strong>%1$s</strong>: %2$s', __('PROD key file', self::MOD_TEXT_DOMAIN), $result));
-				$validate_result = false;
-			}
-
-			$result = $this->validate_prod_key($this->kb_bank_prod_key);
-			if(!self::string_empty($result)) {
-				$this->add_error(sprintf('<strong>%1$s</strong>: %2$s', __('Bank public key file', self::MOD_TEXT_DOMAIN), $result));
 				$validate_result = false;
 			}
 
@@ -563,7 +539,6 @@ function woocommerce_kinabank_init() {
 
 		protected function initialize_keys() {
 			$this->initialize_key($this->kb_prod_key, $this->kb_prod_key_file, 'kb_prod_key', 'prod.key');
-			$this->initialize_key($this->kb_bank_prod_key, $this->kb_bank_prod_key_file, 'kb_bank_prod_key', 'kina_pub.key');
 			$this->initialize_key($this->kb_test_key, $this->kb_test_key_file, 'kb_test_key', 'test.key');
 		}
 
@@ -705,7 +680,6 @@ function woocommerce_kinabank_init() {
 				self::KB_SIGNATURE_PADDING,
 				$this->kb_prod_key,
 				$this->kb_test_key,
-				$this->kb_bank_prod_key,
 				$this->kb_test_key_pass);
 
 			return $kinaBankGateway;
