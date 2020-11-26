@@ -53,7 +53,7 @@ function woocommerce_kinabank_init() {
 
 		const MOD_TRANSACTION_TYPE = self::MOD_PREFIX . 'transaction_type';
 
-		const SUPPORTED_CURRENCIES = ['MDL', 'EUR', 'USD'];
+		const SUPPORTED_CURRENCIES = ['PGK'];
 		const ORDER_TEMPLATE       = 'Order #%1$s';
 
 		const KB_ORDER    = 'ORDER';
