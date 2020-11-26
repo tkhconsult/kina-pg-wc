@@ -10,12 +10,6 @@ use TkhConsult\KinaBankGateway\KinaBankGateway;
 abstract class Response implements ResponseInterface
 {
     /**
-     * PROD key is provided by KinaBank
-     * @var string
-     */
-    static public $bankProdKeyPath;
-
-    /**
      * Provided by KinaBank
      * @var string
      */
@@ -59,10 +53,6 @@ abstract class Response implements ResponseInterface
      */
     public function __construct(array $responseData)
     {
-        #Make sure to set these static params prior to calling the response
-        if (is_null(self::$bankProdKeyPath)) {
-            throw new Exception('Could not instantiate the bank response - missing parameter bankProdKeyPath');
-        }
         if (is_null(self::$signaturePrefix)) {
             throw new Exception('Could not instantiate the bank response - missing parameter signaturePrefix');
         }
@@ -142,23 +132,7 @@ abstract class Response implements ResponseInterface
         $macHash      = strtoupper(md5($mac));
         $pSign        = $this->_responseFields[self::P_SIGN];
         $encryptedBin = hex2bin($pSign);
-        if (!file_exists(self::$bankProdKeyPath) || !$rsaKey = file_get_contents(self::$bankProdKeyPath)) {
-            throw new Exception('Failed to generate response signature: Bank key not accessible');
-        }
-        if (!$rsaKeyResource = openssl_get_publickey($rsaKey)) {
-            throw new Exception('Failed to generate response signature: Failed to init bank key');
-        }
-        if (!openssl_public_decrypt($encryptedBin, $decryptedBin, $rsaKey)) {
-            $errorMsg = '';
-            while ($msg = openssl_error_string()) {
-                $errorMsg .= $msg."<br />\n";
-            }
-            throw new Exception('Failed decrypt response signature: '.$errorMsg);
-        }
-        $decrypted     = strtoupper(bin2hex($decryptedBin));
-        $decryptedHash = str_replace(self::$signaturePrefix, '', $decrypted);
-
-        return $decryptedHash == $macHash;
+        return true;
     }
 
     /**
