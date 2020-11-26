@@ -206,7 +206,7 @@ function woocommerce_kinabank_init() {
 					'desc_tip'    => __('Select how transactions should be processed. Charge submits all transactions for settlement, Authorization simply authorizes the order total for capture later.', self::MOD_TEXT_DOMAIN),
 					'default'     => self::TRANSACTION_TYPE_CHARGE,
 					'options'     => array(
-						self::TRANSACTION_TYPE_CHARGE        => __('Charge', self::MOD_TEXT_DOMAIN),
+						self::TRANSACTION_TYPE_CHARGE        => __('Charge (Purchase/Sale)', self::MOD_TEXT_DOMAIN),
 						self::TRANSACTION_TYPE_AUTHORIZATION => __('Authorization', self::MOD_TEXT_DOMAIN)
 					)
 				),
