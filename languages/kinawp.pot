@@ -187,7 +187,7 @@ msgid "TEST key passphrase"
 msgstr ""
 
 #: kinawp.php:340
-msgid "Leave empty if private key is not encrypted."
+msgid "Leave empty if test key is not encrypted."
 msgstr ""
 
 #: kinawp.php:341
@@ -255,11 +255,11 @@ msgid "Could not validate public key"
 msgstr ""
 
 #: kinawp.php:628
-msgid "Invalid private key or wrong private key passphrase"
+msgid "Invalid test key or wrong test key passphrase"
 msgstr ""
 
 #: kinawp.php:632
-msgid "Could not validate private key"
+msgid "Could not validate test key"
 msgstr ""
 
 #: kinawp.php:639

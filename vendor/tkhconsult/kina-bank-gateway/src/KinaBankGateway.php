@@ -124,10 +124,10 @@ class KinaBankGateway
         $signaturePrefix   = getenv('KINA_BANK_SECURITY_SIGNATURE_PREFIX');
         $signaturePadding  = getenv('KINA_BANK_SECURITY_SIGNATURE_PADDING');
         $publicKeyPath     = $certDir.'/'.getenv('KINA_BANK_MERCHANT_PROD_KEY');
-        $privateKeyPath    = $certDir.'/'.getenv('KINA_BANK_MERCHANT_TEST_KEY');
+        $testKeyPath    = $certDir.'/'.getenv('KINA_BANK_MERCHANT_TEST_KEY');
         $bankProdKeyPath = $certDir.'/'.getenv('KINA_BANK_MERCHANT_BANK_PROD_KEY');
         $this
-            ->setSecurityOptions($signatureFirst, $signaturePrefix, $signaturePadding, $publicKeyPath, $privateKeyPath, $bankProdKeyPath);
+            ->setSecurityOptions($signatureFirst, $signaturePrefix, $signaturePadding, $publicKeyPath, $testKeyPath, $bankProdKeyPath);
 
         return $this;
     }
@@ -380,21 +380,21 @@ class KinaBankGateway
      * @param        $signaturePrefix
      * @param        $signaturePadding
      * @param        $publicKeyPath
-     * @param        $privateKeyPath
+     * @param        $testKeyPath
      * @param        $bankProdKeyPath
-     * @param string $privateKeyPass
+     * @param string $testKeyPass
      *
      * @return $this
      */
-    public function setSecurityOptions($signatureFirst, $signaturePrefix, $signaturePadding, $publicKeyPath, $privateKeyPath, $bankProdKeyPath, $privateKeyPass='')
+    public function setSecurityOptions($signatureFirst, $signaturePrefix, $signaturePadding, $publicKeyPath, $testKeyPath, $bankProdKeyPath, $testKeyPass='')
     {
         #Request security options
         KinaBank\Request::$signatureFirst   = $signatureFirst;
         KinaBank\Request::$signaturePrefix  = $signaturePrefix;
         KinaBank\Request::$signaturePadding = $signaturePadding;
         KinaBank\Request::$publicKeyPath    = $publicKeyPath;
-        KinaBank\Request::$privateKeyPath   = $privateKeyPath;
-        KinaBank\Request::$privateKeyPass   = $privateKeyPass;
+        KinaBank\Request::$testKeyPath   = $testKeyPath;
+        KinaBank\Request::$testKeyPass   = $testKeyPass;
         #Response security options
         KinaBank\Response::$signaturePrefix   = $signaturePrefix;
         KinaBank\Response::$bankProdKeyPath = $bankProdKeyPath;

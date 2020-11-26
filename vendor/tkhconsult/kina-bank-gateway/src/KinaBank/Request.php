@@ -36,16 +36,16 @@ abstract class Request implements RequestInterface
     static public $publicKeyPath;
 
     /**
-     * The path to the private key
+     * The path to the test key
      * @var string
      */
-    static public $privateKeyPath;
+    static public $testKeyPath;
 
     /**
      * TEST key passphrase
      * @var string
      */
-    static public $privateKeyPass;
+    static public $testKeyPass;
 
     /**
      * @var bool
@@ -104,8 +104,8 @@ abstract class Request implements RequestInterface
         if (is_null(self::$signaturePadding)) {
             throw new Exception('Could not instantiate the bank request - missing parameter signaturePadding');
         }
-        if (is_null(self::$privateKeyPath)) {
-            throw new Exception('Could not instantiate the bank request - missing parameter privateKeyPath');
+        if (is_null(self::$testKeyPath)) {
+            throw new Exception('Could not instantiate the bank request - missing parameter testKeyPath');
         }
         $this->init();
     }
@@ -185,7 +185,7 @@ abstract class Request implements RequestInterface
         if (empty($order) || empty($nonce) || empty($timestamp) || is_null($trType) || empty($amount)) {
             throw new Exception('Failed to generate transaction signature: Invalid request params');
         }
-        if (!file_exists(self::$privateKeyPath) || !$rsaKey = file_get_contents(self::$privateKeyPath)) {
+        if (!file_exists(self::$testKeyPath) || !$rsaKey = file_get_contents(self::$testKeyPath)) {
             throw new Exception('Failed to generate transaction signature: TEST key not accessible');
         }
         $data = [
@@ -195,8 +195,8 @@ abstract class Request implements RequestInterface
             'TRTYPE' => $trType,
             'AMOUNT' => KinaBankGateway::normalizeAmount($amount),
         ];
-        if (!$rsaKeyResource = openssl_get_privatekey($rsaKey, self::$privateKeyPass)) {
-            die ('Failed get private key');
+        if (!$rsaKeyResource = openssl_get_privatekey($rsaKey, self::$testKeyPass)) {
+            die ('Failed get test key');
         }
         $rsaKeyDetails = openssl_pkey_get_details($rsaKeyResource);
         $rsaKeyLength  = $rsaKeyDetails['bits'] / 8;

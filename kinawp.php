@@ -614,17 +614,17 @@ function woocommerce_kinabank_init() {
 					return $validateResult;
 
 				$keyData = file_get_contents($keyFile);
-				$privateKey = openssl_pkey_get_private($keyData, $keyPassphrase);
+				$testKey = openssl_pkey_get_test($keyData, $keyPassphrase);
 
-				if(false !== $privateKey) {
-					openssl_pkey_free($privateKey);
+				if(false !== $testKey) {
+					openssl_pkey_free($testKey);
 				} else {
 					$this->log_openssl_errors();
-					return __('Invalid private key or wrong private key passphrase', self::MOD_TEXT_DOMAIN);
+					return __('Invalid test key or wrong test key passphrase', self::MOD_TEXT_DOMAIN);
 				}
 			} catch(Exception $ex) {
 				$this->log($ex, WC_Log_Levels::ERROR);
-				return __('Could not validate private key', self::MOD_TEXT_DOMAIN);
+				return __('Could not validate test key', self::MOD_TEXT_DOMAIN);
 			}
 		}
 
