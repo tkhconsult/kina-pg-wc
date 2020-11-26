@@ -13,7 +13,7 @@ abstract class Response implements ResponseInterface
      * PROD key is provided by KinaBank
      * @var string
      */
-    static public $bankPublicKeyPath;
+    static public $bankProdKeyPath;
 
     /**
      * Provided by KinaBank
@@ -60,8 +60,8 @@ abstract class Response implements ResponseInterface
     public function __construct(array $responseData)
     {
         #Make sure to set these static params prior to calling the response
-        if (is_null(self::$bankPublicKeyPath)) {
-            throw new Exception('Could not instantiate the bank response - missing parameter bankPublicKeyPath');
+        if (is_null(self::$bankProdKeyPath)) {
+            throw new Exception('Could not instantiate the bank response - missing parameter bankProdKeyPath');
         }
         if (is_null(self::$signaturePrefix)) {
             throw new Exception('Could not instantiate the bank response - missing parameter signaturePrefix');
@@ -142,7 +142,7 @@ abstract class Response implements ResponseInterface
         $macHash      = strtoupper(md5($mac));
         $pSign        = $this->_responseFields[self::P_SIGN];
         $encryptedBin = hex2bin($pSign);
-        if (!file_exists(self::$bankPublicKeyPath) || !$rsaKey = file_get_contents(self::$bankPublicKeyPath)) {
+        if (!file_exists(self::$bankProdKeyPath) || !$rsaKey = file_get_contents(self::$bankProdKeyPath)) {
             throw new Exception('Failed to generate response signature: Bank key not accessible');
         }
         if (!$rsaKeyResource = openssl_get_publickey($rsaKey)) {

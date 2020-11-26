@@ -125,9 +125,9 @@ class KinaBankGateway
         $signaturePadding  = getenv('KINA_BANK_SECURITY_SIGNATURE_PADDING');
         $publicKeyPath     = $certDir.'/'.getenv('KINA_BANK_MERCHANT_PROD_KEY');
         $privateKeyPath    = $certDir.'/'.getenv('KINA_BANK_MERCHANT_PRIVATE_KEY');
-        $bankPublicKeyPath = $certDir.'/'.getenv('KINA_BANK_MERCHANT_BANK_PROD_KEY');
+        $bankProdKeyPath = $certDir.'/'.getenv('KINA_BANK_MERCHANT_BANK_PROD_KEY');
         $this
-            ->setSecurityOptions($signatureFirst, $signaturePrefix, $signaturePadding, $publicKeyPath, $privateKeyPath, $bankPublicKeyPath);
+            ->setSecurityOptions($signatureFirst, $signaturePrefix, $signaturePadding, $publicKeyPath, $privateKeyPath, $bankProdKeyPath);
 
         return $this;
     }
@@ -381,12 +381,12 @@ class KinaBankGateway
      * @param        $signaturePadding
      * @param        $publicKeyPath
      * @param        $privateKeyPath
-     * @param        $bankPublicKeyPath
+     * @param        $bankProdKeyPath
      * @param string $privateKeyPass
      *
      * @return $this
      */
-    public function setSecurityOptions($signatureFirst, $signaturePrefix, $signaturePadding, $publicKeyPath, $privateKeyPath, $bankPublicKeyPath, $privateKeyPass='')
+    public function setSecurityOptions($signatureFirst, $signaturePrefix, $signaturePadding, $publicKeyPath, $privateKeyPath, $bankProdKeyPath, $privateKeyPass='')
     {
         #Request security options
         KinaBank\Request::$signatureFirst   = $signatureFirst;
@@ -397,7 +397,7 @@ class KinaBankGateway
         KinaBank\Request::$privateKeyPass   = $privateKeyPass;
         #Response security options
         KinaBank\Response::$signaturePrefix   = $signaturePrefix;
-        KinaBank\Response::$bankPublicKeyPath = $bankPublicKeyPath;
+        KinaBank\Response::$bankProdKeyPath = $bankProdKeyPath;
 
         return $this;
     }
