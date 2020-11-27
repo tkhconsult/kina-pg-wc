@@ -17,7 +17,7 @@ class AuthorizationRequest extends Request
     #Visible authorization request fields
     const AMOUNT        = 'AMOUNT';         #Size: 1-12, Order total amount in float format with decimal point separator
     const CURRENCY      = 'CURRENCY';       #Size: 03, Order currency: 3-character currency code
-    const ORDER         = 'ORDER';          #Size: 6-32, Merchant order ID
+    const ORDER         = 'ORDER';          #Size: 6-20, Merchant order ID
     const DESC          = 'DESC';           #Size: 1-50, Order description
     const MERCH_NAME    = 'MERCH_NAME';     #Size: 1-50, Merchant name (recognizable by cardholder)
     const MERCH_URL     = 'MERCH_URL';      #Size: 1-250, Merchant primary web site URL in format http://www.merchantsitename.domain

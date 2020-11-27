@@ -13,7 +13,7 @@ interface ResponseInterface
 
     const TERMINAL = 'TERMINAL';   #Size: 8, Echo from the request
     const TRTYPE   = 'TRTYPE';     #Size: 2, Echo from the request
-    const ORDER    = 'ORDER';      #Size: 6-32, Echo from the request
+    const ORDER    = 'ORDER';      #Size: 6-20, Echo from the request
     const AMOUNT   = 'AMOUNT';     #Size: 12, Echo from the request
     const CURRENCY = 'CURRENCY';   #Size: 3, Echo from the request
     const ACTION   = 'ACTION';     #Size: 1, E-Gateway action code: 0 – Transaction successfully completed;1 – Duplicate transaction detected;2 – Transaction declined;3 – Transaction processing fault.
