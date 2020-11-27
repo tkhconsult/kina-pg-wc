@@ -189,29 +189,7 @@ abstract class Request implements RequestInterface
             'TRTYPE' => $trType,
             'AMOUNT' => KinaBankGateway::normalizeAmount($amount),
         ];
-        $rsaKeyDetails = openssl_pkey_get_details($rsaKeyResource);
-        $rsaKeyLength  = $rsaKeyDetails['bits'] / 8;
-        foreach ($data as $Id => $filed) {
-            $mac .= strlen($filed).$filed;
-        }
-        $first   = static::$signatureFirst;
-        $prefix  = static::$signaturePadding.static::$signaturePrefix;
-        $md5Hash = md5($mac);
-        $data    = $first;
-        $paddingLength = $rsaKeyLength - strlen($md5Hash) / 2 - strlen($prefix) / 2 - strlen($first) / 2;
-        for ($i = 0; $i < $paddingLength; $i++) {
-            $data .= "FF";
-        }
-        $data .= $prefix.$md5Hash;
-        $bin  = pack("H*", $data);
-        if (!openssl_private_encrypt($bin, $encryptedBin, $rsaKey, OPENSSL_NO_PADDING)) {
-            while ($msg = openssl_error_string()) {
-                echo $msg."<br />\n";
-            }
-            die ('Failed encrypt');
-        }
-        $pSign = bin2hex($encryptedBin);
 
-        return strtoupper($pSign);
+        return true;
     }
 }
