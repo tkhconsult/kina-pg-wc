@@ -15,7 +15,7 @@ class CompletionRequest extends Request
 {
 
     #Sales completion message fields provided by the merchant system
-    const ORDER     = 'ORDER';          #Size: 6-32, Merchant order ID from request
+    const ORDER     = 'ORDER';          #Size: 6-20, Merchant order ID from request
     const AMOUNT    = 'AMOUNT';         #Size: 12, Transaction amount. Float format with decimal point separator.
     const CURRENCY  = 'CURRENCY';       #Size: 3, Currency name. Must be the same as in authorization response.
     const RRN       = 'RRN';            #Size: 12, Retrieval reference number from authorization response.
@@ -72,9 +72,10 @@ class CompletionRequest extends Request
         if (!isset($this->_requestFields[self::CURRENCY]) || strlen($this->_requestFields[self::CURRENCY]) != 3) {
             throw new Exception('Completion request failed: invalid '.self::CURRENCY);
         }
-        if (!isset($this->_requestFields[self::ORDER]) || strlen($this->_requestFields[self::ORDER]) < 6 || strlen(
-                                                                                                                $this->_requestFields[self::ORDER]
-                                                                                                            ) > 32) {
+        if (!isset($this->_requestFields[self::ORDER])
+            || strlen($this->_requestFields[self::ORDER]) < 6
+            || strlen($this->_requestFields[self::ORDER]) > 20
+        ) {
             throw new Exception('Completion request failed: invalid '.self::ORDER);
         }
         if (!isset($this->_requestFields[self::TERMINAL]) || strlen($this->_requestFields[self::TERMINAL]) != 8) {
