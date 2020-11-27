@@ -36,7 +36,6 @@ abstract class Response implements ResponseInterface
         self::BIN => null,
         self::CARD => null,
         self::AUTH => null,
-        self::ECI => null,
     ];
 
     /**

@@ -28,7 +28,6 @@ interface ResponseInterface
     const BIN       = 'BIN';
     const CARD      = 'CARD';
     const AUTH      = 'AUTH';
-    const ECI       = 'ECI';        #Size: 0-02, Electronic Commerce Indicator (ECI): ECI=empty – Technical fault;ECI=05 - Secure electronic commerce transaction (fully 3-D Secure authenticated);ECI=06 - Non-authenticated security transaction at a 3-D Secure-capable merchant, and merchant attempted to authenticate the cardholder using 3-D Secure but was unable to complete the authentication because the issuer or cardholder does not participate in the 3-D Secure program;ECI=07 - Non-authenticated Security Transaction
 
     const STATUS_SUCCESS    = 0;        #Transaction successfully completed
     const STATUS_DUPLICATED = 1;        #Duplicate transaction detected
