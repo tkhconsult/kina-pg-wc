@@ -95,7 +95,7 @@ class Form
             $label = '&nbsp;<label>'.$elementName.'</label>';
         }
 
-        return '<input type="'.$type.'" name="'.$elementName.'" value="'.$elementValue.'"'.$options.'/>'.$label;
+        return '<div><input type="'.$type.'" name="'.$elementName.'" value="'.$elementValue.'"'.$options.'/>'.$label . '</div>';
     }
 
     /**
@@ -148,7 +148,7 @@ class Form
     public function renderForm($autoSubmit = true)
     {
         $html = '<form id="'.$this->_formName.'-form" name="'.$this->_formName.'" method="'.$this->_formMethod.'" action="'.$this->_formAction.'" enctype="application/x-www-form-urlencoded">'."<br/>\n";
-        $html .= implode("<br/>\n", $this->_formElements)."<br/>\n";
+        $html .= implode("\n", $this->_formElements)."\n";
         if (!$autoSubmit) {
             $html .= $this->_renderElement(
                     self::ELEMENT_BUTTON,
