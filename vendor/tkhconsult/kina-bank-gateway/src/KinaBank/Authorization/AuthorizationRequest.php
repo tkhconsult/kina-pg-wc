@@ -53,7 +53,6 @@ class AuthorizationRequest extends Request
         self::NONCE => null,
         self::BACKREF => null,
         self::P_SIGN => null,
-        self::LANG => null,
     ];
 
     /**
@@ -131,9 +130,6 @@ class AuthorizationRequest extends Request
                                                                                                                 ) > 250) {
             throw new Exception('Authorization request failed: invalid '.self::BACKREF);
         }
-        if (!isset($this->_requestFields[self::LANG]) || strlen($this->_requestFields[self::LANG]) != 2) {
-            throw new Exception('Authorization request failed: invalid '.self::LANG);
-        }
 
         return $this;
     }
@@ -172,7 +168,6 @@ class AuthorizationRequest extends Request
         $form->{$constructElementMethod}(self::NONCE, $this->_requestFields[self::NONCE]);
         $form->{$constructElementMethod}(self::BACKREF, $this->_requestFields[self::BACKREF]);
         $form->{$constructElementMethod}(self::P_SIGN, $this->_requestFields[self::P_SIGN]);
-        $form->{$constructElementMethod}(self::LANG, $this->_requestFields[self::LANG]);
         $formHtml = $form->setFormMethod('POST')
                          ->setFormAction($this->_gatewayUrl)
                          ->renderForm(!$this->_debugMode)

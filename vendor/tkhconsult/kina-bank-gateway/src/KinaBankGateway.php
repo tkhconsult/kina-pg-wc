@@ -427,7 +427,6 @@ class KinaBankGateway
                     KinaBank\Authorization\AuthorizationRequest::COUNTRY       => $this->countryCode,
                     KinaBank\Authorization\AuthorizationRequest::BACKREF       => $backRefUrl,
                     KinaBank\Authorization\AuthorizationRequest::MERCH_GMT     => $this->getMerchantGmtTimezoneOffset(),
-                    KinaBank\Authorization\AuthorizationRequest::LANG          => $language ? $language : $this->defaultLanguage,
                     KinaBank\Authorization\AuthorizationRequest::MERCHANT      => $this->merchant,
                     KinaBank\Authorization\AuthorizationRequest::MERCH_NAME    => $this->merchantName,
                     KinaBank\Authorization\AuthorizationRequest::MERCH_URL     => $this->merchantUrl,
