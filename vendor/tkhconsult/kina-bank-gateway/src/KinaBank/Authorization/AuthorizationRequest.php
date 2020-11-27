@@ -88,9 +88,10 @@ class AuthorizationRequest extends Request
         if (!isset($this->_requestFields[self::CURRENCY]) || strlen($this->_requestFields[self::CURRENCY]) != 3) {
             throw new Exception('Authorization request failed: invalid '.self::CURRENCY);
         }
-        if (!isset($this->_requestFields[self::ORDER]) || strlen($this->_requestFields[self::ORDER]) < 6 || strlen(
-                                                                                                                $this->_requestFields[self::ORDER]
-                                                                                                            ) > 32) {
+        if (!isset($this->_requestFields[self::ORDER])
+            || strlen($this->_requestFields[self::ORDER]) < 6
+            || strlen($this->_requestFields[self::ORDER]) > 20
+        ) {
             throw new Exception('Authorization request failed: invalid '.self::ORDER);
         }
         if (!isset($this->_requestFields[self::DESC]) || strlen($this->_requestFields[self::DESC]) < 1) {
