@@ -431,7 +431,6 @@ class KinaBankGateway
                     KinaBank\Authorization\AuthorizationRequest::MERCHANT      => $this->merchant,
                     KinaBank\Authorization\AuthorizationRequest::MERCH_NAME    => $this->merchantName,
                     KinaBank\Authorization\AuthorizationRequest::MERCH_URL     => $this->merchantUrl,
-                    KinaBank\Authorization\AuthorizationRequest::MERCH_ADDRESS => $this->merchantAddress,
                 ], $this->gatewayUrl, $this->debug, $this->sslVerify
             );
             $request->request();

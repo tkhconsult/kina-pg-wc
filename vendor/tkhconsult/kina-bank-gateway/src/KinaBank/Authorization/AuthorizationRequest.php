@@ -24,7 +24,6 @@ class AuthorizationRequest extends Request
     const MERCHANT      = 'MERCHANT';       #Size: 15, Merchant ID assigned by bank
     const TERMINAL      = 'TERMINAL';       #Size: 8, Merchant Terminal ID assigned by bank
     const EMAIL         = 'EMAIL';          #Size: 80, Client e-mail address
-    const MERCH_ADDRESS = 'MERCH_ADDRESS';  #Size: 250, Merchant company registered office address
 
     #Hidden authorization request fields
     const TRTYPE    = 'TRTYPE';         #Size: 1, Must be equal to "0" (Authorization).
@@ -47,7 +46,6 @@ class AuthorizationRequest extends Request
         self::MERCHANT => null,
         self::TERMINAL => null,
         self::EMAIL => null,
-        self::MERCH_ADDRESS => null,
         self::TRTYPE => null,
         self::COUNTRY => null,
         self::MERCH_GMT => null,
@@ -114,9 +112,6 @@ class AuthorizationRequest extends Request
         if (!isset($this->_requestFields[self::EMAIL]) || strlen($this->_requestFields[self::EMAIL]) > 80) {
             throw new Exception('Authorization request failed: invalid '.self::EMAIL);
         }
-        if (!isset($this->_requestFields[self::MERCH_ADDRESS]) || strlen($this->_requestFields[self::MERCH_ADDRESS]) > 250) {
-            throw new Exception('Authorization request failed: invalid '.self::MERCH_ADDRESS);
-        }
         if (isset($this->_requestFields[self::COUNTRY]) && strtoupper($this->_requestFields[self::COUNTRY]) == 'MD') {
             unset($this->_requestFields[self::COUNTRY]);
         } elseif (isset($this->_requestFields[self::COUNTRY]) && strlen($this->_requestFields[self::COUNTRY]) != 2) {
@@ -162,7 +157,6 @@ class AuthorizationRequest extends Request
         $form->{$constructElementMethod}(self::MERCHANT, $this->_requestFields[self::MERCHANT]);
         $form->{$constructElementMethod}(self::TERMINAL, $this->_requestFields[self::TERMINAL]);
         $form->{$constructElementMethod}(self::EMAIL, $this->_requestFields[self::EMAIL]);
-        $form->{$constructElementMethod}(self::MERCH_ADDRESS, $this->_requestFields[self::MERCH_ADDRESS]);
         if ($this->_debugMode) {
             $constructElementMethod = 'addTextElement';
         } else {
