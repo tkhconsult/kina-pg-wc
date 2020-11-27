@@ -158,7 +158,8 @@ class Form
             'Send',
             [
                 'id' => $formName . '-submit',
-                'onclick' => "document.getElementById('{$formName}-form').submit();"
+                'onclick' => "document.getElementById('{$formName}-form').submit();",
+                'class' => 'alt',
             ]
         );
         include "payment-form.php";
