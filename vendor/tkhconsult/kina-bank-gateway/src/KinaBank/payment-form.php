@@ -4,6 +4,7 @@
      * @var string $formMethod
      * @var string $formAction
      * @var string $elements
+     * @var string $ubmitBtn
      * @var bool $autoSubmit
      */
 ?>
@@ -15,9 +16,9 @@
     enctype="application/x-www-form-urlencoded"
 >
     <?php
-        echo implode("\n", $this->_formElements)."\n";
+        echo $elements;
         if (!$autoSubmit) {
-            echo $elements;
+            echo $ubmitBtn;
             echo '<br/>';
         }
     ?>
