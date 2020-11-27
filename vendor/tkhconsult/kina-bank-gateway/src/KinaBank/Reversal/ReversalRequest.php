@@ -64,9 +64,9 @@ class ReversalRequest extends Request
      */
     public function validateRequestParams()
     {
-        if (!isset($this->_requestFields[self::AMOUNT]) || strlen($this->_requestFields[self::AMOUNT]) < 1 || strlen(
-                                                                                                                  $this->_requestFields[self::AMOUNT]
-                                                                                                              ) > 12) {
+        if (!isset($this->_requestFields[self::AMOUNT])
+            || strlen($this->_requestFields[self::AMOUNT]) < 1
+            || strlen($this->_requestFields[self::AMOUNT]) > 12) {
             throw new Exception('Reversal request failed: invalid '.self::AMOUNT);
         }
         if (!isset($this->_requestFields[self::CURRENCY]) || strlen($this->_requestFields[self::CURRENCY]) != 3) {
@@ -83,17 +83,17 @@ class ReversalRequest extends Request
         if (!isset($this->_requestFields[self::TIMESTAMP]) || strlen($this->_requestFields[self::TIMESTAMP]) != 14) {
             throw new Exception('Reversal request failed: invalid '.self::TIMESTAMP);
         }
-        if (!isset($this->_requestFields[self::NONCE]) || strlen($this->_requestFields[self::NONCE]) < 20 || strlen(
-                                                                                                                 $this->_requestFields[self::NONCE]
-                                                                                                             ) > 32) {
+        if (!isset($this->_requestFields[self::NONCE])
+            || strlen($this->_requestFields[self::NONCE]) < 20
+            || strlen($this->_requestFields[self::NONCE]) > 32) {
             throw new Exception('Reversal request failed: invalid '.self::NONCE);
         }
         if (!isset($this->_requestFields[self::RRN]) || strlen($this->_requestFields[self::RRN]) != 12) {
             throw new Exception('Reversal request failed: invalid '.self::RRN);
         }
-        if (!isset($this->_requestFields[self::INT_REF]) || strlen($this->_requestFields[self::INT_REF]) < 1 || strlen(
-                                                                                                                    $this->_requestFields[self::INT_REF]
-                                                                                                                ) > 32) {
+        if (!isset($this->_requestFields[self::INT_REF])
+            || strlen($this->_requestFields[self::INT_REF]) < 1
+            || strlen($this->_requestFields[self::INT_REF]) > 32) {
             throw new Exception('Reversal request failed: invalid '.self::INT_REF);
         }
 
