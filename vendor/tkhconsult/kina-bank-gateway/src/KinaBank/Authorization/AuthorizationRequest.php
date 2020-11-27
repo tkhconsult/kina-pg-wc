@@ -170,25 +170,29 @@ class AuthorizationRequest extends Request
         $form->{$constructElementMethod}(self::P_SIGN, $this->_requestFields[self::P_SIGN]);
         $formHtml = $form->setFormMethod('POST')
                          ->setFormAction($this->_gatewayUrl)
-                         ->renderForm(!$this->_debugMode)
-        ;
-        echo /** @lang text */
-        <<<HTML
-<html>
-    <head>
-        <title>Please wait...</title>
-        <style>
-            input{
-                width:500px;
-                margin: 5px;
-            }
-        </style>
-    </head>
-    <body>
-        {$formHtml}
-    </body>
-</html>
+                         ->renderForm(!$this->_debugMode);
+
+        $this->generateHtmlPage($formHtml);
+    }
+
+    private function generateHtmlPage($formHtml) {
+echo /** @lang text */
+<<<HTML
+    <html>
+        <head>
+            <title>Please wait...</title>
+            <style>
+                input{
+                    width:500px;
+                    margin: 5px;
+                }
+            </style>
+        </head>
+        <body>
+            {$formHtml}
+        </body>
+    </html>
 HTML;
-        exit;
+exit;
     }
 }
