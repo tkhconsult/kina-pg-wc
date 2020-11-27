@@ -147,39 +147,13 @@ class Form
      */
     public function renderForm($autoSubmit = true)
     {
-        $html = '<form id="'.$this->_formName.'-form" name="'.$this->_formName.'" method="'.$this->_formMethod.'" action="'.$this->_formAction.'" enctype="application/x-www-form-urlencoded">'."<br/>\n";
-        $html .= implode("\n", $this->_formElements)."\n";
-        if (!$autoSubmit) {
-            $html .= $this->_renderElement(
-                    self::ELEMENT_BUTTON,
-                    'btnSubmit',
-                    'Send',
-                    ['id' => $this->_formName.'-submit', 'onclick' => "document.getElementById('{$this->_formName}-form').submit();"]
-                )."<br/>\n";
-        }
-        $html .= '</form>'."<br/>\n";
-        if ($autoSubmit) {
-            $script = /** @lang text */
-                <<<SCRIPT
-<script type="text/javascript">
-    +(function(){
-        var formNode    = document.getElementById('{$this->_formName}-form');
-
-        formNode.submit();
-    })();
-</script>
-SCRIPT;
-            $html   .= /** @lang text */
-                <<<STYLE
-<style>
-    .hidden{
-        visibility: hidden;
-    }
-</style>
-STYLE;
-            $html   .= $script;
-        }
-
-        return $html;
+        ob_start();
+        $formName = $this->_formName;
+        $formMethod = $this->_formMethod;
+        $formAction = $this->_formAction;
+        $elements = implode("\n", $this->_formElements);
+        include "payment-form.php";
+        echo  ob_get_clean();
+        exit;
     }
 }
