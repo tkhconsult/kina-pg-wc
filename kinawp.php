@@ -650,6 +650,7 @@ function woocommerce_kinabank_init() {
 				->setMerchantName($this->kb_merchant_name)
 				->setMerchantAddress($this->kb_merchant_address)
 				->setTimezone(wc_timezone_string())
+                ->setDebug($this->debug)
 				->setDefaultLanguage($this->get_language());
 				//->setCountryCode(WC()->countries->get_base_country())
 				//->setDefaultCurrency(get_woocommerce_currency())
