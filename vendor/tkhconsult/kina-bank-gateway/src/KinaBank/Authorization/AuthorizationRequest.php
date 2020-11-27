@@ -185,7 +185,6 @@ class AuthorizationRequest extends Request
         </style>
     </head>
     <body>
-    Please wait...
         {$formHtml}
     </body>
 </html>
