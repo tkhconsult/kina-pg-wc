@@ -79,9 +79,9 @@ class AuthorizationRequest extends Request
      */
     public function validateRequestParams()
     {
-        if (!isset($this->_requestFields[self::AMOUNT]) || strlen($this->_requestFields[self::AMOUNT]) < 1 || strlen(
-                                                                                                                  $this->_requestFields[self::AMOUNT]
-                                                                                                              ) > 12) {
+        if (!isset($this->_requestFields[self::AMOUNT])
+            || strlen($this->_requestFields[self::AMOUNT]) < 1
+            || strlen($this->_requestFields[self::AMOUNT]) > 12) {
             throw new Exception('Authorization request failed: invalid '.self::AMOUNT);
         }
         if (!isset($this->_requestFields[self::CURRENCY]) || strlen($this->_requestFields[self::CURRENCY]) != 3) {
@@ -98,9 +98,9 @@ class AuthorizationRequest extends Request
         } elseif (strlen($this->_requestFields[self::DESC]) > 50) {
             $this->_requestFields[self::DESC] = substr($this->_requestFields[self::DESC], 0, 49);
         }
-        if (!isset($this->_requestFields[self::MERCH_URL]) || strlen($this->_requestFields[self::MERCH_URL]) < 1 || strlen(
-                                                                                                                        $this->_requestFields[self::MERCH_URL]
-                                                                                                                    ) > 250) {
+        if (!isset($this->_requestFields[self::MERCH_URL])
+            || strlen($this->_requestFields[self::MERCH_URL]) < 1
+            || strlen($this->_requestFields[self::MERCH_URL]) > 250) {
             throw new Exception('Authorization request failed: invalid '.self::MERCH_URL);
         }
         if (!isset($this->_requestFields[self::MERCHANT]) || strlen($this->_requestFields[self::MERCHANT]) != 15) {
@@ -120,14 +120,14 @@ class AuthorizationRequest extends Request
         if (!isset($this->_requestFields[self::TIMESTAMP]) || strlen($this->_requestFields[self::TIMESTAMP]) != 14) {
             throw new Exception('Authorization request failed: invalid '.self::TIMESTAMP);
         }
-        if (!isset($this->_requestFields[self::NONCE]) || strlen($this->_requestFields[self::NONCE]) < 20 || strlen(
-                                                                                                                 $this->_requestFields[self::NONCE]
-                                                                                                             ) > 32) {
+        if (!isset($this->_requestFields[self::NONCE])
+            || strlen($this->_requestFields[self::NONCE]) < 20
+            || strlen($this->_requestFields[self::NONCE]) > 32) {
             throw new Exception('Authorization request failed: invalid '.self::NONCE);
         }
-        if (!isset($this->_requestFields[self::BACKREF]) || strlen($this->_requestFields[self::BACKREF]) < 1 || strlen(
-                                                                                                                    $this->_requestFields[self::BACKREF]
-                                                                                                                ) > 250) {
+        if (!isset($this->_requestFields[self::BACKREF])
+            || strlen($this->_requestFields[self::BACKREF]) < 1
+            || strlen($this->_requestFields[self::BACKREF]) > 250) {
             throw new Exception('Authorization request failed: invalid '.self::BACKREF);
         }
 
