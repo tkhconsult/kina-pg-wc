@@ -33,6 +33,7 @@ interface ResponseInterface
     const STATUS_DUPLICATED = 1;        #Duplicate transaction detected
     const STATUS_DECLINED   = 2;        #Transaction declined
     const STATUS_FAULT      = 3;        #Transaction processing fault
+    const STATUS_INFORMATION= 4;        #Information message
 
     /**
      * Construct

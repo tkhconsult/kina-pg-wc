@@ -108,6 +108,8 @@ abstract class Response implements ResponseInterface
                 throw new Exception('Bank response: Transaction declined');
             case self::STATUS_FAULT:
                 throw new Exception('Bank response: Processing fault');
+            case self::STATUS_INFORMATION:
+                throw new Exception('Bank response: Information message');
             default:
                 throw new Exception('Undefined bank response status');
         }
