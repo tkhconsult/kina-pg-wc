@@ -153,7 +153,6 @@ class Form
         $formAction = $this->_formAction;
         $elements = implode("\n", $this->_formElements);
         include "payment-form.php";
-        echo  ob_get_clean();
-        exit;
+        return  ob_get_clean();
     }
 }
