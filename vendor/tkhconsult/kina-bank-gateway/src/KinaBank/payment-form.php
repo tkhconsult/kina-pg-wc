@@ -5,7 +5,6 @@
      * @var string $formMethod
      * @var string $formAction
      * @var string $elements
-     * @var string $ubmitBtn
      * @var bool $autoSubmit
      */
 ?>
@@ -23,10 +22,6 @@
     <button class="btn btn-primary btn-lg" type="button" onclick="submitPaymentForm('bank')">Checkout - Bank Transfer</button>
     <?php
         echo $elements;
-        if (!$autoSubmit) {
-            echo $ubmitBtn;
-            echo '<br/>';
-        }
     ?>
 </form><br/>
 <div id="kbliframediv" class="kbliframeoverlay">

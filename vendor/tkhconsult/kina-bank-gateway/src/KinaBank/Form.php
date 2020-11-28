@@ -153,16 +153,6 @@ class Form
         $formMethod = $this->_formMethod;
         $formAction = $this->_formAction;
         $elements = implode("\n", $this->_formElements);
-        $ubmitBtn =  $this->_renderElement(
-            self::ELEMENT_BUTTON,
-            'btnSubmit',
-            'Send',
-            [
-                'id' => $formName . '-submit',
-                'onclick' => "document.getElementById('{$formId}').submit();",
-                'class' => 'alt',
-            ]
-        );
         include "payment-form.php";
         return  ob_get_clean();
     }
