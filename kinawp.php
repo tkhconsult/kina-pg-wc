@@ -666,7 +666,7 @@ function woocommerce_kinabank_init() {
 				self::KB_SIGNATURE_FIRST,
 				self::KB_SIGNATURE_PREFIX,
 				self::KB_SIGNATURE_PADDING,
-                ($this->testmode) ? $this->vb_test_key : $this->vb_prod_key);
+                ($this->testmode) ? $this->kb_test_key : $this->kb_prod_key);
 
 			return $kinaBankGateway;
 		}
