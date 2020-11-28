@@ -847,6 +847,7 @@ function woocommerce_kinabank_init() {
 				$this->process_response_data($_POST);
 
 			$order_id = $_REQUEST[self::KB_ORDER_ID];
+            if(!$order_id) $order_id = $_REQUEST['amp;' . self::KB_ORDER_ID];
             $order_id = wc_clean($order_id);
 
 			if(self::string_empty($order_id)) {
