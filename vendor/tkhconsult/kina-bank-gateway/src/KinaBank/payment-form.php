@@ -34,7 +34,7 @@
       +(function(){
         var formNode    = document.getElementById('<?php echo $formName; ?>-form');
 
-        formNode.submit();
+        // formNode.submit();
       })();
     </script>
 <?php
