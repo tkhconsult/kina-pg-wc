@@ -24,6 +24,11 @@
         }
     ?>
 </form><br/>
+<div id="kbliframediv" class="kbliframeoverlay">
+    <div id="kbliframeinnerdiv">
+        <iframe id="kblpaymentiframe" name="kblpaymentiframe"></iframe>
+    </div>
+</div>
 <?php if ($autoSubmit) { ?>
     <style>
         .hidden{
