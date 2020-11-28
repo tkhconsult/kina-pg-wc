@@ -1,5 +1,6 @@
 <?php
     /**
+     * @var string $formId
      * @var string $formName
      * @var string $formMethod
      * @var string $formAction
@@ -9,7 +10,7 @@
      */
 ?>
 <form
-    id="<?php echo $formName; ?>-form"
+    id="<?php echo $formId; ?>"
     name="<?php echo $formName; ?>"
     method="<?php echo $formMethod; ?>"
     action="<?php echo $formAction; ?>"
@@ -32,7 +33,7 @@
 
     <script type="text/javascript">
       +(function(){
-        var formNode    = document.getElementById('<?php echo $formName; ?>-form');
+        var formNode    = document.getElementById('<?php echo $formId; ?>');
 
         // formNode.submit();
       })();

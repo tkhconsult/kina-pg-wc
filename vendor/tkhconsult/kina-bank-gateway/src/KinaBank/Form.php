@@ -148,6 +148,7 @@ class Form
     public function renderForm($autoSubmit = true)
     {
         ob_start();
+        $formId = 'kblPaymentForm';
         $formName = $this->_formName;
         $formMethod = $this->_formMethod;
         $formAction = $this->_formAction;
@@ -158,7 +159,7 @@ class Form
             'Send',
             [
                 'id' => $formName . '-submit',
-                'onclick' => "document.getElementById('{$formName}-form').submit();",
+                'onclick' => "document.getElementById('{$formId}').submit();",
                 'class' => 'alt',
             ]
         );
