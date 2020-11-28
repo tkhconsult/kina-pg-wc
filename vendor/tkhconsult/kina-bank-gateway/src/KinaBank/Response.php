@@ -121,18 +121,7 @@ abstract class Response implements ResponseInterface
      */
     protected function _validateSignature()
     {
-        $mac = '';
-        foreach ([self::ACTION, self::RC, self::RRN, self::ORDER, self::AMOUNT] as $field) {
-            $value = $this->_responseFields[$field];
-            if ($value != '-') {
-                $mac .= strlen($value).$value;
-            } else {
-                $mac .= $value;
-            }
-        }
-        $macHash      = strtoupper(md5($mac));
-        $pSign        = $this->_responseFields[self::P_SIGN];
-        $encryptedBin = hex2bin($pSign);
+        // TODO - temporary bypass p_sign in response
         return true;
     }
 
