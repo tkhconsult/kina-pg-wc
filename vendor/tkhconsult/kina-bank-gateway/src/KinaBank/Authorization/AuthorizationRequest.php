@@ -178,6 +178,8 @@ class AuthorizationRequest extends Request
         $form->{$constructElementMethod}(self::TRTYPE, $this->_requestFields[self::TRTYPE]);
         if (isset($this->_requestFields[self::COUNTRY])) {
             $form->{$constructElementMethod}(self::COUNTRY, $this->_requestFields[self::COUNTRY]);
+        } else {
+            $form->{$constructElementMethod}(self::COUNTRY, 'PG');
         }
         $form->{$constructElementMethod}(self::MERCH_GMT, $this->_requestFields[self::MERCH_GMT]);
         $form->{$constructElementMethod}(self::TIMESTAMP, $this->_requestFields[self::TIMESTAMP]);
