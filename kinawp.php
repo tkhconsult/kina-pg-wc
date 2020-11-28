@@ -748,6 +748,11 @@ function woocommerce_kinabank_init() {
 		}
 		#endregion
 
+        /**
+         * @param $order_id
+         * @param WC_Order $order
+         * @return bool|WP_Error
+         */
 		public function complete_transaction($order_id, $order) {
 			$this->log(sprintf('%1$s: OrderID=%2$s', __FUNCTION__, $order_id));
 
@@ -777,6 +782,12 @@ function woocommerce_kinabank_init() {
 			return $validate_result;
 		}
 
+        /**
+         * @param $order_id
+         * @param WC_Order $order
+         * @param null $amount
+         * @return bool|WP_Error
+         */
 		public function refund_transaction($order_id, $order, $amount = null) {
 			$this->log(sprintf('%1$s: OrderID=%2$s Amount=%3$s', __FUNCTION__, $order_id, $amount));
 
@@ -1148,11 +1159,18 @@ function woocommerce_kinabank_init() {
 			return $kbdata;
 		}
 
+        /**
+         * @param WC_Order $order
+         * @param $intRef
+         */
 		protected function mark_order_paid($order, $intRef) {
 			if(!$order->is_paid())
 				$order->payment_complete($intRef);
 		}
 
+        /**
+         * @param WC_Order $order
+         */
 		protected function mark_order_refunded($order) {
 			$message = sprintf(__('Order fully refunded via %1$s.', self::MOD_TEXT_DOMAIN), $this->method_title);
 			$message = $this->get_order_message($message);
@@ -1164,6 +1182,9 @@ function woocommerce_kinabank_init() {
 				$order->add_order_note($message);
 		}
 
+        /**
+         * @param WC_Order $order
+         */
 		protected function generate_form($order) {
 			$order_id = $order->get_id();
 			$order_total = $this->price_format($order->get_total());
@@ -1204,6 +1225,10 @@ function woocommerce_kinabank_init() {
 			return $this->refund_transaction($order_id, $order, $amount);
 		}
 
+        /**
+         * @param WC_Order $order
+         * @return int
+         */
 		protected function get_order_net_total($order) {
 			//https://github.com/woocommerce/woocommerce/issues/17795
 			//https://github.com/woocommerce/woocommerce/pull/18196
@@ -1237,6 +1262,10 @@ function woocommerce_kinabank_init() {
 			return number_format($price, $decimals, '.', '');
 		}
 
+        /**
+         * @param WC_Order $order
+         * @return string
+         */
 		protected function get_order_description($order) {
 			return sprintf(__($this->order_template, self::MOD_TEXT_DOMAIN),
 				$order->get_id(),
@@ -1244,6 +1273,10 @@ function woocommerce_kinabank_init() {
 			);
 		}
 
+        /**
+         * @param WC_Order $order
+         * @return string
+         */
 		protected function get_order_items_summary($order) {
 			$items = $order->get_items();
 			$items_names = array_map(function($item) { return $item->get_name(); }, $items);
@@ -1361,6 +1394,10 @@ function woocommerce_kinabank_init() {
 			return $actions;
 		}
 
+        /**
+         * @param WC_Order $order
+         * @return bool|WP_Error
+         */
 		static function action_complete_transaction($order) {
 			$order_id = $order->get_id();
 
@@ -1368,6 +1405,10 @@ function woocommerce_kinabank_init() {
 			return $plugin->complete_transaction($order_id, $order);
 		}
 
+        /**
+         * @param WC_Order $order
+         * @return bool|WP_Error
+         */
 		static function action_reverse_transaction($order) {
 			$order_id = $order->get_id();
 
@@ -1376,6 +1417,12 @@ function woocommerce_kinabank_init() {
 		}
 		#endregion
 
+        /**
+         * @param $fields
+         * @param $sent_to_admin
+         * @param WC_Order $order
+         * @return mixed
+         */
 		static function email_order_meta_fields($fields, $sent_to_admin, $order) {
 			if(!$order->is_paid() || $order->get_payment_method() !== self::MOD_ID) {
 				return $fields;
