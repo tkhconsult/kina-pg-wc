@@ -986,7 +986,7 @@ function woocommerce_kinabank_init() {
 						self::set_post_meta($order_id, self::MOD_TRANSACTION_TYPE, $this->transaction_type);
 
 						foreach($bankParams as $key => $value)
-							self::set_post_meta($order_id, strtolower(self::MOD_PREFIX . $key), $value);
+							self::set_post_meta($order_id, strtolower('_' . self::MOD_PREFIX . $key), $value);
 						#endregion
 
 						$message = sprintf(__('Payment authorized via %1$s: %2$s', self::MOD_TEXT_DOMAIN), $this->method_title, http_build_query($bankParams));
