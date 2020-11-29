@@ -922,6 +922,7 @@ function woocommerce_kinabank_init() {
 		}
 
 		public function process_response_data($kbdata) {
+		    $kbdata[Response::RC_MSG] = Response::convertRcMessage($kbdata[Response::RC]);
 			$this->log(sprintf('%1$s: %2$s', __FUNCTION__, self::print_var($kbdata)));
 
 			try {
