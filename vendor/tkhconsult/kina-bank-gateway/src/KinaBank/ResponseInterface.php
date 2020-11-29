@@ -18,6 +18,7 @@ interface ResponseInterface
     const CURRENCY = 'CURRENCY';   #Size: 3, Echo from the request
     const ACTION   = 'ACTION';     #Size: 1, E-Gateway action code: 0 – Transaction successfully completed;1 – Duplicate transaction detected;2 – Transaction declined;3 – Transaction processing fault.
     const RC        = 'RC';         #Size: 02, Transaction response code (ISO-8583 Field 39)
+    const RC_MSG    = 'RC_MSG';     #Custom field for readable RC MSG
     const TEXT      = 'TEXT';
     const APPROVAL  = 'APPROVAL';   #Size: 06, Client bank’s approval code (ISO-8583 Field 38). Can be empty if not provided by card management system.
     const RRN       = 'RRN';        #Size: 12, Merchant bank’s retrieval reference number (ISO-8583 Field 37).

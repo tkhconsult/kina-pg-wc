@@ -26,6 +26,7 @@ abstract class Response implements ResponseInterface
         self::CURRENCY => null,
         self::ACTION => null,
         self::RC => null,
+        self::RC_MSG => null,
         self::TEXT => null,
         self::APPROVAL => null,
         self::RRN => null,
@@ -67,8 +68,55 @@ abstract class Response implements ResponseInterface
 
         $this->_responseFields[self::ORDER] = KinaBankGateway::normalizeOrderId($this->_responseFields[self::ORDER]);
         $this->_responseFields[self::AMOUNT] = KinaBankGateway::normalizeAmount($this->_responseFields[self::AMOUNT]);
+        $this->_responseFields[self::RC_MSG] = self::convertRcMessage($this->_responseFields[self::RC]);
 
         return $this;
+    }
+
+    public static function convertRcMessage($rc) {
+        $message = '';
+        switch($rc) {
+            case '-1': $message = 'A mandatory request field is not filled in'; break;
+            case '-2': $message = 'CGI request validation failed'; break;
+            case '-3': $message = 'Acquirer host (NS) does not respond or wrong format of e-gateway response template file'; break;
+            case '-4': $message = 'No connection to the acquirer host (NS)'; break;
+            case '-5': $message = 'The acquirer host (NS) connection failed during transaction processing'; break;
+            case '-6': $message = 'e-Gateway configuration error'; break;
+            case '-7': $message = 'The acquirer host (NS) response is invalid, e.g. mandatory fields missing'; break;
+            case '-8': $message = 'Error in the "Card number" request field'; break;
+            case '-9': $message = 'Error in the "Card expiration date" request field'; break;
+            case '-10': $message = 'Error in the "Amount" request field'; break;
+            case '-11': $message = 'Error in the "Currency" request field'; break;
+            case '-12': $message = 'Error in the "Merchant ID" request field'; break;
+            case '-13': $message = 'The referrer IP address (usually the merchant\'s IP) is not the one expected'; break;
+            case '-14': $message = 'No connection to the iPOS PINpad or agent program is not running on the iPOS computer/workstation'; break;
+            case '-15': $message = 'Error in the "RRN" request field'; break;
+            case '-16': $message = 'Another transaction is being performed on the terminal'; break;
+            case '-17': $message = 'The terminal is denied access to the e-Gateway'; break;
+            case '-18': $message = 'Error in the CVC2 or CVC2 Description request fields'; break;
+            case '-19': $message = 'Error in the authentication information request or authentication failed.'; break;
+            case '-20': $message = 'A permitted time interval (1 hour by default) between the transaction Time Stamp request field and the e-Gateway time is exceeded'; break;
+            case '-21': $message = 'The transaction has already been executed'; break;
+            case '-22': $message = 'Transaction contains invalid authentication information'; break;
+            case '-23': $message = 'Invalid transaction context'; break;
+            case '-24': $message = 'Transaction context data mismatch'; break;
+            case '-25': $message = 'Transaction canceled (e.g. by user)'; break;
+            case '-26': $message = 'Invalid action BIN'; break;
+            case '-27': $message = 'Invalid merchant name'; break;
+            case '-28': $message = 'Invalid incoming addendum(s)'; break;
+            case '-29': $message = 'Invalid/duplicate authentication reference'; break;
+            case '-30': $message = 'Transaction was declined as fraud'; break;
+            case '-31': $message = 'Transaction already in progress'; break;
+            case '-32': $message = 'Duplicate declined transaction'; break;
+            case '-33': $message = 'Client authentication by random amount or verify one-time code in progress'; break;
+            case '-34': $message = 'MasterCard Installment client choice in progress'; break;
+            case '-35': $message = 'MasterCard Installments auto canceled'; break;
+            case '-97': $message = 'Session Timeout / Not Login'; break;
+            case '-98': $message = 'Exceed OTP attempts limit'; break;
+            case '-99': $message = 'Transaction aborted due to browser refresh'; break;
+        }
+
+        return $message;
     }
 
     /**
