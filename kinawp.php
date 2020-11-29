@@ -934,6 +934,7 @@ function woocommerce_kinabank_init() {
 			}
 
 			#region Extract bank response params
+            $payment_id= $bankResponse->{Response::ORDER};
 			$order_id  = KinaBankGateway::deNormalizeOrderId($bankResponse->{Response::ORDER});
 			$amount    = $bankResponse->{Response::AMOUNT};
 			$currency  = $bankResponse->{Response::CURRENCY};
@@ -946,6 +947,7 @@ function woocommerce_kinabank_init() {
 			$card      = $bankResponse->{Response::CARD};
 
 			$bankParams = array(
+			    'PAYMENT_ID'=> $payment_id,
 				'ORDER'     => $order_id,
 				'AMOUNT'    => $amount,
 				'CURRENCY'  => $currency,
