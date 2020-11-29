@@ -147,6 +147,9 @@ abstract class Response implements ResponseInterface
         if (!isset($this->_responseFields[self::ACTION])) {
             throw new Exception('Bank response: Invalid data received');
         }
+        if(!$this->_responseFields[self::ACTION] && $this->_responseFields[self::ACTION] !== self::STATUS_SUCCESS) {
+            $this->_responseFields[self::ACTION] = -99999999;
+        }
         switch ((int)$this->_responseFields[self::ACTION]) {
             case self::STATUS_SUCCESS:
                 return $this->_validateSignature();
