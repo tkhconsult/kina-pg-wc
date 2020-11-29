@@ -554,9 +554,9 @@ class KinaBankGateway
      */
     static public function normalizeOrderId($code)
     {
-        if(strpos($code, '-') !== false) return $code;
+        if(strlen($code) > 15) return $code;
         $time = time() - 1577808000; // - 2020-01-01
-        return sprintf('%06s-%010d', $code, $time);
+        return sprintf('%06s%010d', $code, $time);
     }
 
     /**
@@ -568,9 +568,8 @@ class KinaBankGateway
      */
     static public function deNormalizeOrderId($code)
     {
-        $part = explode('-', $code);
-        if(count($part) > 1) {
-            $code = $part[0];
+        if(strlen($code) > 15) {
+            $code = substr($code, 0, strlen($code) - 10);
         }
         return ltrim($code, '0');
     }
