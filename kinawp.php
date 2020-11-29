@@ -147,8 +147,51 @@ function woocommerce_kinabank_init() {
 			#region Payment listener/API hook
 			add_action('woocommerce_api_wc_' . $this->id, array($this, 'check_response'));
 			add_action('woocommerce_api_wc_' . $this->id . '_redirect', array($this, 'check_redirect'));
+            add_action('woocommerce_admin_order_data_after_billing_address', array($this, 'add_customer_admin_order_data'), 0);
 			#endregion
 		}
+
+        /**
+         * @param WC_Order $order
+         */
+        function add_customer_admin_order_data($order) {
+            $bankParams = array(
+                'PAYMENT_ID',
+                'ORDER',
+                'AMOUNT',
+                'CURRENCY',
+                'TEXT',
+                'APPROVAL',
+                'RRN',
+                'INT_REF',
+                'TIMESTAMP',
+                'BIN',
+                'CARD'
+            );
+            $meta_keys = [];
+            foreach($bankParams as $param) {
+                $meta_keys[] = strtolower('_' . self::MOD_PREFIX . $param);
+            }
+            $totalMeta = 0;
+            foreach($order->get_meta_data() as $meta_data) {
+                /** @var WC_Meta_Data $meta_data */
+                $data = $meta_data->get_data();
+                if (in_array($data['key'], $meta_keys)) {
+                    $totalMeta++;
+                }
+            }
+            if($totalMeta > 0) {
+                echo '<h3>' . __('Bank Response', self::MOD_TEXT_DOMAIN) . '</h3>';
+            }
+            foreach($order->get_meta_data() as $meta_data) {
+                /** @var WC_Meta_Data $meta_data */
+                $data = $meta_data->get_data();
+                if(in_array($data['key'], $meta_keys)) {
+                    echo '<p><strong>' . strtoupper(str_replace('_' . self::MOD_PREFIX, '', $data['key'])) . ':</strong>';
+                    echo ' ' . $data['value'] . '</p>';
+                }
+            }
+        }
 
 		/**
 		 * Initialize Gateway Settings Form Fields
