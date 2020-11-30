@@ -3,7 +3,6 @@
 [![GitHub issues](https://img.shields.io/github/issues/TkhConsult/KinaBankGateway)](https://github.com/TkhConsult/KinaBankGateway/issues)
 [![Version](https://img.shields.io/packagist/v/tkhconsult/kina-bank-gateway)](https://packagist.org/packages/tkhconsult/kina-bank-gateway)
 ![Packagist](https://img.shields.io/packagist/l/tkhconsult/kina-bank-gateway)
-[![Donate](https://img.shields.io/badge/donate-PayPal-%2337a556)]( https://paypal.me/tkhconsult?locale.x=en_US)
 
 ---
 
