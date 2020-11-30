@@ -353,13 +353,15 @@ function woocommerce_kinabank_init() {
 					'title'       => __('MAC secret key path for TEST', self::MOD_TEXT_DOMAIN),
 					'type'        => 'text',
 					'description' => '<code>/path/to/test.key</code>',
-					'default'     => ''
+					'default'     => '',
+                    'sanitize_callback' => array(self::class, 'sanitize_key_path')
 				),
                 'kb_prod_key'   => array(
                     'title'       => __('MAC secret key path for PROD', self::MOD_TEXT_DOMAIN),
                     'type'        => 'text',
                     'description' => '<code>/path/to/prod.key</code>',
-                    'default'     => ''
+                    'default'     => '',
+                    'sanitize_callback' => array(self::class, 'sanitize_key_path')
                 ),
 				'payment_notification' => array(
 					'title'       => __('Payment Notification', self::MOD_TEXT_DOMAIN),
@@ -386,6 +388,10 @@ function woocommerce_kinabank_init() {
 				)
 			);
 		}
+
+		public function sanitize_key_path($field) {
+		    return str_replace('\\\\', '\\', $field);
+        }
 
 		public function is_valid_for_use() {
 			if(!in_array(get_option('woocommerce_currency'), self::SUPPORTED_CURRENCIES)) {
