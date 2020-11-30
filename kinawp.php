@@ -208,13 +208,14 @@ function woocommerce_kinabank_init() {
 					'title'       => __('Title', self::MOD_TEXT_DOMAIN),
 					'type'        => 'text',
 					'desc_tip'    => __('Payment method title that the customer will see during checkout.', self::MOD_TEXT_DOMAIN),
-					'default'     => self::MOD_TITLE
+                    /* translators: %1$s: Plugin name */
+					'default'     => sprintf(__('%1$s\'s Online Payment', self::MOD_TEXT_DOMAIN), self::MOD_TITLE)
 				),
 				'description'     => array(
 					'title'       => __('Description', self::MOD_TEXT_DOMAIN),
 					'type'        => 'textarea',
 					'desc_tip'    => __('Payment method description that the customer will see during checkout.', self::MOD_TEXT_DOMAIN),
-					'default'     => ''
+					'default'     => __('Online payment with VISA / MasterCard bank cards / Bank transfer processed through Kinabank\'s online payment system.', self::MOD_TEXT_DOMAIN),
 				),
 				'logo_type' => array(
 					'title'       => __('Logo', self::MOD_TEXT_DOMAIN),
