@@ -265,6 +265,7 @@ function woocommerce_kinabank_init() {
 				'order_template'  => array(
 					'title'       => __('Order description', self::MOD_TEXT_DOMAIN),
 					'type'        => 'text',
+                    /* translators: %1$s: wild card for order id, %2$s: wild card for order items summary */
 					'description' => __('Format: <code>%1$s</code> - Order ID, <code>%2$s</code> - Order items summary', self::MOD_TEXT_DOMAIN),
 					'desc_tip'    => __('Order description that the customer will see on the bank payment page.', self::MOD_TEXT_DOMAIN),
 					'default'     => self::ORDER_TEMPLATE
@@ -538,6 +539,7 @@ function woocommerce_kinabank_init() {
 
 		protected function settings_admin_notice() {
 			if(self::is_wc_admin()) {
+                /* translators: %1$s: Payment method URL */
 				$message = sprintf(__('Please review the <a href="%1$s">payment method settings</a> page for log details and setup instructions.', self::MOD_TEXT_DOMAIN), self::get_settings_url());
 				wc_add_notice($message, 'error');
 			}
@@ -660,11 +662,13 @@ function woocommerce_kinabank_init() {
 			$temp_file = tempnam(get_temp_dir(),  $tempFileName);
 
 			if(!$temp_file) {
+                /* translators: %1$s: Temp file path */
 				$this->log(sprintf(__('Unable to create temporary file: %1$s', self::MOD_TEXT_DOMAIN), $temp_file), WC_Log_Levels::ERROR);
 				return null;
 			}
 
 			if(false === file_put_contents($temp_file, $fileData)) {
+                /* translators: %1$s: Temp file path */
 				$this->log(sprintf(__('Unable to save data to temporary file: %1$s', self::MOD_TEXT_DOMAIN), $temp_file), WC_Log_Levels::ERROR);
 				return null;
 			}
@@ -716,6 +720,7 @@ function woocommerce_kinabank_init() {
 
 		public function process_payment($order_id) {
 			if(!$this->check_settings()) {
+                /* translators: %1$s: Payment method */
 				$message = sprintf(__('%1$s is not properly configured.', self::MOD_TEXT_DOMAIN), $this->method_title);
 
 				wc_add_notice($message, 'error');
@@ -815,6 +820,7 @@ function woocommerce_kinabank_init() {
 			}
 
 			if(!$validate_result) {
+                /* translators: %1$s: Payment method */
 				$message = sprintf(__('Payment completion via %1$s failed', self::MOD_TEXT_DOMAIN), $this->method_title);
 				$message = $this->get_order_message($message);
 				$order->add_order_note($message);
@@ -861,6 +867,7 @@ function woocommerce_kinabank_init() {
 			}
 
 			if(!$validate_result) {
+                /* translators: %1$s: Amount, %2$s: Order currency, %2$s Payment method */
 				$message = sprintf(__('Refund of %1$s %2$s via %3$s failed', self::MOD_TEXT_DOMAIN), $amount, $order_currency, $this->method_title);
 				$message = $this->get_order_message($message);
 				$order->add_order_note($message);
@@ -905,6 +912,7 @@ function woocommerce_kinabank_init() {
             $order_id = wc_clean($order_id);
 
 			if(self::string_empty($order_id)) {
+                /* translators: %1$s: Payment method */
 				$message = sprintf(__('Payment verification failed: Order ID not received from %1$s.', self::MOD_TEXT_DOMAIN), $this->method_title);
 				$this->log($message, WC_Log_Levels::ERROR);
 
@@ -917,6 +925,7 @@ function woocommerce_kinabank_init() {
 
 			$order = wc_get_order($order_id);
 			if(!$order) {
+                /* translators: %1$s: Payment method */
 				$message = sprintf(__('Order #%1$s not found as received from %2$s.', self::MOD_TEXT_DOMAIN), $order_id, $this->method_title);
 				$this->log($message, WC_Log_Levels::ERROR);
 
@@ -929,7 +938,7 @@ function woocommerce_kinabank_init() {
 
 			if($order->is_paid()) {
 				WC()->cart->empty_cart();
-
+                /* translators: %1$s: Payment method */
 				$message = sprintf(__('Order #%1$s paid successfully via %2$s.', self::MOD_TEXT_DOMAIN), $order_id, $this->method_title);
 				$this->log($message, WC_Log_Levels::INFO);
 
@@ -938,6 +947,7 @@ function woocommerce_kinabank_init() {
 				wp_safe_redirect($this->get_return_url($order));
 				return true;
 			} else {
+                /* translators: %1$s: Payment method */
 				$message = sprintf(__('Order #%1$s payment failed via %2$s.', self::MOD_TEXT_DOMAIN), $order_id, $this->method_title);
 				$this->log($message, WC_Log_Levels::ERROR);
 
@@ -1006,6 +1016,7 @@ function woocommerce_kinabank_init() {
 
 			#region Validate order
 			if(self::string_empty($order_id)) {
+                /* translators: %1$s: Payment method */
 				$message = sprintf(__('Order ID not received from %1$s.', self::MOD_TEXT_DOMAIN), $this->method_title);
 				$this->log($message, WC_Log_Levels::ERROR);
 				return false;
@@ -1013,6 +1024,7 @@ function woocommerce_kinabank_init() {
 
 			$order = wc_get_order($order_id);
 			if(!$order) {
+                /* translators: %1$s: Payment method */
 				$message = sprintf(__('Order #%1$s not found as received from %2$s.', self::MOD_TEXT_DOMAIN), $order_id, $this->method_title);
 				$this->log($message, WC_Log_Levels::ERROR);
 				return false;
@@ -1031,7 +1043,7 @@ function woocommerce_kinabank_init() {
 						foreach($bankParams as $key => $value)
 							self::set_post_meta($order_id, strtolower('_' . self::MOD_PREFIX . $key), $value);
 						#endregion
-
+                        /* translators: %1$s: Payment method, %2$s: Bank parameters */
 						$message = sprintf(__('Payment authorized via %1$s: %2$s', self::MOD_TEXT_DOMAIN), $this->method_title, http_build_query($bankParams));
 						$message = $this->get_order_message($message);
 						$this->log($message, WC_Log_Levels::INFO);
@@ -1057,6 +1069,7 @@ function woocommerce_kinabank_init() {
 
 					case KinaBankGateway::TRX_TYPE_COMPLETION:
 						//Funds successfully transferred on bank side
+                        /* translators: %1$s: Payment method, %2$s Bank parameters */
 						$message = sprintf(__('Payment completed via %1$s: %2$s', self::MOD_TEXT_DOMAIN), $this->method_title, http_build_query($bankParams));
 						$message = $this->get_order_message($message);
 						$this->log($message, WC_Log_Levels::INFO);
@@ -1067,8 +1080,9 @@ function woocommerce_kinabank_init() {
 						return true;
 						break;
 
-					case KinaBankGateway::TRX_TYPE_REVERSAL:
+                    case KinaBankGateway::TRX_TYPE_REVERSAL:
 						//Reversal successfully applied on bank side
+                        /* translators: %1$s: Amount, %2$s: Currency, %3$s: Payment method */
 						$message = sprintf(__('Refund of %1$s %2$s via %3$s approved: %4$s', self::MOD_TEXT_DOMAIN), $amount, $currency, $this->method_title, http_build_query($bankParams));
 						$message = $this->get_order_message($message);
 						$this->log($message, WC_Log_Levels::INFO);
@@ -1085,10 +1099,11 @@ function woocommerce_kinabank_init() {
 						break;
 				}
 			}
-
+            /* translators: %1$s: Order ID */
 			$this->log(sprintf(__('Payment transaction check failed for order #%1$s.', self::MOD_TEXT_DOMAIN), $order_id), WC_Log_Levels::ERROR);
 			$this->log(self::print_var($bankResponse), WC_Log_Levels::ERROR);
 
+            /* translators: %1$s: Payment method, %2$s: Error details */
 			$message = sprintf(__('%1$s payment transaction check failed: %2$s', self::MOD_TEXT_DOMAIN), $this->method_title, join('; ', $bankResponse->getErrors()) . ' ' . http_build_query($bankParams));
 			$message = $this->get_order_message($message);
 			$order->add_order_note($message);
@@ -1131,6 +1146,7 @@ function woocommerce_kinabank_init() {
 							wp_send_json_error($message);
 						}
 					} else {
+                        /* translators: %1$s: Plugin name */
 						$message = sprintf(__('%1$s is not configured', self::MOD_TEXT_DOMAIN), self::MOD_TITLE);
 						self::static_log($message, WC_Log_Levels::ERROR);
 						wp_send_json_error($message);
@@ -1218,6 +1234,7 @@ function woocommerce_kinabank_init() {
          * @param WC_Order $order
          */
 		protected function mark_order_refunded($order) {
+            /* translators: %1$s: Payment method */
 			$message = sprintf(__('Order fully refunded via %1$s.', self::MOD_TEXT_DOMAIN), $this->method_title);
 			$message = $this->get_order_message($message);
 
@@ -1260,6 +1277,7 @@ function woocommerce_kinabank_init() {
 			} catch(Exception $ex) {
 				$this->log($ex, WC_Log_Levels::ERROR);
 
+                /* translators: %1$s: Payment method */
 				$message = sprintf(__('Payment initiation failed via %1$s.', self::MOD_TEXT_DOMAIN), $this->method_title);
 				wc_add_notice($message, 'error');
 				$this->settings_admin_notice();
@@ -1434,7 +1452,7 @@ function woocommerce_kinabank_init() {
 			if($transaction_type !== self::TRANSACTION_TYPE_AUTHORIZATION) {
 				return $actions;
 			}
-
+            /* translators: %1$s: Plugin name */
 			$actions['kinabank_complete_transaction'] = sprintf(__('Complete %1$s transaction', self::MOD_TEXT_DOMAIN), self::MOD_TITLE);
 			//$actions['kinabank_reverse_transaction'] = sprintf(__('Reverse %1$s transaction', self::MOD_TEXT_DOMAIN), self::MOD_TITLE);
 			return $actions;
