@@ -71,7 +71,7 @@ function woocommerce_kinabank_init() {
 
 		//e-Commerce Gateway merchant interface (CGI/WWW forms version)
 		//Appendix A: P_SIGN creation/verification in the Merchant System
-		//https://github.com/TkhConsult/KinaBankGateway/blob/master/doc/e-Gateway_Merchant_CGI_2.1.pdf
+		//https://github.com/TkhConsult/KinaBankGateway/blob/master/doc/KBL-EC-Merchant-Integration-v1.5.pdf
 		const KB_SIGNATURE_FIRST   = '0001';
 		const KB_SIGNATURE_PREFIX  = '3020300C06082A864886F70D020505000410';
 		const KB_SIGNATURE_PADDING = '00';
