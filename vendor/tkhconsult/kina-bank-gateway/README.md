@@ -6,7 +6,7 @@
 
 ---
 
-> Packagist package (library) to give any php-based website an access to the interface of KinaBank (Republic Of Moldova) that merchant systems use to process credit card based e- commerce transactions using the standard CGI/WWW forms posting method. This interface transparently supports various cardholder authentication protocols such as 3-D Secure and Secure Code as well as legacy unauthenticated SSL commerce transactions.
+> Packagist package (library) to give any php-based website an access to the interface of KinaBank that merchant systems use to process credit card based e- commerce transactions using the standard CGI/WWW forms posting method. This interface transparently supports various cardholder authentication protocols such as 3-D Secure and Secure Code as well as legacy unauthenticated SSL commerce transactions.
 
 #### 🏠 [Homepage](https://github.com/TkhConsult/KinaBankGateway)
 
@@ -181,7 +181,6 @@ $kinaBankGateway
 
 👤 Lovely handcrafted by **TkhConsult team**
 
-* Twitter: [@tkhconsult](https://twitter.com/tkhconsult)
 * Github: [@tkhconsult](https://github.com/tkhconsult)
 
 ## 🤝 Contributing
