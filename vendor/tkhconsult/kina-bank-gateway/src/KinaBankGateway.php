@@ -532,16 +532,16 @@ class KinaBankGateway
     public function requestRefund($orderId, $amount, $rrn, $intRef, $currency = null)
     {
         try {
-            $request = new KinaBank\Reversal\RefundRequest(
+            $request = new KinaBank\Refund\RefundRequest(
                 [
-                    KinaBank\Reversal\RefundRequest::TERMINAL  => $this->terminal,
-                    KinaBank\Reversal\RefundRequest::ORDER     => static::normalizeOrderId($orderId),
-                    KinaBank\Reversal\RefundRequest::AMOUNT    => static::normalizeAmount($amount),
-                    KinaBank\Reversal\RefundRequest::CURRENCY  => $currency ? $currency : $this->defaultCurrency,
-                    KinaBank\Reversal\RefundRequest::TIMESTAMP => $this->getTransactionTimestamp(),
-                    KinaBank\Reversal\RefundRequest::NONCE     => $this->generateNonce(),
-                    KinaBank\Reversal\RefundRequest::RRN       => $rrn,
-                    KinaBank\Reversal\RefundRequest::INT_REF   => $intRef,
+                    KinaBank\Refund\RefundRequest::TERMINAL  => $this->terminal,
+                    KinaBank\Refund\RefundRequest::ORDER     => static::normalizeOrderId($orderId),
+                    KinaBank\Refund\RefundRequest::AMOUNT    => static::normalizeAmount($amount),
+                    KinaBank\Refund\RefundRequest::CURRENCY  => $currency ? $currency : $this->defaultCurrency,
+                    KinaBank\Refund\RefundRequest::TIMESTAMP => $this->getTransactionTimestamp(),
+                    KinaBank\Refund\RefundRequest::NONCE     => $this->generateNonce(),
+                    KinaBank\Refund\RefundRequest::RRN       => $rrn,
+                    KinaBank\Refund\RefundRequest::INT_REF   => $intRef,
                 ], $this->gatewayUrl, $this->debug, $this->sslVerify
             );
 
