@@ -518,6 +518,45 @@ class KinaBankGateway
         }
     }
 
+
+    /**
+     * @param mixed  $orderId  Merchant order ID
+     * @param float  $amount   Transaction amount
+     * @param string $rrn      Retrieval reference number from authorization response
+     * @param string $intRef   Internal reference number from authorization response
+     * @param string $currency Order currency: 3-character currency code
+     *
+     * @return mixed|void
+     * @throws KinaBank\Exception
+     */
+    public function requestRefund($orderId, $amount, $rrn, $intRef, $currency = null)
+    {
+        try {
+            $request = new KinaBank\Reversal\RefundRequest(
+                [
+                    KinaBank\Reversal\RefundRequest::TERMINAL  => $this->terminal,
+                    KinaBank\Reversal\RefundRequest::ORDER     => static::normalizeOrderId($orderId),
+                    KinaBank\Reversal\RefundRequest::AMOUNT    => static::normalizeAmount($amount),
+                    KinaBank\Reversal\RefundRequest::CURRENCY  => $currency ? $currency : $this->defaultCurrency,
+                    KinaBank\Reversal\RefundRequest::TIMESTAMP => $this->getTransactionTimestamp(),
+                    KinaBank\Reversal\RefundRequest::NONCE     => $this->generateNonce(),
+                    KinaBank\Reversal\RefundRequest::RRN       => $rrn,
+                    KinaBank\Reversal\RefundRequest::INT_REF   => $intRef,
+                ], $this->gatewayUrl, $this->debug, $this->sslVerify
+            );
+
+            return $request->request();
+        } catch (KinaBank\Exception $e) {
+            if ($this->debug) {
+                throw $e;
+            } else {
+                throw new KinaBank\Exception(
+                    'Refund request to the payment gateway failed. Please contact '.$this->merchantUrl.' for further details.'.$e->getMessage()
+                );
+            }
+        }
+    }
+
     /**
      * Identifies the type of response object based on the received data over post from the bank
      *
