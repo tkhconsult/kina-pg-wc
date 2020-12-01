@@ -6,4 +6,19 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'TkhConsult\\KinaBankGateway\\KinaBankGateway' => $vendorDir . '/tkhconsult/kina-bank-gateway/src/KinaBankGateway.php',
+    'TkhConsult\\KinaBankGateway\\KinaBank\\Authorization\\AuthorizationRequest' => $vendorDir . '/tkhconsult/kina-bank-gateway/src/KinaBank/Authorization/AuthorizationRequest.php',
+    'TkhConsult\\KinaBankGateway\\KinaBank\\Authorization\\AuthorizationResponse' => $vendorDir . '/tkhconsult/kina-bank-gateway/src/KinaBank/Authorization/AuthorizationResponse.php',
+    'TkhConsult\\KinaBankGateway\\KinaBank\\Completion\\CompletionRequest' => $vendorDir . '/tkhconsult/kina-bank-gateway/src/KinaBank/Completion/CompletionRequest.php',
+    'TkhConsult\\KinaBankGateway\\KinaBank\\Completion\\CompletionResponse' => $vendorDir . '/tkhconsult/kina-bank-gateway/src/KinaBank/Completion/CompletionResponse.php',
+    'TkhConsult\\KinaBankGateway\\KinaBank\\Exception' => $vendorDir . '/tkhconsult/kina-bank-gateway/src/KinaBank/Exception.php',
+    'TkhConsult\\KinaBankGateway\\KinaBank\\Form' => $vendorDir . '/tkhconsult/kina-bank-gateway/src/KinaBank/Form.php',
+    'TkhConsult\\KinaBankGateway\\KinaBank\\Refund\\RefundRequest' => $vendorDir . '/tkhconsult/kina-bank-gateway/src/KinaBank/Refund/RefundRequest.php',
+    'TkhConsult\\KinaBankGateway\\KinaBank\\Refund\\RefundResponse' => $vendorDir . '/tkhconsult/kina-bank-gateway/src/KinaBank/Refund/RefundResponse.php',
+    'TkhConsult\\KinaBankGateway\\KinaBank\\Request' => $vendorDir . '/tkhconsult/kina-bank-gateway/src/KinaBank/Request.php',
+    'TkhConsult\\KinaBankGateway\\KinaBank\\RequestInterface' => $vendorDir . '/tkhconsult/kina-bank-gateway/src/KinaBank/RequestInterface.php',
+    'TkhConsult\\KinaBankGateway\\KinaBank\\Response' => $vendorDir . '/tkhconsult/kina-bank-gateway/src/KinaBank/Response.php',
+    'TkhConsult\\KinaBankGateway\\KinaBank\\ResponseInterface' => $vendorDir . '/tkhconsult/kina-bank-gateway/src/KinaBank/ResponseInterface.php',
+    'TkhConsult\\KinaBankGateway\\KinaBank\\Reversal\\ReversalRequest' => $vendorDir . '/tkhconsult/kina-bank-gateway/src/KinaBank/Reversal/ReversalRequest.php',
+    'TkhConsult\\KinaBankGateway\\KinaBank\\Reversal\\ReversalResponse' => $vendorDir . '/tkhconsult/kina-bank-gateway/src/KinaBank/Reversal/ReversalResponse.php',
 );
