@@ -541,7 +541,7 @@ class KinaBankGateway
                     KinaBank\Refund\RefundRequest::TIMESTAMP => $this->getTransactionTimestamp(),
                     KinaBank\Refund\RefundRequest::NONCE     => $this->generateNonce(),
                     KinaBank\Refund\RefundRequest::RRN       => $rrn,
-                    KinaBank\Refund\RefundRequest::INT_REF   => $intRef . '123',
+                    KinaBank\Refund\RefundRequest::INT_REF   => $intRef,
                 ], $this->gatewayUrl, $this->debug, $this->sslVerify
             );
 
