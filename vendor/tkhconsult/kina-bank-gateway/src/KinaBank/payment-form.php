@@ -27,7 +27,7 @@
         echo $elements;
     ?>
 </form><br/>
-<div id="kbliframediv" class="kbliframeoverlay">
+<div id="kbliframediv" class="kbliframeoverlay" style="z-index: 9999999;">
     <div id="kbliframeinnerdiv">
         <iframe id="kblpaymentiframe" name="kblpaymentiframe"></iframe>
     </div>
