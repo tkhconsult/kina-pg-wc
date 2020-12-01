@@ -864,17 +864,19 @@ function woocommerce_kinabank_init() {
 			}
 
 			$validate_result = false;
+			$failReason = '';
 			try {
 				$kinaBankGateway = $this->init_kb_client();
 				$refund_result = $kinaBankGateway->requestRefund($order_id, $amount, $rrn, $intRef, $order_currency);
 				$validate_result = self::validate_response_form($refund_result);
 			} catch(Exception $ex) {
+                $failReason = $ex->getMessage();
 				$this->log($ex, WC_Log_Levels::ERROR);
 			}
 
 			if(!$validate_result) {
-                /* translators: %1$s: Amount, %2$s: Order currency, %2$s Payment method */
-				$message = sprintf(__('Refund of %1$s %2$s via %3$s failed', self::MOD_TEXT_DOMAIN), $amount, $order_currency, $this->method_title);
+                /* translators: %1$s: Amount, %2$s: Order currency, %3$s Payment method, %4$s Failed response */
+				$message = sprintf(__('Refund of %1$s %2$s via %3$s failed (%4$s)', self::MOD_TEXT_DOMAIN), $amount, $order_currency, $this->method_title, $failReason);
 				$message = $this->get_order_message($message);
 				$order->add_order_note($message);
 
