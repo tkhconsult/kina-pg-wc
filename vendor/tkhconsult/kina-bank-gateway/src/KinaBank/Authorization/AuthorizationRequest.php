@@ -200,7 +200,7 @@ echo /** @lang text */
         <head>
             <title>Please wait...</title>
             <style>
-                input{
+                #kblPaymentForm input{
                     width:500px;
                     margin: 5px;
                 }
