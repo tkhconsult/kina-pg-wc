@@ -64,10 +64,10 @@ function woocommerce_kinabank_init() {
 		const KB_ORDER    = 'ORDER';
 		const KB_ORDER_ID = 'order_id';
 
-		const KB_RRN      = self::MOD_PREFIX . 'RRN';
-		const KB_INT_REF  = self::MOD_PREFIX . 'INT_REF';
-		const KB_APPROVAL = self::MOD_PREFIX . 'APPROVAL';
-		const KB_CARD     = self::MOD_PREFIX . 'CARD';
+		const KB_RRN      = '_' . self::MOD_PREFIX . 'RRN';
+		const KB_INT_REF  = '_' . self::MOD_PREFIX . 'INT_REF';
+		const KB_APPROVAL = '_' . self::MOD_PREFIX . 'APPROVAL';
+		const KB_CARD     = '_' . self::MOD_PREFIX . 'CARD';
 
 		//e-Commerce Gateway merchant interface (CGI/WWW forms version)
 		//Appendix A: P_SIGN creation/verification in the Merchant System
