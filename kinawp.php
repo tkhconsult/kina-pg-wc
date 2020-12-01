@@ -866,8 +866,8 @@ function woocommerce_kinabank_init() {
 			$validate_result = false;
 			try {
 				$kinaBankGateway = $this->init_kb_client();
-				$reversal_result = $kinaBankGateway->requestReversal($order_id, $amount, $rrn, $intRef, $order_currency);
-				$validate_result = self::validate_response_form($reversal_result);
+				$refund_result = $kinaBankGateway->requestRefund($order_id, $amount, $rrn, $intRef, $order_currency);
+				$validate_result = self::validate_response_form($refund_result);
 			} catch(Exception $ex) {
 				$this->log($ex, WC_Log_Levels::ERROR);
 			}
@@ -899,6 +899,9 @@ function woocommerce_kinabank_init() {
 			//Validate amount
 			if($amount <= 0)
 				return false;
+
+			if($trxType === KinaBankGateway::TRX_TYPE_REFUND)
+				return $amount <= $order_total;
 
 			if($trxType === KinaBankGateway::TRX_TYPE_REVERSAL)
 				return $amount <= $order_total;
@@ -1086,10 +1089,24 @@ function woocommerce_kinabank_init() {
 						return true;
 						break;
 
+                    case KinaBankGateway::TRX_TYPE_REFUND:
+						// successfully applied on bank side
+                        /* translators: %1$s: Amount, %2$s: Currency, %3$s: Payment method */
+						$message = sprintf(__('Refund of %1$s %2$s via %3$s approved: %4$s', self::MOD_TEXT_DOMAIN), $amount, $currency, $this->method_title, http_build_query($bankParams));
+						$message = $this->get_order_message($message);
+						$this->log($message, WC_Log_Levels::INFO);
+						$order->add_order_note($message);
+
+						if($order->get_total() == $order->get_total_refunded())
+							$this->mark_order_refunded($order);
+
+						return true;
+						break;
+
                     case KinaBankGateway::TRX_TYPE_REVERSAL:
 						//Reversal successfully applied on bank side
                         /* translators: %1$s: Amount, %2$s: Currency, %3$s: Payment method */
-						$message = sprintf(__('Refund of %1$s %2$s via %3$s approved: %4$s', self::MOD_TEXT_DOMAIN), $amount, $currency, $this->method_title, http_build_query($bankParams));
+						$message = sprintf(__('Reversal of %1$s %2$s via %3$s approved: %4$s', self::MOD_TEXT_DOMAIN), $amount, $currency, $this->method_title, http_build_query($bankParams));
 						$message = $this->get_order_message($message);
 						$this->log($message, WC_Log_Levels::INFO);
 						$order->add_order_note($message);
