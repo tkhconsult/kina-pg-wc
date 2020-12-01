@@ -153,8 +153,12 @@ switch ($bankResponse::TRX_TYPE) {
         # Funds successfully transferred on bank side
         break;
 
+    case KinaBankGateway::TRX_TYPE_REFUND:
+        # Refund successfully applied on bank side
+        break;
+
     case KinaBankGateway::TRX_TYPE_REVERSAL:
-        # Reversal successfully applied on bank size
+        # Reversal successfully applied on bank side
         break;
 
     default:
