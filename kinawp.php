@@ -208,8 +208,7 @@ function woocommerce_kinabank_init() {
 					'title'       => __('Title', self::MOD_TEXT_DOMAIN),
 					'type'        => 'text',
 					'desc_tip'    => __('Payment method title that the customer will see during checkout.', self::MOD_TEXT_DOMAIN),
-                    /* translators: %1$s: Plugin name */
-					'default'     => sprintf(__('%1$s\'s Online Payment', self::MOD_TEXT_DOMAIN), self::MOD_TITLE)
+					'default'     => self::MOD_TITLE
 				),
 				'description'     => array(
 					'title'       => __('Description', self::MOD_TEXT_DOMAIN),

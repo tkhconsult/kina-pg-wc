@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-11-30T13:02:38+00:00\n"
+"POT-Creation-Date: 2020-12-01T11:51:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: kinawp\n"
@@ -50,374 +50,369 @@ msgstr ""
 msgid "Payment method title that the customer will see during checkout."
 msgstr ""
 
-#. translators: %1$s: Plugin name
-#: kinawp.php:212
-msgid "%1$s's Online Payment"
-msgstr ""
-
-#: kinawp.php:215
+#: kinawp.php:214
 msgid "Description"
 msgstr ""
 
-#: kinawp.php:217
+#: kinawp.php:216
 msgid "Payment method description that the customer will see during checkout."
 msgstr ""
 
-#: kinawp.php:218
+#: kinawp.php:217
 msgid "Online payment with VISA / MasterCard bank cards / Bank transfer processed through Kinabank's online payment system."
 msgstr ""
 
-#: kinawp.php:221
+#: kinawp.php:220
 msgid "Logo"
 msgstr ""
 
-#: kinawp.php:224
+#: kinawp.php:223
 msgid "Payment method logo image that the customer will see during checkout."
 msgstr ""
 
-#: kinawp.php:227
+#: kinawp.php:226
 msgid "Bank logo"
 msgstr ""
 
-#: kinawp.php:228
+#: kinawp.php:227
 msgid "Payment systems logos"
 msgstr ""
 
-#: kinawp.php:233
+#: kinawp.php:232
 msgid "Test mode"
 msgstr ""
 
-#: kinawp.php:235
+#: kinawp.php:234
 msgid "Enabled"
 msgstr ""
 
-#: kinawp.php:236
+#: kinawp.php:235
 msgid "Use Test or Live bank gateway to process the payments. Disable when ready to accept live payments."
 msgstr ""
 
-#: kinawp.php:240
+#: kinawp.php:239
 msgid "Debug mode"
 msgstr ""
 
-#: kinawp.php:242
+#: kinawp.php:241
 msgid "Enable logging"
 msgstr ""
 
-#: kinawp.php:244
+#: kinawp.php:243
 msgid "View logs"
 msgstr ""
 
-#: kinawp.php:245
+#: kinawp.php:244
 msgid "Save debug messages to the WooCommerce System Status logs. Note: this may log personal information. Use this for debugging purposes only and delete the logs when finished."
 msgstr ""
 
-#: kinawp.php:249
+#: kinawp.php:248
 msgid "Transaction type"
 msgstr ""
 
-#: kinawp.php:252
+#: kinawp.php:251
 msgid "Select how transactions should be processed. Charge submits all transactions for settlement, Authorization simply authorizes the order total for capture later."
 msgstr ""
 
-#: kinawp.php:255
+#: kinawp.php:254
 msgid "Charge (Purchase/Sale)"
 msgstr ""
 
-#: kinawp.php:256
+#: kinawp.php:255
 msgid "Authorization"
 msgstr ""
 
-#: kinawp.php:267
+#: kinawp.php:266
 msgid "Order description"
 msgstr ""
 
 #. translators: %1$s: wild card for order id, %2$s: wild card for order items summary
-#: kinawp.php:270
+#: kinawp.php:269
 msgid "Format: <code>%1$s</code> - Order ID, <code>%2$s</code> - Order items summary"
 msgstr ""
 
-#: kinawp.php:271
+#: kinawp.php:270
 msgid "Order description that the customer will see on the bank payment page."
 msgstr ""
 
-#: kinawp.php:276
+#: kinawp.php:275
 msgid "Merchant Data"
 msgstr ""
 
-#: kinawp.php:277
+#: kinawp.php:276
 msgid "Merchant information that the customer will see on the bank payment page."
 msgstr ""
 
-#: kinawp.php:281
+#: kinawp.php:280
 msgid "Merchant name"
 msgstr ""
 
-#: kinawp.php:291
+#: kinawp.php:290
 msgid "Merchant URL"
 msgstr ""
 
-#: kinawp.php:300
+#: kinawp.php:299
 msgid "Merchant address"
 msgstr ""
 
-#: kinawp.php:309
+#: kinawp.php:308
 msgid "Card acceptor ID"
 msgstr ""
 
-#: kinawp.php:318
+#: kinawp.php:317
 msgid "Terminal ID"
 msgstr ""
 
-#: kinawp.php:328
-#: kinawp.php:523
+#: kinawp.php:327
+#: kinawp.php:522
 msgid "Connection Settings"
 msgstr ""
 
-#: kinawp.php:330
+#: kinawp.php:329
 msgid "Use Basic settings to upload the key files received from the bank or configure manually using Advanced settings below."
 msgstr ""
 
-#: kinawp.php:331
+#: kinawp.php:330
 msgid "Basic settings&raquo;"
 msgstr ""
 
-#: kinawp.php:332
+#: kinawp.php:331
 msgid "or"
 msgstr ""
 
-#: kinawp.php:333
+#: kinawp.php:332
 msgid "Advanced settings&raquo;"
 msgstr ""
 
-#: kinawp.php:337
+#: kinawp.php:336
 msgid "MAC secret key file for TEST"
 msgstr ""
 
-#: kinawp.php:345
+#: kinawp.php:344
 msgid "MAC secret key file for PROD"
 msgstr ""
 
-#: kinawp.php:353
+#: kinawp.php:352
 msgid "MAC secret key path for TEST"
 msgstr ""
 
-#: kinawp.php:360
+#: kinawp.php:359
 msgid "MAC secret key path for PROD"
 msgstr ""
 
-#: kinawp.php:367
+#: kinawp.php:366
 msgid "Payment Notification"
 msgstr ""
 
-#: kinawp.php:368
+#: kinawp.php:367
 msgid "Provide this URL to the bank to enable online payment notifications."
 msgstr ""
 
-#: kinawp.php:372
+#: kinawp.php:371
 msgid "Callback URL"
 msgstr ""
 
-#: kinawp.php:380
+#: kinawp.php:379
 msgid "Advanced&raquo;"
 msgstr ""
 
-#: kinawp.php:383
+#: kinawp.php:382
 msgid "Process callback data"
 msgstr ""
 
-#: kinawp.php:386
+#: kinawp.php:385
 msgid "Manually process bank transaction response callback data received by email as part of the backup procedure."
 msgstr ""
 
-#: kinawp.php:387
+#: kinawp.php:386
 msgid "Bank transaction response callback data"
 msgstr ""
 
-#: kinawp.php:456
+#: kinawp.php:455
 msgid "Are you sure you want to process the entered bank transaction response callback data?"
 msgstr ""
 
-#: kinawp.php:514
+#: kinawp.php:513
 msgid "Unsupported store currency"
 msgstr ""
 
-#: kinawp.php:516
+#: kinawp.php:515
 msgid "Supported currencies"
 msgstr ""
 
-#: kinawp.php:523
+#: kinawp.php:522
 msgid "Not configured"
 msgstr ""
 
-#: kinawp.php:529
+#: kinawp.php:528
 msgid "PROD key file"
 msgstr ""
 
-#: kinawp.php:535
+#: kinawp.php:534
 msgid "TEST key file"
 msgstr ""
 
-#: kinawp.php:540
+#: kinawp.php:539
 msgid "Current server settings do not allow web requests to the bank payment gateway. See <a href=\"https://www.php.net/manual/en/filesystem.configuration.php#ini.allow-url-fopen\" target=\"_blank\">PHP Runtime Configuration</a> for details."
 msgstr ""
 
 #. translators: %1$s: Payment method URL
-#: kinawp.php:550
+#: kinawp.php:549
 msgid "Please review the <a href=\"%1$s\">payment method settings</a> page for log details and setup instructions."
 msgstr ""
 
-#: kinawp.php:620
+#: kinawp.php:619
 msgid "Invalid public key"
 msgstr ""
 
-#: kinawp.php:624
+#: kinawp.php:623
 msgid "Could not validate public key"
 msgstr ""
 
-#: kinawp.php:637
+#: kinawp.php:636
 msgid "Invalid test key"
 msgstr ""
 
-#: kinawp.php:641
+#: kinawp.php:640
 msgid "Could not validate test key"
 msgstr ""
 
-#: kinawp.php:648
+#: kinawp.php:647
 msgid "Invalid value"
 msgstr ""
 
-#: kinawp.php:651
+#: kinawp.php:650
 msgid "File not found"
 msgstr ""
 
-#: kinawp.php:654
+#: kinawp.php:653
 msgid "File not readable"
 msgstr ""
 
-#: kinawp.php:657
+#: kinawp.php:656
 msgid "Could not validate file"
 msgstr ""
 
 #. translators: %1$s: Temp file path
-#: kinawp.php:673
+#: kinawp.php:672
 msgid "Unable to create temporary file: %1$s"
 msgstr ""
 
 #. translators: %1$s: Temp file path
-#: kinawp.php:679
+#: kinawp.php:678
 msgid "Unable to save data to temporary file: %1$s"
 msgstr ""
 
 #. translators: %1$s: Payment method
-#: kinawp.php:731
+#: kinawp.php:730
 msgid "%1$s is not properly configured."
 msgstr ""
 
 #. translators: %1$s: Payment method
-#: kinawp.php:831
+#: kinawp.php:830
 msgid "Payment completion via %1$s failed"
 msgstr ""
 
-#: kinawp.php:861
+#: kinawp.php:860
 msgid "Invalid refund amount"
 msgstr ""
 
 #. translators: %1$s: Amount, %2$s: Order currency, %2$s Payment method
-#: kinawp.php:878
+#: kinawp.php:877
 msgid "Refund of %1$s %2$s via %3$s failed"
 msgstr ""
 
 #. translators: %1$s: Payment method
-#: kinawp.php:923
+#: kinawp.php:922
 msgid "Payment verification failed: Order ID not received from %1$s."
 msgstr ""
 
 #. translators: %1$s: Payment method
-#: kinawp.php:936
-#: kinawp.php:1035
+#: kinawp.php:935
+#: kinawp.php:1034
 msgid "Order #%1$s not found as received from %2$s."
 msgstr ""
 
 #. translators: %1$s: Payment method
-#: kinawp.php:949
+#: kinawp.php:948
 msgid "Order #%1$s paid successfully via %2$s."
 msgstr ""
 
 #. translators: %1$s: Payment method
-#: kinawp.php:958
+#: kinawp.php:957
 msgid "Order #%1$s payment failed via %2$s."
 msgstr ""
 
-#: kinawp.php:973
+#: kinawp.php:972
 msgid "This Callback URL works and should not be called directly."
 msgstr ""
 
 #. translators: %1$s: Payment method
-#: kinawp.php:1027
+#: kinawp.php:1026
 msgid "Order ID not received from %1$s."
 msgstr ""
 
 #. translators: %1$s: Payment method, %2$s: Bank parameters
-#: kinawp.php:1054
+#: kinawp.php:1053
 msgid "Payment authorized via %1$s: %2$s"
 msgstr ""
 
 #. translators: %1$s: Payment method, %2$s Bank parameters
-#: kinawp.php:1080
+#: kinawp.php:1079
 msgid "Payment completed via %1$s: %2$s"
 msgstr ""
 
 #. translators: %1$s: Amount, %2$s: Currency, %3$s: Payment method
-#: kinawp.php:1093
+#: kinawp.php:1092
 msgid "Refund of %1$s %2$s via %3$s approved: %4$s"
 msgstr ""
 
 #. translators: %1$s: Order ID
-#: kinawp.php:1110
+#: kinawp.php:1109
 msgid "Payment transaction check failed for order #%1$s."
 msgstr ""
 
 #. translators: %1$s: Payment method, %2$s: Error details
-#: kinawp.php:1114
+#: kinawp.php:1113
 msgid "%1$s payment transaction check failed: %2$s"
 msgstr ""
 
-#: kinawp.php:1147
+#: kinawp.php:1146
 msgid "Processed successfully"
 msgstr ""
 
-#: kinawp.php:1151
+#: kinawp.php:1150
 msgid "Processing error"
 msgstr ""
 
 #. translators: %1$s: Plugin name
-#: kinawp.php:1157
+#: kinawp.php:1156
 msgid "%1$s is not configured"
 msgstr ""
 
-#: kinawp.php:1162
+#: kinawp.php:1161
 msgid "Invalid message"
 msgstr ""
 
-#: kinawp.php:1167
+#: kinawp.php:1166
 msgid "Empty message"
 msgstr ""
 
 #. translators: %1$s: Payment method
-#: kinawp.php:1245
+#: kinawp.php:1244
 msgid "Order fully refunded via %1$s."
 msgstr ""
 
 #. translators: %1$s: Payment method
-#: kinawp.php:1288
+#: kinawp.php:1287
 msgid "Payment initiation failed via %1$s."
 msgstr ""
 
-#: kinawp.php:1446
+#: kinawp.php:1445
 msgid "Settings"
 msgstr ""
 
 #. translators: %1$s: Plugin name
-#: kinawp.php:1463
+#: kinawp.php:1462
 msgid "Complete %1$s transaction"
 msgstr ""
