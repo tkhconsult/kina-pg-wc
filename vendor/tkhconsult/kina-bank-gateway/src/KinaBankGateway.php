@@ -553,7 +553,7 @@ class KinaBankGateway
                 $code = substr($response, strpos($response, $needle) + strlen($needle), 3);
                 $code = trim($code, '"');
                 $message = KinaBank\Response::convertRcMessage($code);
-                throw new KinaBank\Exception('Code: ' . $code . ' / ' . $message);
+                throw new KinaBank\Exception('RC: ' . $code . ' / ' . $message);
             }
         } catch (KinaBank\Exception $e) {
             if ($this->debug) {
