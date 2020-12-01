@@ -22,7 +22,7 @@
     target="kblpaymentiframe"
 >
     <button class="btn btn-primary btn-lg alt" type="button" onclick="submitPaymentForm('card')">Checkout - Credit/Debit Cards</button>
-    <button class="btn btn-primary btn-lg alt" type="button" onclick="submitPaymentForm('bank')">Checkout - Bank Transfer</button>
+    <?php /*/ ?><button class="btn btn-primary btn-lg alt" type="button" onclick="submitPaymentForm('bank')">Checkout - Bank Transfer</button><?php //*/ ?>
     <?php
         echo $elements;
     ?>
