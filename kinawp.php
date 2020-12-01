@@ -85,7 +85,7 @@ function woocommerce_kinabank_init() {
 			$this->id                 = self::MOD_ID;
 			$this->method_title       = self::MOD_TITLE;
 			$this->method_description = 'WooCommerce Payment Gateway for Kinabank';
-			$this->icon               = apply_filters('woocommerce_kinabank_icon', $plugin_dir . 'assets/img/kinabank.png');
+			$this->icon               = apply_filters('woocommerce_kinabank_icon', $plugin_dir . 'assets/img/kinabank-red.jpg');
 			$this->has_fields         = false;
 			$this->supports           = array('products', 'refunds');
 
@@ -98,7 +98,7 @@ function woocommerce_kinabank_init() {
 			$this->description       = $this->get_option('description');
 
 			$this->logo_type         = $this->get_option('logo_type', self::LOGO_TYPE_BANK);
-			$this->bank_logo         = $plugin_dir . 'assets/img/kinabank.png';
+			$this->bank_logo         = $plugin_dir . 'assets/img/kinabank-red.jpg';
 			$this->systems_logo      = $plugin_dir . 'assets/img/paymentsystems.png';
 			$plugin_icon             = ($this->logo_type === self::LOGO_TYPE_BANK ? $this->bank_logo : $this->systems_logo);
 			$this->icon              = apply_filters('woocommerce_kinabank_icon', $plugin_icon);
