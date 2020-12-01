@@ -541,11 +541,20 @@ class KinaBankGateway
                     KinaBank\Refund\RefundRequest::TIMESTAMP => $this->getTransactionTimestamp(),
                     KinaBank\Refund\RefundRequest::NONCE     => $this->generateNonce(),
                     KinaBank\Refund\RefundRequest::RRN       => $rrn,
-                    KinaBank\Refund\RefundRequest::INT_REF   => $intRef,
+                    KinaBank\Refund\RefundRequest::INT_REF   => $intRef . '123',
                 ], $this->gatewayUrl, $this->debug, $this->sslVerify
             );
 
-            return $request->request();
+            $response = $request->request();
+            if(strpos($response, 'RC==00') !== false) {
+                return 'Refund Success';
+            } else {
+                $needle = 'RC" value="';
+                $code = substr($response, strpos($response, $needle) + strlen($needle), 3);
+                $code = trim($code, '"');
+                $message = KinaBank\Response::convertRcMessage($code);
+                throw new KinaBank\Exception('Code: ' . $code . ' / ' . $message);
+            }
         } catch (KinaBank\Exception $e) {
             if ($this->debug) {
                 throw $e;
