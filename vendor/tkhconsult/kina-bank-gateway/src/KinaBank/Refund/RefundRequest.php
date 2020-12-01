@@ -7,7 +7,7 @@ use TkhConsult\KinaBankGateway\KinaBank\Request;
 use TkhConsult\KinaBankGateway\KinaBankGateway;
 
 /**
- * Class ReversalRequest
+ * Class RefundRequest
  *
  * @package TkhConsult\KinaBankGateway\KinaBank\Refund
  */
@@ -48,7 +48,7 @@ class RefundRequest extends Request
     {
         parent::init();
         #Set TRX type
-        $this->_requestFields[self::TRTYPE] = KinaBankGateway::TRX_TYPE_REVERSAL;
+        $this->_requestFields[self::TRTYPE] = KinaBankGateway::TRX_TYPE_REFUND;
         #Set TRX signature
         $order                              = $this->_requestFields[self::ORDER];
         $nonce                              = $this->_requestFields[self::NONCE];
