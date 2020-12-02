@@ -32,7 +32,7 @@ class KinaBankGateway
     /**
      * @var string
      */
-    private $gatewayUrl = 'https://devegateway.kinabank.com.pg/cgi-bin/cgi_link';
+    private $gatewayUrl = 'https://prodegateway.kinabank.com.pg/cgi-bin/cgi_link';
 
     /**
      * @var string
