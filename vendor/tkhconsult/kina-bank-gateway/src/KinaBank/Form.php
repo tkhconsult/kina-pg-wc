@@ -152,6 +152,8 @@ class Form
         $formName = $this->_formName;
         $formMethod = $this->_formMethod;
         $formAction = $this->_formAction;
+        $scheme = parse_url($formAction, PHP_URL_SCHEME);
+        $host = $scheme . '://' . parse_url($formAction, PHP_URL_HOST);
         $elements = implode("\n", $this->_formElements);
         include "payment-form.php";
         return  ob_get_clean();
