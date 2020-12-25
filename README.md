@@ -1,7 +1,7 @@
 # WooCommerce Kinabank Payment Gateway
  ![php 7.0+](https://img.shields.io/badge/php-7.0+-brightgreen.svg?style=flat&logo=php&labelColor=777BB4&logoColor=white&color=lightgrey) ![Contributors](https://img.shields.io/badge/Contributors-tkhconsult-brightgreen.svg?style=flat&logo=bitbucket&color=lightgrey)
 
-Tags: WooCommerce, Moldova, Kinabank, VB, bank, payment, gateway, visa, mastercard, credit card
+Tags: WooCommerce, Moldova, Kinabank, KB, bank, payment, gateway, visa, mastercard, credit card
 
 * Requires at least: `4.8`
 * Tested up to: `5.5.1`

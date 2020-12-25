@@ -2,7 +2,7 @@
     "name": "tkhconsult/kinawp",
     "description": "WooCommerce Kinabank Payment Gateway",
     "type": "wordpress-plugin",
-    "keywords": ["WooCommerce", "Moldova", "Kinabank", "VB", "payment", "gateway"],
+    "keywords": ["WooCommerce", "Moldova", "Kinabank", "KB", "payment", "gateway"],
     "homepage": "https://github.com/tkhconsult/kinawp",
     "license": "GPL-3.0-or-later",
     "authors": [

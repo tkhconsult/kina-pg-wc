@@ -882,7 +882,7 @@ function woocommerce_kinabank_init() {
 		public function check_redirect() {
 			$this->log_request(__FUNCTION__);
 
-			//Received payment data from VB here instead of CallbackURL?
+			//Received payment data from KB here instead of CallbackURL?
 			if($_SERVER['REQUEST_METHOD'] === 'POST')
 				$this->process_response_data($_POST);
 
