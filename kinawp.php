@@ -680,7 +680,7 @@ function woocommerce_kinabank_init() {
 		protected function init_kb_client() {
 			$kinaBankGateway = new KinaBankGateway();
 
-			$gatewayUrl = ($this->testmode ? 'https://ecomt.kinabank.md/cgi-bin/cgi_link' : 'https://egateway.kinabank.md/cgi-bin/cgi_link'); #ALT TEST vb19.kinabank.md
+			$gatewayUrl = ($this->testmode ? 'https://ecomt.kinabank.md/cgi-bin/cgi_link' : 'https://egateway.kinabank.md/cgi-bin/cgi_link'); #ALT TEST kb19.kinabank.md
 			$sslVerify  = !$this->testmode;
 
 			//Set basic info
@@ -949,12 +949,12 @@ function woocommerce_kinabank_init() {
 			return $this->process_response_data($_POST);
 		}
 
-		public function process_response_data($vbdata) {
-			$this->log(sprintf('%1$s: %2$s', __FUNCTION__, self::print_var($vbdata)));
+		public function process_response_data($kbdata) {
+			$this->log(sprintf('%1$s: %2$s', __FUNCTION__, self::print_var($kbdata)));
 
 			try {
 				$kinaBankGateway = $this->init_kb_client();
-				$bankResponse = $kinaBankGateway->getResponseObject($vbdata);
+				$bankResponse = $kinaBankGateway->getResponseObject($kbdata);
 				$check_result = $bankResponse->isValid();
 			} catch(Exception $ex) {
 				$this->log($ex, WC_Log_Levels::ERROR);
@@ -1096,12 +1096,12 @@ function woocommerce_kinabank_init() {
 
 			$callback_data = $_POST['callback_data'];
 			if(!self::string_empty($callback_data)) {
-				$vbdata = self::parse_response_post($callback_data);
+				$kbdata = self::parse_response_post($callback_data);
 
-				if(!empty($vbdata)) {
+				if(!empty($kbdata)) {
 					$plugin = new self();
 					if($plugin->is_available() && $plugin->enabled) {
-						$response = $plugin->process_response_data($vbdata);
+						$response = $plugin->process_response_data($kbdata);
 
 						if($response) {
 							$message = sprintf(__('Processed successfully', self::MOD_TEXT_DOMAIN), self::MOD_TITLE);
@@ -1138,10 +1138,10 @@ function woocommerce_kinabank_init() {
 			return $message;
 		}
 
-		protected function validate_response_form($vbresponse) {
-			$this->log(sprintf('%1$s: %2$s', __FUNCTION__, self::print_var($vbresponse)));
+		protected function validate_response_form($kbresponse) {
+			$this->log(sprintf('%1$s: %2$s', __FUNCTION__, self::print_var($kbresponse)));
 
-			if($vbresponse === false) {
+			if($kbresponse === false) {
 				$error = error_get_last();
 				if($error) {
 					$message = $error['message'];
@@ -1156,35 +1156,35 @@ function woocommerce_kinabank_init() {
 			return true;
 		}
 
-		protected function process_response_form($vbresponse) {
-			$this->log(sprintf('%1$s: %2$s', __FUNCTION__, self::print_var($vbresponse)));
+		protected function process_response_form($kbresponse) {
+			$this->log(sprintf('%1$s: %2$s', __FUNCTION__, self::print_var($kbresponse)));
 
-			$vbform = self::parse_response_form($vbresponse);
-			if(empty($vbform))
+			$kbform = self::parse_response_form($kbresponse);
+			if(empty($kbform))
 				return false;
 
-			return $this->process_response_data($vbform);
+			return $this->process_response_data($kbform);
 		}
 
-		protected function parse_response_form($vbformhtml) {
-			return self::parse_response_regex($vbformhtml, '/<input.+name="(\w+)".+value="(.*)"/i');
+		protected function parse_response_form($kbformhtml) {
+			return self::parse_response_regex($kbformhtml, '/<input.+name="(\w+)".+value="(.*)"/i');
 		}
 
-		static function parse_response_post($vbpost) {
-			return self::parse_response_regex($vbpost, '/^(\w+)=(.*)$/im');
+		static function parse_response_post($kbpost) {
+			return self::parse_response_regex($kbpost, '/^(\w+)=(.*)$/im');
 		}
 
-		static function parse_response_regex($vbresponse, $regex) {
-			$matchResult = preg_match_all($regex, $vbresponse, $matches, PREG_SET_ORDER);
+		static function parse_response_regex($kbresponse, $regex) {
+			$matchResult = preg_match_all($regex, $kbresponse, $matches, PREG_SET_ORDER);
 			if(empty($matchResult))
 				return false;
 
-			$vbdata = [];
+			$kbdata = [];
 			foreach($matches as $match)
 				if(count($match) === 3)
-					$vbdata[$match[1]] = $match[2];
+					$kbdata[$match[1]] = $match[2];
 
-			return $vbdata;
+			return $kbdata;
 		}
 
 		protected function mark_order_paid($order, $intRef) {
