@@ -9,6 +9,8 @@
      * @var bool $autoSubmit
      */
 ?>
+<script src="https://devegateway.kinabank.com.pg/kina/js/kbl-ec.js"></script>
+<link href="https://devegateway.kinabank.com.pg/kina/css/kbl-ec.css" rel="stylesheet">
 <form
     id="<?php echo $formId; ?>"
     name="<?php echo $formName; ?>"
