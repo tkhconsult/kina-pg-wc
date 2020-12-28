@@ -70,7 +70,23 @@ class AuthorizationRequest extends Request
         $timestamp                          = $this->_requestFields[self::TIMESTAMP];
         $trType                             = $this->_requestFields[self::TRTYPE];
         $amount                             = $this->_requestFields[self::AMOUNT];
-        $this->_requestFields[self::P_SIGN] = $this->_createSignature($order, $nonce, $timestamp, $trType, $amount);
+        $this->_requestFields[self::P_SIGN] = $this->_createSignature([
+            'TERMINAL' => $this->_requestFields[self::TERMINAL],
+            'TRTYPE' => $this->_requestFields[self::TRTYPE],
+            'AMOUNT' => $this->_requestFields[self::AMOUNT],
+            'CURRENCY' => $this->_requestFields[self::CURRENCY],
+            'ORDER' => $this->_requestFields[self::ORDER],
+            'MERCHANT' => $this->_requestFields[self::MERCHANT],
+            'EMAIL' => $this->_requestFields[self::EMAIL],
+            'BACKREF' => $this->_requestFields[self::BACKREF],
+            'TIMESTAMP' => $this->_requestFields[self::TIMESTAMP],
+            'MERCH_NAME' => $this->_requestFields[self::MERCH_NAME],
+            'COUNTRY' => $this->_requestFields[self::COUNTRY],
+            'MERCH_URL' => $this->_requestFields[self::MERCH_URL],
+            'MERCH_GMT' => $this->_requestFields[self::MERCH_GMT],
+            'DESC' => $this->_requestFields[self::DESC],
+            'NONCE' => $this->_requestFields[self::NONCE],
+        ]);
     }
 
     /**
