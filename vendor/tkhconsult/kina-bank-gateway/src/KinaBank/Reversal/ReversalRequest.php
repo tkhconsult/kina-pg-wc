@@ -55,7 +55,9 @@ class ReversalRequest extends Request
         $timestamp                          = $this->_requestFields[self::TIMESTAMP];
         $trType                             = $this->_requestFields[self::TRTYPE];
         $amount                             = $this->_requestFields[self::AMOUNT];
-        $this->_requestFields[self::P_SIGN] = $this->_createSignature($order, $nonce, $timestamp, $trType, $amount);
+        $this->_requestFields[self::P_SIGN] = $this->_createSignature([
+            'ORDER' => $this->_requestFields[self::ORDER],
+        ]);
     }
 
     /**
