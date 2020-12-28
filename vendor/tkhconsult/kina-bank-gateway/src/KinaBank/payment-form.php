@@ -15,6 +15,7 @@
     method="<?php echo $formMethod; ?>"
     action="<?php echo $formAction; ?>"
     enctype="application/x-www-form-urlencoded"
+    target="kblpaymentiframe"
 >
     <button class="btn btn-primary btn-lg" type="button" onclick="submitPaymentForm('card')">Checkout - Credit/Debit Cards</button>
     <button class="btn btn-primary btn-lg" type="button" onclick="submitPaymentForm('bank')">Checkout - Bank Transfer</button>
