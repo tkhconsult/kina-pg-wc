@@ -81,7 +81,7 @@ class AuthorizationRequest extends Request
             'BACKREF' => $this->_requestFields[self::BACKREF],
             'TIMESTAMP' => $this->_requestFields[self::TIMESTAMP],
             'MERCH_NAME' => $this->_requestFields[self::MERCH_NAME],
-            'COUNTRY' => $this->_requestFields[self::COUNTRY],
+            'COUNTRY' => $this->_requestFields[self::COUNTRY] ?: 'PG',
             'MERCH_URL' => $this->_requestFields[self::MERCH_URL],
             'MERCH_GMT' => $this->_requestFields[self::MERCH_GMT],
             'DESC' => $this->_requestFields[self::DESC],
