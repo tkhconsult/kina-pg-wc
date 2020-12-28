@@ -164,32 +164,17 @@ abstract class Request implements RequestInterface
     /**
      * Generates the P_SIGN
      *
-     * @param string $order
-     * @param string $nonce
-     * @param string $timestamp
-     * @param string $trType
-     * @param float  $amount
+     * @param array $data
      *
      * @return string
      * @throws Exception
      */
-    protected function _createSignature($order, $nonce, $timestamp, $trType, $amount)
+    protected function _createSignature($data)
     {
         $mac = '';
-        if (empty($order) || empty($nonce) || empty($timestamp) || is_null($trType) || empty($amount)) {
-            throw new Exception('Failed to generate transaction signature: Invalid request params');
+        foreach ($data as $Id => $filed) {
+            $mac .= strlen($filed).$filed;
         }
-        if (!file_exists(self::$testKeyPath) || !$rsaKey = file_get_contents(self::$testKeyPath)) {
-            throw new Exception('Failed to generate transaction signature: TEST key not accessible');
-        }
-        $data = [
-            'ORDER' => KinaBankGateway::normalizeOrderId($order),
-            'NONCE' => $nonce,
-            'TIMESTAMP' => $timestamp,
-            'TRTYPE' => $trType,
-            'AMOUNT' => KinaBankGateway::normalizeAmount($amount),
-        ];
-
-        return true;
+        return pack('H*', hash_hmac('sha256', $mac, file_get_contents(static::$publicKeyPath)));
     }
 }
