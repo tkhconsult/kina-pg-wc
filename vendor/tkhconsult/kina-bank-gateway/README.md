@@ -60,11 +60,8 @@ KINA_BANK_SECURITY_SIGNATURE_FIRST='0001'
 KINA_BANK_SECURITY_SIGNATURE_PREFIX='A00B00C00D00EA864886F70D020505000410'
 KINA_BANK_SECURITY_SIGNATURE_PADDING='00'
 
-# Merchant public key
-KINA_BANK_MERCHANT_PROD_KEY=public.key
-
-# Merchant test key
-KINA_BANK_MERCHANT_TEST_KEY=test.key
+# Merchant secret key
+KINA_BANK_MERCHANT_SECRET_KEY=secret.key
 
 # Default Merchant shop timezone
 # Used to calculate the timezone offset sent to KinaBank
