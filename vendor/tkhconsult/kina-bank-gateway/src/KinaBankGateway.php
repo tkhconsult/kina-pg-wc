@@ -14,7 +14,7 @@ use TkhConsult\KinaBankGateway\KinaBank\ResponseInterface;
  */
 class KinaBankGateway
 {
-    const TRX_TYPE_AUTHORIZATION = 0;
+    const TRX_TYPE_AUTHORIZATION = 1;
     const TRX_TYPE_COMPLETION    = 21;
     const TRX_TYPE_REVERSAL      = 24;
 

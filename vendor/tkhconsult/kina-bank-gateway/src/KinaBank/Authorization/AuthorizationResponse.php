@@ -11,5 +11,5 @@ use TkhConsult\KinaBankGateway\KinaBank\Response;
  */
 class AuthorizationResponse extends Response
 {
-    const TRX_TYPE = 0;
+    const TRX_TYPE = 1;
 }
