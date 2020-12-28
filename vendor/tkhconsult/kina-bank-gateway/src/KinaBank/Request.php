@@ -169,6 +169,6 @@ abstract class Request implements RequestInterface
         foreach ($data as $Id => $filed) {
             $mac .= strlen($filed).$filed;
         }
-        return pack('H*', hash_hmac('sha256', $mac, file_get_contents(static::$secretKeyPath)));
+        return hash_hmac('sha256', $mac, pack('H*', file_get_contents(static::$secretKeyPath)));
     }
 }
