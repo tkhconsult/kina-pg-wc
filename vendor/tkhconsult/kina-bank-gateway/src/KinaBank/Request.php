@@ -30,16 +30,10 @@ abstract class Request implements RequestInterface
     static public $signaturePadding;
 
     /**
-     * The path to the public key - not used
+     * The path to the secret key - not used
      * @var string
      */
-    static public $publicKeyPath;
-
-    /**
-     * The path to the test key
-     * @var string
-     */
-    static public $testKeyPath;
+    static public $secretKeyPath;
 
     /**
      * @var bool
@@ -98,7 +92,7 @@ abstract class Request implements RequestInterface
         if (is_null(self::$signaturePadding)) {
             throw new Exception('Could not instantiate the bank request - missing parameter signaturePadding');
         }
-        if (is_null(self::$testKeyPath)) {
+        if (is_null(self::$secretKeyPath)) {
             throw new Exception('Could not instantiate the bank request - missing parameter testKeyPath');
         }
         $this->init();
@@ -175,6 +169,6 @@ abstract class Request implements RequestInterface
         foreach ($data as $Id => $filed) {
             $mac .= strlen($filed).$filed;
         }
-        return pack('H*', hash_hmac('sha256', $mac, file_get_contents(static::$publicKeyPath)));
+        return pack('H*', hash_hmac('sha256', $mac, file_get_contents(static::$secretKeyPath)));
     }
 }
