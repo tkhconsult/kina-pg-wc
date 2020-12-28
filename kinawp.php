@@ -30,6 +30,11 @@ use TkhConsult\KinaBankGateway\KinaBank\Response;
 
 add_action('plugins_loaded', 'woocommerce_kinabank_init', 0);
 
+add_filter( 'woocommerce_get_checkout_payment_url', 'woocommerce_kinabank_custom_checkout_url', 30 );
+function woocommerce_kinabank_custom_checkout_url( $pay_url ) {
+    return str_replace('pay_for_order=true', '', $pay_url);
+}
+
 function woocommerce_kinabank_init() {
 	if(!class_exists('WC_Payment_Gateway'))
 		return;
