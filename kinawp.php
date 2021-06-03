@@ -46,7 +46,7 @@ function woocommerce_kinabank_init() {
 
 		#region Constants
 		const MOD_ID          = 'kinabank';
-		const MOD_TITLE       = 'Kinabank';
+		const MOD_TITLE       = 'Visa, MasterCard, UPI or Kinabank Debit Card';
 		const MOD_PREFIX      = 'kb_';
 		const MOD_TEXT_DOMAIN = 'kinawp';
 
@@ -99,6 +99,7 @@ function woocommerce_kinabank_init() {
 
 			$this->logo_type         = $this->get_option('logo_type', self::LOGO_TYPE_BANK);
 			$this->bank_logo         = $plugin_dir . 'assets/img/kinabank-red.jpg';
+			$this->accept_logo       = $plugin_dir . 'assets/img/accept.png';
 			$this->systems_logo      = $plugin_dir . 'assets/img/paymentsystems.png';
 			$plugin_icon             = ($this->logo_type === self::LOGO_TYPE_BANK ? $this->bank_logo : $this->systems_logo);
 			$this->icon              = apply_filters('woocommerce_kinabank_icon', $plugin_icon);
@@ -707,6 +708,8 @@ function woocommerce_kinabank_init() {
 				->setMerchantUrl($this->kb_merchant_url)
 				->setMerchantName($this->kb_merchant_name)
 				->setMerchantAddress($this->kb_merchant_address)
+                ->setAcceptUrl($this->accept_logo)
+                ->setSubmitButtonLabel('Click here to pay')
 				->setTimezone(wc_timezone_string())
                 ->setDebug($this->debug)
 				->setDefaultLanguage($this->get_language());
