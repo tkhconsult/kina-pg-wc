@@ -1279,6 +1279,7 @@ function woocommerce_kinabank_init() {
 				$order_description,
 				$order_email,
 				$language);
+			echo '<script>submitPaymentForm("card")</script>';
 		}
 
 		public function receipt_page($order_id) {
