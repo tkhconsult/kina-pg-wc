@@ -35,6 +35,13 @@ function woocommerce_kinabank_custom_checkout_url( $pay_url ) {
     return str_replace('pay_for_order=true', '', $pay_url);
 }
 
+function woocommerce_kinabank_css() {
+    echo "<style type='text/css'>
+        .wp-core-ui .button. refund-items { display: none !important; }
+    </style>";
+}
+add_action( 'admin_head', 'woocommerce_kinabank_css' );
+
 function woocommerce_kinabank_init() {
 	if(!class_exists('WC_Payment_Gateway'))
 		return;
