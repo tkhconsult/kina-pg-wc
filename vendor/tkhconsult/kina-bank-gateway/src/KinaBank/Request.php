@@ -12,24 +12,6 @@ use TkhConsult\KinaBankGateway\KinaBankGateway;
 abstract class Request implements RequestInterface
 {
     /**
-     * Provided by KinaBank
-     * @var null
-     */
-    static public $signatureFirst;
-
-    /**
-     * Provided by KinaBank
-     * @var null
-     */
-    static public $signaturePrefix;
-
-    /**
-     * Provided by KinaBank
-     * @var string
-     */
-    static public $signaturePadding;
-
-    /**
      * The path to the secret key - not used
      * @var string
      */
@@ -54,6 +36,8 @@ abstract class Request implements RequestInterface
      * @var array
      */
     protected $_requestFields = [];
+    protected $_acceptUrl = '';
+    protected $_submitButtonLabel = '';
 
     /**
      * Construct
@@ -65,7 +49,7 @@ abstract class Request implements RequestInterface
      *
      * @throws Exception
      */
-    public function __construct(array $requestParams, $gatewayUrl, $debugMode = false, $sslVerify = true)
+    public function __construct(array $requestParams, $gatewayUrl, $acceptUrl = '', $submitButtonLabel = '', $debugMode = false, $sslVerify = true)
     {
         #Push the request field values
         foreach ($requestParams as $name => $value) {
@@ -77,23 +61,16 @@ abstract class Request implements RequestInterface
 
         #Set gateway URL
         $this->_gatewayUrl = $gatewayUrl;
+        $this->_acceptUrl = $acceptUrl;
+        $this->_submitButtonLabel = $submitButtonLabel;
         #Set debug mode
         $this->_debugMode = $debugMode;
         #Set SSL verify mode
         $this->_sslVerify = $sslVerify;
 
         #Make sure to set these static params prior to calling the request
-        if (is_null(self::$signatureFirst)) {
-            throw new Exception('Could not instantiate the bank request - missing parameter signatureFirst');
-        }
-        if (is_null(self::$signaturePrefix)) {
-            throw new Exception('Could not instantiate the bank request - missing parameter signaturePrefix');
-        }
-        if (is_null(self::$signaturePadding)) {
-            throw new Exception('Could not instantiate the bank request - missing parameter signaturePadding');
-        }
         if (is_null(self::$secretKeyPath)) {
-            throw new Exception('Could not instantiate the bank request - missing parameter testKeyPath');
+            throw new Exception('Could not instantiate the bank request - missing parameter secretKeyPath');
         }
         $this->init();
     }
@@ -169,6 +146,8 @@ abstract class Request implements RequestInterface
         foreach ($data as $Id => $filed) {
             $mac .= strlen($filed).$filed;
         }
-        return hash_hmac('sha256', $mac, pack('H*', file_get_contents(static::$secretKeyPath)));
+        $key = file_get_contents(static::$secretKeyPath);
+        $key = preg_replace('/[^A-Za-z0-9]+/', '', $key);
+        return hash_hmac('sha256', $mac, pack('H*', $key));
     }
 }

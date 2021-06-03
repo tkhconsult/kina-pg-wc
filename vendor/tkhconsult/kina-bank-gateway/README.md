@@ -1,19 +1,18 @@
-# Welcome to KinaBank Merchant e-Commerce Library 👋
+# Welcome to KinaBank Payment Gateway SDK 👋
 
-[![GitHub issues](https://img.shields.io/github/issues/TkhConsult/KinaBankGateway)](https://github.com/TkhConsult/KinaBankGateway/issues)
-[![Version](https://img.shields.io/packagist/v/tkhconsult/kina-bank-gateway)](https://packagist.org/packages/tkhconsult/kina-bank-gateway)
-![Packagist](https://img.shields.io/packagist/l/tkhconsult/kina-bank-gateway)
+[![GitHub issues](https://img.shields.io/github/issues/TkhConsult/kina-pg-sdk)](https://github.com/TkhConsult/kina-pg-sdk/issues)
+[![Version](https://img.shields.io/packagist/v/tkhconsult/kina-pg-sdk.svg)](https://packagist.org/packages/tkhconsult/kina-pg-sdk)
 
 ---
 
 > Packagist package (library) to give any php-based website an access to the interface of KinaBank that merchant systems use to process credit card based e- commerce transactions using the standard CGI/WWW forms posting method. This interface transparently supports various cardholder authentication protocols such as 3-D Secure and Secure Code as well as legacy unauthenticated SSL commerce transactions.
 
-#### 🏠 [Homepage](https://github.com/TkhConsult/KinaBankGateway)
+#### 🏠 [Homepage](https://github.com/TkhConsult/kina-pg-sdk)
 
 ## Install
 
 ```sh
-composer require tkhconsult/kina-bank-gateway
+composer require tkhconsult/kina-pg-sdk
 ```
 
 ### Requirements
@@ -39,7 +38,7 @@ composer require symfony/dotenv
 .env file
 
 ```dosini
-# Merchant ID assigned by bank
+# Merchant ID / Card acceptor ID assigned by bank
 KINA_BANK_MERCHANT_ID=xxxxxxxxxxxxxxx
 
 # Merchant Terminal ID assigned by bank 
@@ -54,31 +53,27 @@ KINA_BANK_MERCHANT_NAME='Merchant company name'
 # Merchant company registered office address
 KINA_BANK_MERCHANT_ADDRESS='Merchant address'
 
-# Security options - provided by the bank
-KINA_BANK_SECURITY_SIGNATURE_FIRST='0001'
-KINA_BANK_SECURITY_SIGNATURE_PREFIX='A00B00C00D00EA864886F70D020505000410'
-KINA_BANK_SECURITY_SIGNATURE_PADDING='00'
-
-# Merchant secret key
+# File name of merchant secret key
 KINA_BANK_MERCHANT_SECRET_KEY=secret.key
 
 # Default Merchant shop timezone
 # Used to calculate the timezone offset sent to KinaBank
-KINA_BANK_MERCHANT_TIMEZONE_NAME='Europe/Chisinau'
+# Refer: https://www.php.net/manual/en/timezones.php
+KINA_BANK_MERCHANT_TIMEZONE_NAME='Pacific/Port_Moresby'
 
 # Merchant shop 2-character country code. 
 # Must be provided if merchant system is located 
 # in a country other than the gateway server's country. 
-KINA_BANK_MERCHANT_COUNTRY_CODE=MD
+KINA_BANK_MERCHANT_COUNTRY_CODE=PG
 
 # Default currency for all operations: 3-character currency code 
-KINA_BANK_MERCHANT_DEFAULT_CURRENCY=MDL
+KINA_BANK_MERCHANT_DEFAULT_CURRENCY=PGK
 
 # Default forms language
-# By default are available forms in en, ro, ru. 
+# By default are available forms in en
 # If need forms in another languages please contact gateway
 # administrator
-KINA_BANK_MERCHANT_DEFAULT_LANGUAGE=ro
+KINA_BANK_MERCHANT_DEFAULT_LANGUAGE=en
 ```
 
 ### Step 2. Init Gateway client
@@ -92,9 +87,9 @@ use TkhConsult\KinaBankGateway\KinaBankGateway;
 
 $kinaBankGateway = new KinaBankGateway();
 
-$certDir = '/path/to/cert/dir';
+$secretKeyDir = '/path/to/keys';
 $kinaBankGateway
-    ->configureFromEnv($certDir)
+    ->configureFromEnv($secretKeyDir)
 ;
 ```
 
@@ -113,7 +108,7 @@ $backRefUrl = getenv('KINA_BANK_MERCHANT_URL').'/after-payment/';
 
 /** @var KinaBankGateway $kinaBankGateway */
 $kinaBankGateway
-    ->requestAuthorization($orderId = 1, $amount = 1, $backRefUrl, $currency = null, $description = null, $clientEmail = null, $language = null)
+    ->requestAuthorization($orderId = 1, $amount = 1, $backRefUrl, $currency = "PGK", $description = "iPhone X Pro", $clientEmail = "customer@yopmail.com", $language = 'en')
 ;
 ```
 
@@ -125,7 +120,6 @@ $kinaBankGateway
 use TkhConsult\KinaBankGateway\KinaBankGateway;
 use TkhConsult\KinaBankGateway\KinaBank\Exception;
 use TkhConsult\KinaBankGateway\KinaBank\Response;
-use TkhConsult\KinaBankGateway\KinaBank\AuthorizationResponse;
 
 /** @var KinaBankGateway $kinaBankGateway */
 $bankResponse = $kinaBankGateway->getResponseObject($_POST);
@@ -136,6 +130,7 @@ if (!$bankResponse->isValid()) {
 
 switch ($bankResponse::TRX_TYPE) {
     case KinaBankGateway::TRX_TYPE_AUTHORIZATION:
+        $orderId        = KinaBankGateway::deNormalizeOrderId($bankResponse->{Response::ORDER});
         $amount         = $bankResponse->{Response::AMOUNT};
         $bankOrderCode  = $bankResponse->{Response::ORDER};
         $rrn            = $bankResponse->{Response::RRN};
@@ -144,41 +139,16 @@ switch ($bankResponse::TRX_TYPE) {
         #
         # You must save $rrn and $intRef from the response here for reversal requests
         #
+        echo '<pre>';
+        print_r([$bankResponse, $orderId]);
 
         # Funds locked on bank side - transfer the product/service to the customer and request completion
-        $kinaBankGateway->requestCompletion($amount, $bankOrderCode, $rrn, $intRef, $currency = null);
-        break;
-
-    case KinaBankGateway::TRX_TYPE_COMPLETION:
-        # Funds successfully transferred on bank side
-        break;
-
-    case KinaBankGateway::TRX_TYPE_REFUND:
-        # Refund successfully applied on bank side
-        break;
-
-    case KinaBankGateway::TRX_TYPE_REVERSAL:
-        # Reversal successfully applied on bank side
+        $kinaBankGateway->requestCompletion($orderId, $amount, $rrn, $intRef, $currency = "PGK");
         break;
 
     default:
         throw new Exception('Unknown bank response transaction type');
 }
-```
-
-### Step 5. Request reversal (refund)
-
-```$rrn``` and ```$intRef``` must be saved on the step 4
-
-```php
-<?php
-
-use TkhConsult\KinaBankGateway\KinaBankGateway;
-
-/** @var KinaBankGateway $kinaBankGateway */
-$kinaBankGateway
-    ->requestReversal($orderId = 1, $amount = 1, $rrn = 'xxx', $intRef = 'yyy', $currency = null)
-;
 ```
 
 ## Author
@@ -189,4 +159,4 @@ $kinaBankGateway
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/TkhConsult/KinaBankGateway/issues).
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/TkhConsult/kina-pg-sdk/issues).

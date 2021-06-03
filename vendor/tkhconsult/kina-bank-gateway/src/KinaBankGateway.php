@@ -39,6 +39,13 @@ class KinaBankGateway
     private $merchant;
 
     /**
+     * @var bool
+     */
+    private $showAccept = false;
+    private $acceptUrl = '';
+    private $submitButtonLabel = 'Checkout - Credit/Debit Cards';
+
+    /**
      * @var string
      */
     private $terminal;
@@ -62,7 +69,7 @@ class KinaBankGateway
      *
      * @var string
      */
-    private $defaultCurrency = 'MDL';
+    private $defaultCurrency = 'PGK';
 
     /**
      * @see https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
@@ -74,7 +81,7 @@ class KinaBankGateway
     /**
      * @var string
      */
-    private $countryCode = 'md';
+    private $countryCode = 'PG';
 
     /**
      * @var string
@@ -120,12 +127,9 @@ class KinaBankGateway
             ->setDefaultCurrency(getenv('KINA_BANK_MERCHANT_DEFAULT_CURRENCY'))
             ->setDefaultLanguage(getenv('KINA_BANK_MERCHANT_DEFAULT_LANGUAGE'));
         //Set security options - provided by the bank
-        $signatureFirst    = getenv('KINA_BANK_SECURITY_SIGNATURE_FIRST');
-        $signaturePrefix   = getenv('KINA_BANK_SECURITY_SIGNATURE_PREFIX');
-        $signaturePadding  = getenv('KINA_BANK_SECURITY_SIGNATURE_PADDING');
-        $secretKeyPath     = $certDir.'/'.getenv('KINA_BANK_MERCHANT_SECRET_KEY');
+        $secretKeyPath = $certDir.'/'.getenv('KINA_BANK_MERCHANT_SECRET_KEY');
         $this
-            ->setSecurityOptions($signatureFirst, $signaturePrefix, $signaturePadding, $secretKeyPath);
+            ->setSecurityOptions($secretKeyPath);
 
         return $this;
     }
@@ -183,6 +187,35 @@ class KinaBankGateway
     public function setDebug($debug)
     {
         $this->debug = (boolean)$debug;
+
+        return $this;
+    }
+
+    /**
+     * Accept URL setter
+     *
+     * @param boolean $debug
+     *
+     * @return $this
+     */
+    public function setAcceptUrl($acceptUrl)
+    {
+        $this->acceptUrl = $acceptUrl;
+        $this->showAccept = !empty($acceptUrl);
+
+        return $this;
+    }
+
+    /**
+     * Submit button label setter
+     *
+     * @param boolean $debug
+     *
+     * @return $this
+     */
+    public function setSubmitButtonLabel($label)
+    {
+        $this->submitButtonLabel = $label;
 
         return $this;
     }
@@ -374,22 +407,14 @@ class KinaBankGateway
     }
 
     /**
-     * @param        $signatureFirst
-     * @param        $signaturePrefix
-     * @param        $signaturePadding
-     * @param        $secretKeyPath
+     * @param $secretKeyPath
      *
      * @return $this
      */
-    public function setSecurityOptions($signatureFirst, $signaturePrefix, $signaturePadding, $secretKeyPath)
+    public function setSecurityOptions($secretKeyPath)
     {
         #Request security options
-        KinaBank\Request::$signatureFirst   = $signatureFirst;
-        KinaBank\Request::$signaturePrefix  = $signaturePrefix;
-        KinaBank\Request::$signaturePadding = $signaturePadding;
-        KinaBank\Request::$secretKeyPath    = $secretKeyPath;
-        #Response security options
-        KinaBank\Response::$signaturePrefix   = $signaturePrefix;
+        KinaBank\Request::$secretKeyPath = $secretKeyPath;
 
         return $this;
     }
@@ -427,7 +452,7 @@ class KinaBankGateway
                     KinaBank\Authorization\AuthorizationRequest::MERCHANT      => $this->merchant,
                     KinaBank\Authorization\AuthorizationRequest::MERCH_NAME    => $this->merchantName,
                     KinaBank\Authorization\AuthorizationRequest::MERCH_URL     => $this->merchantUrl,
-                ], $this->gatewayUrl, $this->debug, $this->sslVerify
+                ], $this->gatewayUrl, $this->acceptUrl, $this->submitButtonLabel, $this->debug, $this->sslVerify
             );
             $request->request();
         } catch (KinaBank\Exception $e) {
@@ -474,44 +499,6 @@ class KinaBankGateway
             } else {
                 throw new KinaBank\Exception(
                     'Completion request to the payment gateway failed. Please contact '.$this->merchantUrl.' for further details.'.$e->getMessage()
-                );
-            }
-        }
-    }
-
-    /**
-     * @param mixed  $orderId  Merchant order ID
-     * @param float  $amount   Transaction amount
-     * @param string $rrn      Retrieval reference number from authorization response
-     * @param string $intRef   Internal reference number from authorization response
-     * @param string $currency Order currency: 3-character currency code
-     *
-     * @return mixed|void
-     * @throws KinaBank\Exception
-     */
-    public function requestReversal($orderId, $amount, $rrn, $intRef, $currency = null)
-    {
-        try {
-            $request = new KinaBank\Reversal\ReversalRequest(
-                [
-                    KinaBank\Reversal\ReversalRequest::TERMINAL  => $this->terminal,
-                    KinaBank\Reversal\ReversalRequest::ORDER     => static::normalizeOrderId($orderId),
-                    KinaBank\Reversal\ReversalRequest::AMOUNT    => static::normalizeAmount($amount),
-                    KinaBank\Reversal\ReversalRequest::CURRENCY  => $currency ? $currency : $this->defaultCurrency,
-                    KinaBank\Reversal\ReversalRequest::TIMESTAMP => $this->getTransactionTimestamp(),
-                    KinaBank\Reversal\ReversalRequest::NONCE     => $this->generateNonce(),
-                    KinaBank\Reversal\ReversalRequest::RRN       => $rrn,
-                    KinaBank\Reversal\ReversalRequest::INT_REF   => $intRef,
-                ], $this->gatewayUrl, $this->debug, $this->sslVerify
-            );
-
-            return $request->request();
-        } catch (KinaBank\Exception $e) {
-            if ($this->debug) {
-                throw $e;
-            } else {
-                throw new KinaBank\Exception(
-                    'Reversal request to the payment gateway failed. Please contact '.$this->merchantUrl.' for further details.'.$e->getMessage()
                 );
             }
         }

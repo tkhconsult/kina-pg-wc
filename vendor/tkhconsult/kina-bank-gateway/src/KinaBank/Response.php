@@ -10,12 +10,6 @@ use TkhConsult\KinaBankGateway\KinaBankGateway;
 abstract class Response implements ResponseInterface
 {
     /**
-     * Provided by KinaBank
-     * @var string
-     */
-    static public $signaturePrefix;
-
-    /**
      * @var array
      */
     protected $_responseFields = [
@@ -53,9 +47,6 @@ abstract class Response implements ResponseInterface
      */
     public function __construct(array $responseData)
     {
-        if (is_null(self::$signaturePrefix)) {
-            throw new Exception('Could not instantiate the bank response - missing parameter signaturePrefix');
-        }
         if (empty($responseData)) {
             throw new Exception('Bank response error: Empty data received');
         }
@@ -76,6 +67,7 @@ abstract class Response implements ResponseInterface
     public static function convertRcMessage($rc) {
         $message = '';
         switch($rc) {
+            case '00': $message = 'Transaction Success'; break;
             case '-1': $message = 'A mandatory request field is not filled in'; break;
             case '-2': $message = 'CGI request validation failed'; break;
             case '-3': $message = 'Acquirer host (NS) does not respond or wrong format of e-gateway response template file'; break;
@@ -114,6 +106,7 @@ abstract class Response implements ResponseInterface
             case '-97': $message = 'Session Timeout / Not Login'; break;
             case '-98': $message = 'Exceed OTP attempts limit'; break;
             case '-99': $message = 'Transaction aborted due to browser refresh'; break;
+            default: $message = 'Unexpected error code'; break;
         }
 
         return $message;

@@ -7,6 +7,9 @@
      * @var string $elements
      * @var string $host
      * @var bool $autoSubmit
+     * @var string $submitLabel
+     * @var string $acceptUrl
+     * @var bool $showAccept
      */
 ?>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
@@ -14,6 +17,14 @@
 <meta http-equiv="Expires" content="0" />
 <script src="<?php echo $host; ?>/kina/js/kbl-ec.js"></script>
 <link href="<?php echo $host; ?>/kina/css/kbl-ec.css" rel="stylesheet">
+<style>
+    .we-accept {
+        padding-top: 40px;
+    }
+    .we-accept .accept-logo {
+        height: 25px;
+    }
+</style>
 <form
     id="<?php echo $formId; ?>"
     name="<?php echo $formName; ?>"
@@ -22,7 +33,15 @@
     enctype="application/x-www-form-urlencoded"
     target="kblpaymentiframe"
 >
-    <button class="btn btn-primary btn-lg alt" type="button" onclick="submitPaymentForm('card')">Checkout - Credit/Debit Cards</button>
+    <button class="btn btn-primary btn-lg alt" type="button" onclick="submitPaymentForm('card')"><?php echo $submitLabel; ?></button>
+    <?php if($showAccept) { ?>
+        <div class="we-accept">
+            <b class="we-accept-text">We accept:-</b>
+            <div class="we-accept-logo">
+                <img class="accept-logo" src="<?php echo $acceptUrl; ?>" />
+            </div>
+        </div>
+    <?php } ?>
     <?php /*/ ?><button class="btn btn-primary btn-lg alt" type="button" onclick="submitPaymentForm('bank')">Checkout - Bank Transfer</button><?php //*/ ?>
     <?php
         echo $elements;
