@@ -36,11 +36,10 @@ function woocommerce_kinabank_custom_checkout_url( $pay_url ) {
 }
 
 function woocommerce_kinabank_css() {
-    echo "<style type='text/css'>
-        .wp-core-ui .button. refund-items { display: none !important; }
-    </style>";
+    wp_enqueue_style('kinabank_css', plugins_url('assets/style.css',__FILE__ ));
 }
-add_action( 'admin_head', 'woocommerce_kinabank_css' );
+
+add_action('admin_enqueue_scripts', 'woocommerce_kinabank_css');
 
 function woocommerce_kinabank_init() {
 	if(!class_exists('WC_Payment_Gateway'))
