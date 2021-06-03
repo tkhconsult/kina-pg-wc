@@ -87,7 +87,7 @@ function woocommerce_kinabank_init() {
 			$this->method_description = 'WooCommerce Payment Gateway for Kinabank';
 			$this->icon               = apply_filters('woocommerce_kinabank_icon', $plugin_dir . 'assets/img/kinabank-red.jpg');
 			$this->has_fields         = false;
-			$this->supports           = array('products', 'refunds');
+			$this->supports           = array('products');
 
 			$this->init_form_fields();
 			$this->init_settings();
@@ -142,7 +142,6 @@ function woocommerce_kinabank_init() {
 			if($this->transaction_auto) {
 				add_filter('woocommerce_order_status_completed', array($this, 'order_status_completed'));
 				add_filter('woocommerce_order_status_cancelled', array($this, 'order_status_cancelled'));
-				add_filter('woocommerce_order_status_refunded', array($this, 'order_status_refunded'));
 			}
 
 			#region Payment listener/API hook
@@ -780,26 +779,9 @@ function woocommerce_kinabank_init() {
 			if($order && $order->get_payment_method() === $this->id) {
 				if($order->has_status('cancelled') && $order->is_paid()) {
 					$transaction_type = get_post_meta($order_id, self::MOD_TRANSACTION_TYPE, true);
-
-					if($transaction_type === self::TRANSACTION_TYPE_AUTHORIZATION) {
-						return $this->refund_transaction($order_id, $order);
-					}
 				}
 			}
 		}
-
-		public function order_status_refunded($order_id) {
-			$this->log(sprintf('%1$s: OrderID=%2$s', __FUNCTION__, $order_id));
-
-			$order = wc_get_order($order_id);
-
-			if($order && $order->get_payment_method() === $this->id) {
-				if($order->has_status('refunded') && $order->is_paid()) {
-					return $this->refund_transaction($order_id, $order);
-				}
-			}
-		}
-		#endregion
 
         /**
          * @param $order_id
@@ -827,55 +809,6 @@ function woocommerce_kinabank_init() {
 			if(!$validate_result) {
                 /* translators: %1$s: Payment method */
 				$message = sprintf(__('Payment completion via %1$s failed', self::MOD_TEXT_DOMAIN), $this->method_title);
-				$message = $this->get_order_message($message);
-				$order->add_order_note($message);
-
-				return new WP_Error('error', $message);
-			}
-
-			return $validate_result;
-		}
-
-        /**
-         * @param $order_id
-         * @param WC_Order $order
-         * @param null $amount
-         * @return bool|WP_Error
-         */
-		public function refund_transaction($order_id, $order, $amount = null) {
-			$this->log(sprintf('%1$s: OrderID=%2$s Amount=%3$s', __FUNCTION__, $order_id, $amount));
-
-			$rrn = get_post_meta($order_id, strtolower(self::KB_RRN), true);
-			$intRef = get_post_meta($order_id, strtolower(self::KB_INT_REF), true);
-			$order_total = $order->get_total();
-			$order_currency = $order->get_currency();
-
-			if(!isset($amount)) {
-				//Refund entirely if no amount is specified
-				$amount = $order_total;
-			}
-
-			if($amount <= 0 || $amount > $order_total) {
-				$message = sprintf(__('Invalid refund amount', self::MOD_TEXT_DOMAIN));
-				$this->log($message, WC_Log_Levels::ERROR);
-
-				return new WP_Error('error', $message);
-			}
-
-			$validate_result = false;
-			$failReason = '';
-			try {
-				$kinaBankGateway = $this->init_kb_client();
-				$refund_result = $kinaBankGateway->requestRefund($order_id, $amount, $rrn, $intRef, $order_currency);
-				$validate_result = self::validate_response_form($refund_result);
-			} catch(Exception $ex) {
-                $failReason = $ex->getMessage();
-				$this->log($ex, WC_Log_Levels::ERROR);
-			}
-
-			if(!$validate_result) {
-                /* translators: %1$s: Amount, %2$s: Order currency, %3$s Payment method, %4$s Failed response */
-				$message = sprintf(__('Refund of %1$s %2$s via %3$s failed (%4$s)', self::MOD_TEXT_DOMAIN), $amount, $order_currency, $this->method_title, $failReason);
 				$message = $this->get_order_message($message);
 				$order->add_order_note($message);
 
@@ -1095,9 +1028,6 @@ function woocommerce_kinabank_init() {
 						$this->log($message, WC_Log_Levels::INFO);
 						$order->add_order_note($message);
 
-						if($order->get_total() == $order->get_total_refunded())
-							$this->mark_order_refunded($order);
-
 						return true;
 						break;
 
@@ -1240,21 +1170,6 @@ function woocommerce_kinabank_init() {
         /**
          * @param WC_Order $order
          */
-		protected function mark_order_refunded($order) {
-            /* translators: %1$s: Payment method */
-			$message = sprintf(__('Order fully refunded via %1$s.', self::MOD_TEXT_DOMAIN), $this->method_title);
-			$message = $this->get_order_message($message);
-
-			//Mark order as refunded if not already set
-			if(!$order->has_status('refunded'))
-				$order->update_status('refunded', $message);
-			else
-				$order->add_order_note($message);
-		}
-
-        /**
-         * @param WC_Order $order
-         */
 		protected function generate_form($order) {
 			$order_id = $order->get_id();
 			$order_total = $this->price_format($order->get_total());
@@ -1292,33 +1207,12 @@ function woocommerce_kinabank_init() {
 			}
 		}
 
-		public function process_refund($order_id, $amount = null, $reason = '') {
-			$order = wc_get_order($order_id);
-			return $this->refund_transaction($order_id, $order, $amount);
-		}
-
         /**
          * @param WC_Order $order
          * @return int
          */
 		protected function get_order_net_total($order) {
-			//https://github.com/woocommerce/woocommerce/issues/17795
-			//https://github.com/woocommerce/woocommerce/pull/18196
-			$total_refunded = 0;
-			if(method_exists(WC_Order_Refund::class, 'get_refunded_payment')) {
-				$order_refunds = $order->get_refunds();
-				foreach($order_refunds as $refund) {
-					if($refund->get_refunded_payment())
-						$total_refunded += $refund->get_amount();
-				}
-			}
-			else
-			{
-				$total_refunded = $order->get_total_refunded();
-			}
-
-			$order_total = $order->get_total();
-			return $order_total - $total_refunded;
+			return $order_total;
 		}
 
 		/**
@@ -1478,18 +1372,6 @@ function woocommerce_kinabank_init() {
 		}
 
         /**
-         * @param WC_Order $order
-         * @return bool|WP_Error
-         */
-		static function action_reverse_transaction($order) {
-			$order_id = $order->get_id();
-
-			$plugin = new self();
-			return $plugin->refund_transaction($order_id, $order);
-		}
-		#endregion
-
-        /**
          * @param $fields
          * @param $sent_to_admin
          * @param WC_Order $order
@@ -1561,7 +1443,6 @@ function woocommerce_kinabank_init() {
 		//Add WooCommerce order actions
 		add_filter('woocommerce_order_actions', array(WC_KinaBank::class, 'order_actions'));
 		add_action('woocommerce_order_action_kinabank_complete_transaction', array(WC_KinaBank::class, 'action_complete_transaction'));
-		//add_action('woocommerce_order_action_kinabank_reverse_transaction', array(WC_KinaBank::class, 'action_reverse_transaction'));
 
 		add_action('wp_ajax_kinabank_callback_data_process', array(WC_KinaBank::class, 'callback_data_process'));
 	}
