@@ -902,9 +902,6 @@ function woocommerce_kinabank_init() {
 			if($amount <= 0)
 				return false;
 
-			if($trxType === KinaBankGateway::TRX_TYPE_REFUND)
-				return $amount <= $order_total;
-
 			if($trxType === KinaBankGateway::TRX_TYPE_REVERSAL)
 				return $amount <= $order_total;
 
