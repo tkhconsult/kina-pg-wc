@@ -1091,20 +1091,6 @@ function woocommerce_kinabank_init() {
 						return true;
 						break;
 
-                    case KinaBankGateway::TRX_TYPE_REFUND:
-						// successfully applied on bank side
-                        /* translators: %1$s: Amount, %2$s: Currency, %3$s: Payment method */
-						$message = sprintf(__('Refund of %1$s %2$s via %3$s approved: %4$s', self::MOD_TEXT_DOMAIN), $amount, $currency, $this->method_title, http_build_query($bankParams));
-						$message = $this->get_order_message($message);
-						$this->log($message, WC_Log_Levels::INFO);
-						$order->add_order_note($message);
-
-						if($order->get_total() == $order->get_total_refunded())
-							$this->mark_order_refunded($order);
-
-						return true;
-						break;
-
                     case KinaBankGateway::TRX_TYPE_REVERSAL:
 						//Reversal successfully applied on bank side
                         /* translators: %1$s: Amount, %2$s: Currency, %3$s: Payment method */

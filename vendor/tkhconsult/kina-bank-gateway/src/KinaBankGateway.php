@@ -17,7 +17,6 @@ class KinaBankGateway
     const TRX_TYPE_AUTHORIZATION = 1;
     const TRX_TYPE_COMPLETION    = 21;
     const TRX_TYPE_REVERSAL      = 24;
-    const TRX_TYPE_REFUND        = 174;
 
     /**
      * @var bool
@@ -513,54 +512,6 @@ class KinaBankGateway
             } else {
                 throw new KinaBank\Exception(
                     'Reversal request to the payment gateway failed. Please contact '.$this->merchantUrl.' for further details.'.$e->getMessage()
-                );
-            }
-        }
-    }
-
-
-    /**
-     * @param mixed  $orderId  Merchant order ID
-     * @param float  $amount   Transaction amount
-     * @param string $rrn      Retrieval reference number from authorization response
-     * @param string $intRef   Internal reference number from authorization response
-     * @param string $currency Order currency: 3-character currency code
-     *
-     * @return mixed|void
-     * @throws KinaBank\Exception
-     */
-    public function requestRefund($orderId, $amount, $rrn, $intRef, $currency = null)
-    {
-        try {
-            $request = new KinaBank\Refund\RefundRequest(
-                [
-                    KinaBank\Refund\RefundRequest::TERMINAL  => $this->terminal,
-                    KinaBank\Refund\RefundRequest::ORDER     => static::normalizeOrderId($orderId),
-                    KinaBank\Refund\RefundRequest::AMOUNT    => static::normalizeAmount($amount),
-                    KinaBank\Refund\RefundRequest::CURRENCY  => $currency ? $currency : $this->defaultCurrency,
-                    KinaBank\Refund\RefundRequest::TIMESTAMP => $this->getTransactionTimestamp(),
-                    KinaBank\Refund\RefundRequest::NONCE     => $this->generateNonce(),
-                    KinaBank\Refund\RefundRequest::RRN       => $rrn,
-                    KinaBank\Refund\RefundRequest::INT_REF   => $intRef,
-                ], $this->gatewayUrl, $this->debug, $this->sslVerify
-            );
-
-            $response = $request->request();
-            if(strpos($response, 'RC==00') !== false) {
-                return 'Refund Success';
-            } else {
-                $needle = 'RC" value="';
-                $code = substr($response, strpos($response, $needle) + strlen($needle), 3);
-                $code = trim($code, '"');
-                $message = KinaBank\Response::convertRcMessage($code);
-                throw new KinaBank\Exception('RC: ' . $code . ' / ' . $message);
-            }
-        } catch (KinaBank\Exception $e) {
-            if ($this->debug) {
-                throw $e;
-            } else {
-                throw new KinaBank\Exception(
-                    'Refund request to the payment gateway failed. Please contact '.$this->merchantUrl.' for further details.'.$e->getMessage()
                 );
             }
         }
