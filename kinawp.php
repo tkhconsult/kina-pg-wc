@@ -718,11 +718,7 @@ function woocommerce_kinabank_init() {
 				//->setDebug($this->debug)
 
 			//Set security options - provided by the bank
-			$kinaBankGateway->setSecurityOptions(
-				self::KB_SIGNATURE_FIRST,
-				self::KB_SIGNATURE_PREFIX,
-				self::KB_SIGNATURE_PADDING,
-                ($this->testmode) ? $this->kb_test_key : $this->kb_prod_key);
+			$kinaBankGateway->setSecurityOptions(($this->testmode) ? $this->kb_test_key : $this->kb_prod_key);
 
 			return $kinaBankGateway;
 		}
