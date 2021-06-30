@@ -49,6 +49,7 @@ function woocommerce_kinabank_init() {
 
 	class WC_KinaBank extends WC_Payment_Gateway {
 		protected $logger;
+		protected $notices;
 
 		#region Constants
 		const MOD_ID          = 'kinabank';
@@ -86,6 +87,7 @@ function woocommerce_kinabank_init() {
 		public function __construct() {
 			$plugin_dir = plugin_dir_url(__FILE__);
 
+            $this->notices = wc_get_notices();
 			$this->logger = wc_get_logger();
 
 			$this->id                 = self::MOD_ID;
@@ -1196,7 +1198,7 @@ function woocommerce_kinabank_init() {
 				$order_description,
 				$order_email,
 				$language);
-			echo '<script>submitPaymentForm("card")</script>';
+			if(count($this->notices) == 0) echo '<script>submitPaymentForm("card")</script>';
 		}
 
 		public function receipt_page($order_id) {
