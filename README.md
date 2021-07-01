@@ -1,7 +1,7 @@
 # WooCommerce Kinabank Payment Gateway
  ![php 7.0+](https://img.shields.io/badge/php-7.0+-brightgreen.svg?style=flat&logo=php&labelColor=777BB4&logoColor=white&color=lightgrey) ![Contributors](https://img.shields.io/badge/Contributors-tkhconsult-brightgreen.svg?style=flat&logo=bitbucket&color=lightgrey)
 
-Tags: WooCommerce, Moldova, Kinabank, KB, bank, payment, gateway, visa, mastercard, credit card
+Tags: WooCommerce, Kinabank, KB, bank, payment, gateway, visa, mastercard, credit card
 
 * Requires at least: `4.8`
 * Tested up to: `5.5.1`
@@ -66,12 +66,6 @@ Kinabank currently supports transactions in PGK (Papua New Guinea) only.
 As part of the backup procedure Kinabank payment gateway sends a duplicate copy of the transaction responses to a specially designated merchant email address specified during initial setup.
 If the automated response payment notification callback failed the shop administrator can manually process the transaction response message received from the bank.
 Go to the payment gateway settings screen *Payment Notification* section and click *Advanced*, paste the bank transaction response data as received in the email and click *Process*.
-
-##### How can I contribute to the plugin?
-
-If you're a developer and you have some ideas to improve the plugin or to solve a bug, feel free to raise an issue or submit a pull request in the [Github repository for the plugin](https://github.com/tkhconsult/kinawp).
-
-You can also contribute to the plugin by translating it. Simply visit [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/kinawp) to get started.
 
 #### Screenshots
 
