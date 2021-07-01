@@ -87,7 +87,7 @@ function woocommerce_kinabank_init() {
 		public function __construct() {
 			$plugin_dir = plugin_dir_url(__FILE__);
 
-            $this->notices = wc_get_notices();
+            $this->notices = is_callable('wc_get_notices') ? wc_get_notices() : [];
 			$this->logger = wc_get_logger();
 
 			$this->id                 = self::MOD_ID;
