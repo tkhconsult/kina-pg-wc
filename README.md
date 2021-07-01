@@ -67,16 +67,18 @@ As part of the backup procedure Kinabank payment gateway sends a duplicate copy 
 If the automated response payment notification callback failed the shop administrator can manually process the transaction response message received from the bank.
 Go to the payment gateway settings screen *Payment Notification* section and click *Advanced*, paste the bank transaction response data as received in the email and click *Process*.
 
-#### Screenshots
+### [Release](releases) & Changelog
 
-1. Plugin settings
-2. Merchant data
-3. Connection settings
-4. Advanced connection settings
-5. Refunds
-6. Order actions
+#### [1.3.4](releases/tag/v1.3.4)
+auto close iframe when payment decline
 
-### Changelog
+#### [1.3.3](releases/tag/v1.3.3)
+- auto open popup
+- add visa, master, kinabank logo to payment page
+- remove refund from order page
 
-#### 1.3.1
+#### [1.3.2](releases/tag/v1.3.2)
+- remove refund classes
+
+#### [1.3.1](releases/tag/v1.3.1)
 Updated WC tested up to 4.5.2
