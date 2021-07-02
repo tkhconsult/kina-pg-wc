@@ -48,7 +48,7 @@ Kinabank currently supports transactions in PGK (Papua New Guinea) only.
 ### [Release](../../releases) & Changelog
 
 #### [1.3.4](../../releases/tag/v1.3.4)
-auto close iframe when payment decline
+- auto close iframe when payment decline
 
 #### [1.3.3](../../releases/tag/v1.3.3)
 - auto open popup
@@ -59,4 +59,4 @@ auto close iframe when payment decline
 - remove refund classes
 
 #### [1.3.1](../../releases/tag/v1.3.1)
-Updated WC tested up to 4.5.2
+- Updated WC tested up to 4.5.2
