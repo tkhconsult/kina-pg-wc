@@ -29,7 +29,7 @@ Accept Visa and Mastercard directly on your store with the Kinabank payment gate
 
 #### Installation
 
-1. Refer to [Installation guide](/vendor/tkhconsult/kina-bank-gateway/doc/Kina/WooCommerce PG Plugin Installation Guide v1.1.pdf)
+1. Refer to [Installation guide](vendor/tkhconsult/kina-bank-gateway/doc/Kina/WooCommerce%20PG%20Plugin%20Installation%20Guide%20v1.1.pdf)
 
 #### Frequently Asked Questions
 
