@@ -29,18 +29,7 @@ Accept Visa and Mastercard directly on your store with the Kinabank payment gate
 
 #### Installation
 
-1. Generate the public / private key pair according to the instructions from *Appendix A*, section *`2. Key Generation and transmission`* of the *`e-Commerce Gateway merchant interface (CGI/WWW forms version)`* document received from the bank
-2. Configure the plugin Connection Settings by performing one of the following steps:
-    * **BASIC**: Upload the generated PEM key files and the bank public key
-    * **ADVANCED**: Copy the PEM key files to the server, securely set up the owner and file system permissions, configure the paths to the files
-3. Set the private key password
-4. Provide the *Callback URL* to the bank to enable online payment notifications
-5. Enable *Test* and *Debug* modes in the plugin settings
-6. Perform all the tests described in *Appendix B*, section *`Test Cases`* of the document received from the bank:
-    * **Test case No 1**: Set *Transaction type* to *Charge*, create a new order and pay with a test card
-    * **Test case No 2**: Set *Transaction type* to *Authorization*, create a new order and pay with a test card, afterwards perform a full order refund
-    * **Test case No 3**: Set *Transaction type* to *Charge*, create a new order and pay with a test card, afterwards perform a full order refund
-7. Disable *Test* and *Debug* modes when ready to accept live payments
+1. Refer to [Installation guide](../../blob/master/vendor/tkhconsult/kina-bank-gateway/doc/Kina%20WooCommerce%20PG%20Plugin%20Installation%20Guide%20v1.1.pdf)
 
 #### Frequently Asked Questions
 
@@ -50,22 +39,11 @@ Use the *WooCommerce > Settings > Payments > Kinabank* screen to configure the p
 
 ##### Where can I get the Merchant Data and Connection Settings?
 
-The merchant data and connection settings are provided by Kinabank. This data is used by the plugin to connect to the Kinabank payment gateway and process the card transactions.
+The merchant data and connection settings are provided by Kinabank.
 
-##### What store settings are supported?
+##### Which currency are supported?
 
 Kinabank currently supports transactions in PGK (Papua New Guinea) only.
-
-##### What is the difference between transaction types?
-
-* **Charge** submits all transactions for settlement.
-* **Authorization** simply authorizes the order total for capture later. Use the *Complete transaction* order action to settle the previously authorized transaction.
-
-##### How can I manually process a bank transaction response callback data message received by email from the bank?
-
-As part of the backup procedure Kinabank payment gateway sends a duplicate copy of the transaction responses to a specially designated merchant email address specified during initial setup.
-If the automated response payment notification callback failed the shop administrator can manually process the transaction response message received from the bank.
-Go to the payment gateway settings screen *Payment Notification* section and click *Advanced*, paste the bank transaction response data as received in the email and click *Process*.
 
 ### [Release](../../releases) & Changelog
 
@@ -73,7 +51,7 @@ Go to the payment gateway settings screen *Payment Notification* section and cli
 avoid payment page affected by wordpress template
 
 #### [1.3.4](../../releases/tag/v1.3.4)
-auto close iframe when payment decline
+- auto close iframe when payment decline
 
 #### [1.3.3](../../releases/tag/v1.3.3)
 - auto open popup
@@ -84,4 +62,4 @@ auto close iframe when payment decline
 - remove refund classes
 
 #### [1.3.1](../../releases/tag/v1.3.1)
-Updated WC tested up to 4.5.2
+- Updated WC tested up to 4.5.2
