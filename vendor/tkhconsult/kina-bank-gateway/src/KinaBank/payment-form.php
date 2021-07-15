@@ -18,6 +18,12 @@
 <script src="<?php echo $host; ?>/kina/js/kbl-ec.js"></script>
 <link href="<?php echo $host; ?>/kina/css/kbl-ec.css" rel="stylesheet">
 <style>
+    .fg-row #kblpaymentiframe {
+        margin-top: 15%;
+    }
+    .fg-row .we-accept {
+        margin-bottom: 300px;
+    }
     .we-accept {
         padding-top: 40px;
     }
@@ -48,9 +54,11 @@
     ?>
 </form><br/>
 <div id="kbliframediv" class="kbliframeoverlay" style="z-index: 9999999;">
+    <!-- kbliframeinnerdivstart -->
     <div id="kbliframeinnerdiv">
         <iframe id="kblpaymentiframe" name="kblpaymentiframe"></iframe>
     </div>
+    <!-- /kbliframeinnerdivend -->
 </div>
 <?php if ($autoSubmit) { ?>
     <style>

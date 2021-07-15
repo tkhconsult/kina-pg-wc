@@ -69,6 +69,9 @@ Go to the payment gateway settings screen *Payment Notification* section and cli
 
 ### [Release](../../releases) & Changelog
 
+#### [1.3.5](../../releases/tag/v1.3.5)
+avoid payment page affected by wordpress template
+
 #### [1.3.4](../../releases/tag/v1.3.4)
 auto close iframe when payment decline
 
