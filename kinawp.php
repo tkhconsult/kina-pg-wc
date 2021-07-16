@@ -34,13 +34,6 @@ add_filter( 'woocommerce_get_checkout_payment_url', 'woocommerce_kinabank_custom
 function woocommerce_kinabank_custom_checkout_url( $pay_url ) {
     return str_replace('pay_for_order=true', '', $pay_url);
 }
-function woocommerce_kinabank_embed_oembed_html( $html ) {
-    $html = preg_replace('/<!-- kbliframeinnerdivstart([\s\S]*)\/kbliframeinnerdivend -->/', '<div id="kbliframeinnerdiv"><iframe id="kblpaymentiframe" name="kblpaymentiframe"></iframe></div>', $html);
-    $url = parse_url(home_url('/'));
-    $html = preg_replace('/data-kinabank value="\/\//', 'data-kinabank value="' . ($url['scheme'] ? $url['scheme'] : 'http') . '://', $html);
-    return $html;
-}
-add_filter('embed_oembed_html', 'woocommerce_kinabank_embed_oembed_html', 9999 );
 
 function woocommerce_kinabank_css() {
     wp_enqueue_style('kinabank_css', plugins_url('assets/style.css',__FILE__ ));
@@ -1442,6 +1435,16 @@ function woocommerce_kinabank_init() {
 			//https://developer.wordpress.org/reference/functions/current_user_can/
 			return current_user_can('manage_woocommerce');
 		}
+
+        static function embed_oembed_html( $html ) {
+		    $plugin = new self();
+            $html = preg_replace('/<!-- kbliframeinnerdivstart([\s\S]*)\/kbliframeinnerdivend -->/', '<div id="kbliframeinnerdiv"><iframe id="kblpaymentiframe" name="kblpaymentiframe"></iframe></div>', $html);
+            $url = parse_url(add_query_arg('wc-api', '', home_url('/')));
+            $merchant_url = str_replace(array('https:', 'http:'), '', $plugin->kb_merchant_url);
+            $html = preg_replace('/data-kinabank value="' . preg_quote($merchant_url, '/') . '"/', 'data-kinabank value="' . $plugin->kb_merchant_url . '"', $html);
+            $html = preg_replace('/data-kinabank value="\/\//', 'data-kinabank value="' . ($url['scheme'] ? $url['scheme'] : 'http') . '://', $html);
+            return $html;
+        }
 	}
 
 	//Check if WooCommerce is active
@@ -1450,6 +1453,7 @@ function woocommerce_kinabank_init() {
 
 	//Add gateway to WooCommerce
 	add_filter('woocommerce_payment_gateways', array(WC_KinaBank::class, 'add_gateway'));
+    add_filter('embed_oembed_html', array(WC_KinaBank::class, 'embed_oembed_html'), 9999 );
 
 	#region Admin init
 	if(is_admin()) {
