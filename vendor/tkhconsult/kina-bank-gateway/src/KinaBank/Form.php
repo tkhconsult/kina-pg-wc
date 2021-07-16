@@ -99,7 +99,7 @@ class Form
             $label = '&nbsp;<label>'.$elementName.'</label>';
         }
 
-        return '<div><input type="'.$type.'" name="'.$elementName.'" value="'.$elementValue.'"'.$options.'/>'.$label . '</div>';
+        return '<div><input type="'.$type.'" name="'.$elementName.'" data-kinabank value="'.$elementValue.'"'.$options.'/>'.$label . '</div>';
     }
 
     /**
