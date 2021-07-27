@@ -9,28 +9,31 @@
      * @var bool $autoSubmit
      * @var string $submitLabel
      * @var string $acceptUrl
+     * @var bool $isHosted
      * @var bool $showAccept
      */
+if(!$isHosted) {
 ?>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
-<script src="<?php echo $host; ?>/kina/js/kbl-ec.js"></script>
-<link href="<?php echo $host; ?>/kina/css/kbl-ec.css" rel="stylesheet">
-<style>
-    .fg-row #kblpaymentiframe {
-        margin-top: 15%;
-    }
-    .fg-row .we-accept {
-        margin-bottom: 300px;
-    }
-    .we-accept {
-        padding-top: 40px;
-    }
-    .we-accept .accept-logo {
-        height: 25px;
-    }
-</style>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <script src="<?php echo $host; ?>/kina/js/kbl-ec.js"></script>
+    <link href="<?php echo $host; ?>/kina/css/kbl-ec.css" rel="stylesheet">
+    <style>
+        .fg-row #kblpaymentiframe {
+            margin-top: 15%;
+        }
+        .fg-row .we-accept {
+            margin-bottom: 300px;
+        }
+        .we-accept {
+            padding-top: 40px;
+        }
+        .we-accept .accept-logo {
+            height: 25px;
+        }
+    </style>
+<?php } ?>
 <form
     id="<?php echo $formId; ?>"
     name="<?php echo $formName; ?>"
@@ -40,7 +43,7 @@
     target="kblpaymentiframe"
 >
     <button class="btn btn-primary btn-lg alt" type="button" onclick="submitPaymentForm('card')"><?php echo $submitLabel; ?></button>
-    <?php if($showAccept) { ?>
+    <?php if(!$isHosted && $showAccept) { ?>
         <div class="we-accept">
             <b class="we-accept-text">We accept:-</b>
             <div class="we-accept-logo">
@@ -52,25 +55,40 @@
     <?php
         echo $elements;
     ?>
-</form><br/>
-<div id="kbliframediv" class="kbliframeoverlay" style="z-index: 9999999;">
-    <div id="kbliframeinnerdiv">
-        <iframe id="kblpaymentiframe" name="kblpaymentiframe"></iframe>
-    </div>
-</div>
-<?php if ($autoSubmit) { ?>
+</form>
+<?php if($isHosted) { ?>
     <style>
         .hidden{
             visibility: hidden;
         }
     </style>
-
     <script type="text/javascript">
       +(function(){
         var formNode    = document.getElementById('<?php echo $formId; ?>');
 
-        // formNode.submit();
+        formNode.submit();
       })();
     </script>
-<?php
-}
+<?php } else {?>
+    <br/>
+    <div id="kbliframediv" class="kbliframeoverlay" style="z-index: 9999999;">
+        <div id="kbliframeinnerdiv">
+            <iframe id="kblpaymentiframe" name="kblpaymentiframe"></iframe>
+        </div>
+    </div>
+    <?php if ($autoSubmit) { ?>
+        <style>
+            .hidden{
+                visibility: hidden;
+            }
+        </style>
+
+        <script type="text/javascript">
+          +(function(){
+            var formNode    = document.getElementById('<?php echo $formId; ?>');
+
+            // formNode.submit();
+          })();
+        </script>
+    <?php } ?>
+<?php }

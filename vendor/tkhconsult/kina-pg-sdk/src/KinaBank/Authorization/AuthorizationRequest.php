@@ -190,6 +190,7 @@ class AuthorizationRequest extends Request
                          ->setFormAction($this->_gatewayUrl)
                          ->setAcceptUrl($this->_acceptUrl)
                          ->setSubmitButtonLabel($this->_submitButtonLabel)
+                         ->setPageType($this->_pageType)
                          ->renderForm(!$this->_debugMode);
 
         $this->generateHtmlPage($formHtml);

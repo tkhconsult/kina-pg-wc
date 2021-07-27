@@ -56,6 +56,9 @@ KINA_BANK_MERCHANT_ADDRESS='Merchant address'
 # File name of merchant secret key
 KINA_BANK_MERCHANT_SECRET_KEY=secret.key
 
+# Payment page type (embedded / hosted)
+KINA_BANK_PAYMENT_PAGE_TYPE=embedded
+
 # Default Merchant shop timezone
 # Used to calculate the timezone offset sent to KinaBank
 # Refer: https://www.php.net/manual/en/timezones.php

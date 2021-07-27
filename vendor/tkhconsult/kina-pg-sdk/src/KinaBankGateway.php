@@ -99,6 +99,16 @@ class KinaBankGateway
     private $merchantAddress;
 
     /**
+     * @var string
+     */
+    private $pageType = 'embedded';
+
+    /**
+     * @var array
+     */
+    private $supportedPageTypes = ['embedded', 'hosted'];
+
+    /**
      * KinaBankGateway constructor.
      */
     public function __construct()
@@ -122,6 +132,7 @@ class KinaBankGateway
             ->setMerchantUrl(getenv('KINA_BANK_MERCHANT_URL'))
             ->setMerchantName(getenv('KINA_BANK_MERCHANT_NAME'))
             ->setMerchantAddress(getenv('KINA_BANK_MERCHANT_ADDRESS'))
+            ->setPaymentPageType(getenv('KINA_BANK_PAYMENT_PAGE_TYPE'))
             ->setTimezone(getenv('KINA_BANK_MERCHANT_TIMEZONE_NAME'))
             ->setCountryCode(getenv('KINA_BANK_MERCHANT_COUNTRY_CODE'))
             ->setDefaultCurrency(getenv('KINA_BANK_MERCHANT_DEFAULT_CURRENCY'))
@@ -393,6 +404,22 @@ class KinaBankGateway
     }
 
     /**
+     * Payment page type setter
+     *
+     * @param $pageType
+     *
+     * @return $this
+     */
+    public function setPaymentPageType($pageType)
+    {
+        if (!in_array($pageType, $this->supportedPageTypes, true)) return $this;
+
+        $this->pageType = $pageType;
+
+        return $this;
+    }
+
+    /**
      * Set Merchant primary web site URL
      *
      * @param $url
@@ -452,7 +479,7 @@ class KinaBankGateway
                     KinaBank\Authorization\AuthorizationRequest::MERCHANT      => $this->merchant,
                     KinaBank\Authorization\AuthorizationRequest::MERCH_NAME    => $this->merchantName,
                     KinaBank\Authorization\AuthorizationRequest::MERCH_URL     => $this->merchantUrl,
-                ], $this->gatewayUrl, $this->acceptUrl, $this->submitButtonLabel, $this->debug, $this->sslVerify
+                ], $this->gatewayUrl, $this->pageType, $this->acceptUrl, $this->submitButtonLabel, $this->debug, $this->sslVerify
             );
             $request->request();
         } catch (KinaBank\Exception $e) {
@@ -489,7 +516,7 @@ class KinaBankGateway
                     KinaBank\Completion\CompletionRequest::NONCE     => $this->generateNonce(),
                     KinaBank\Completion\CompletionRequest::RRN       => $rrn,
                     KinaBank\Completion\CompletionRequest::INT_REF   => $intRef,
-                ], $this->gatewayUrl, $this->debug, $this->sslVerify
+                ], $this->gatewayUrl, $this->pageType, $this->acceptUrl, $this->submitButtonLabel, $this->debug, $this->sslVerify
             );
 
             return $request->request();

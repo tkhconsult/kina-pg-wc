@@ -37,6 +37,7 @@ class Form
     private $showAccept = false;
     private $acceptUrl = '';
     private $submitButtonLabel = 'Checkout - Credit/Debit Cards';
+    private $pageType = 'embedded';
 
     /**
      * Construct
@@ -171,6 +172,20 @@ class Form
 
         return $this;
     }
+
+    /**
+     * Page type setter
+     *
+     * @param boolean $pageType
+     *
+     * @return $this
+     */
+    public function setPageType($pageType)
+    {
+        $this->pageType = $pageType;
+
+        return $this;
+    }
     
     /**
      * Renders form HTML
@@ -189,6 +204,7 @@ class Form
         $submitLabel = $this->submitButtonLabel;
         $showAccept = $this->showAccept;
         $acceptUrl = $this->acceptUrl;
+        $isHosted = $this->pageType == 'hosted';
         $scheme = parse_url($formAction, PHP_URL_SCHEME);
         $host = $scheme . '://' . parse_url($formAction, PHP_URL_HOST);
         $elements = implode("\n", $this->_formElements);

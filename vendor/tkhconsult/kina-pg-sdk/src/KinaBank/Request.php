@@ -38,18 +38,22 @@ abstract class Request implements RequestInterface
     protected $_requestFields = [];
     protected $_acceptUrl = '';
     protected $_submitButtonLabel = '';
+    protected $_pageType = 'embedded';
 
     /**
      * Construct
      *
      * @param array  $requestParams
      * @param string $gatewayUrl
+     * @param string $pageType
+     * @param string $acceptUrl
+     * @param string $submitButtonLabel
      * @param bool   $debugMode
      * @param bool   $sslVerify
      *
      * @throws Exception
      */
-    public function __construct(array $requestParams, $gatewayUrl, $acceptUrl = '', $submitButtonLabel = '', $debugMode = false, $sslVerify = true)
+    public function __construct(array $requestParams, $gatewayUrl, $pageType, $acceptUrl = '', $submitButtonLabel = '', $debugMode = false, $sslVerify = true)
     {
         #Push the request field values
         foreach ($requestParams as $name => $value) {
@@ -61,6 +65,7 @@ abstract class Request implements RequestInterface
 
         #Set gateway URL
         $this->_gatewayUrl = $gatewayUrl;
+        $this->_pageType = $pageType;
         $this->_acceptUrl = $acceptUrl;
         $this->_submitButtonLabel = $submitButtonLabel;
         #Set debug mode
