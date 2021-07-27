@@ -1,63 +1,122 @@
-[
-    {
-        "name": "tkhconsult/kina-bank-gateway",
-        "version": "1.1.0",
-        "version_normalized": "1.1.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/TkhConsult/KinaBankGateway.git",
-            "reference": "afef4aac14f8f3d9f8d2fe3d0152af080588a598"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/TkhConsult/KinaBankGateway/zipball/afef4aac14f8f3d9f8d2fe3d0152af080588a598",
-            "reference": "afef4aac14f8f3d9f8d2fe3d0152af080588a598",
-            "shasum": ""
-        },
-        "require": {
-            "ext-openssl": "*",
-            "php": ">=5.5"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "^5.0",
-            "squizlabs/php_codesniffer": "^2.5"
-        },
-        "suggest": {
-            "monolog/monolog": "^1.0"
-        },
-        "time": "2019-11-26T04:10:48+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "TkhConsult\\KinaBankGateway\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Coroliov Oleg",
-                "email": "ruscon@gmail.com",
-                "homepage": "https://github.com/ruscon",
-                "role": "Developer"
+{
+    "packages": [
+        {
+            "name": "tkhconsult/kina-bank-gateway",
+            "version": "1.1.0",
+            "version_normalized": "1.1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TkhConsult/KinaBankGateway.git",
+                "reference": "afef4aac14f8f3d9f8d2fe3d0152af080588a598"
             },
-            {
-                "name": "Serge Beresnev",
-                "email": "serge@tkhconsult.ru",
-                "homepage": "https://github.com/keriat",
-                "role": "Developer"
-            }
-        ],
-        "description": "Kina bank e-Commerce Gateway merchant interface",
-        "homepage": "https://github.com/TkhConsult/KinaBankGateway",
-        "keywords": [
-            "Bank",
-            "gateway",
-            "payment",
-            "kina"
-        ]
-    }
-]
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TkhConsult/KinaBankGateway/zipball/afef4aac14f8f3d9f8d2fe3d0152af080588a598",
+                "reference": "afef4aac14f8f3d9f8d2fe3d0152af080588a598",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.0",
+                "squizlabs/php_codesniffer": "^2.5"
+            },
+            "suggest": {
+                "monolog/monolog": "^1.0"
+            },
+            "time": "2019-11-26T04:10:48+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "TkhConsult\\KinaBankGateway\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Coroliov Oleg",
+                    "email": "ruscon@gmail.com",
+                    "homepage": "https://github.com/ruscon",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Serge Beresnev",
+                    "email": "serge@tkhconsult.ru",
+                    "homepage": "https://github.com/keriat",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Kina bank e-Commerce Gateway merchant interface",
+            "homepage": "https://github.com/TkhConsult/KinaBankGateway",
+            "keywords": [
+                "Bank",
+                "gateway",
+                "kina",
+                "payment"
+            ],
+            "install-path": "../tkhconsult/kina-bank-gateway"
+        },
+        {
+            "name": "tkhconsult/kina-pg-sdk",
+            "version": "v1.0.3",
+            "version_normalized": "1.0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tkhconsult/kina-pg-sdk.git",
+                "reference": "46a695ff49a579796160fe1ef17ad004098175b9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tkhconsult/kina-pg-sdk/zipball/46a695ff49a579796160fe1ef17ad004098175b9",
+                "reference": "46a695ff49a579796160fe1ef17ad004098175b9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "php": ">=5.5"
+            },
+            "time": "2021-05-31T03:40:21+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "TkhConsult\\KinaBankGateway\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "TKH Consult",
+                    "homepage": "https://github.com/tkhconsult",
+                    "role": "Vendor"
+                }
+            ],
+            "description": "Kinabank Payment Gateway SDK",
+            "homepage": "https://github.com/tkhconsult/kina-pg-sdk",
+            "keywords": [
+                "Bank",
+                "gateway",
+                "kina",
+                "kinabank",
+                "payment",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/tkhconsult/kina-pg-sdk/issues",
+                "source": "https://github.com/tkhconsult/kina-pg-sdk/tree/v1.0.3"
+            },
+            "install-path": "../tkhconsult/kina-pg-sdk"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

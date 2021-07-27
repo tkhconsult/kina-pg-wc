@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bd79105ba1d9a394a5e8b0a0de9c1b9b",
+    "content-hash": "3ee4d8178400a52f89be649ecea9d140",
     "packages": [
         {
             "name": "tkhconsult/kina-bank-gateway",
@@ -60,10 +60,61 @@
             "keywords": [
                 "Bank",
                 "gateway",
-                "payment",
-                "kina"
+                "kina",
+                "payment"
             ],
             "time": "2019-11-26T04:10:48+00:00"
+        },
+        {
+            "name": "tkhconsult/kina-pg-sdk",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tkhconsult/kina-pg-sdk.git",
+                "reference": "46a695ff49a579796160fe1ef17ad004098175b9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tkhconsult/kina-pg-sdk/zipball/46a695ff49a579796160fe1ef17ad004098175b9",
+                "reference": "46a695ff49a579796160fe1ef17ad004098175b9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "php": ">=5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TkhConsult\\KinaBankGateway\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "TKH Consult",
+                    "homepage": "https://github.com/tkhconsult",
+                    "role": "Vendor"
+                }
+            ],
+            "description": "Kinabank Payment Gateway SDK",
+            "homepage": "https://github.com/tkhconsult/kina-pg-sdk",
+            "keywords": [
+                "Bank",
+                "gateway",
+                "kina",
+                "kinabank",
+                "payment",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/tkhconsult/kina-pg-sdk/issues",
+                "source": "https://github.com/tkhconsult/kina-pg-sdk/tree/v1.0.3"
+            },
+            "time": "2021-05-31T03:40:21+00:00"
         }
     ],
     "packages-dev": [],
@@ -75,5 +126,6 @@
     "platform": {
         "php": ">=7.0"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }

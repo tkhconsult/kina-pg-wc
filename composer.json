@@ -18,6 +18,7 @@
     },
     "require": {
         "php": ">=7.0",
-        "tkhconsult/kina-bank-gateway": "^1.1.0"
+        "tkhconsult/kina-bank-gateway": "^1.1.0",
+        "tkhconsult/kina-pg-sdk": "^1.0"
     }
 }
