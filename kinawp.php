@@ -57,6 +57,9 @@ function woocommerce_kinabank_init() {
 		const MOD_PREFIX      = 'kb_';
 		const MOD_TEXT_DOMAIN = 'kinawp';
 
+		const PAYMENT_PAGE_TYPE_HOSTED = 'hosted';
+		const PAYMENT_PAGE_TYPE_EMBEDDED = 'embedded';
+
 		const TRANSACTION_TYPE_CHARGE = 'charge';
 		const TRANSACTION_TYPE_AUTHORIZATION = 'authorization';
 
@@ -118,6 +121,8 @@ function woocommerce_kinabank_init() {
 			$this->log_context       = array('source' => $this->id);
 			$this->log_threshold     = $this->debug ? WC_Log_Levels::DEBUG : WC_Log_Levels::NOTICE;
 			$this->logger            = new WC_Logger(null, $this->log_threshold);
+
+			$this->payment_page_type    = $this->get_option('payment_page_type', self::PAYMENT_PAGE_TYPE_EMBEDDED);
 
 			$this->transaction_type     = $this->get_option('transaction_type', self::TRANSACTION_TYPE_CHARGE);
 			$this->transaction_auto     = false; //'yes' === $this->get_option('transaction_auto', 'no');
@@ -250,6 +255,18 @@ function woocommerce_kinabank_init() {
 					'default'     => 'no',
 					'description' => sprintf('<a href="%2$s">%1$s</a>', __('View logs', self::MOD_TEXT_DOMAIN), self::get_logs_url()),
 					'desc_tip'    => __('Save debug messages to the WooCommerce System Status logs. Note: this may log personal information. Use this for debugging purposes only and delete the logs when finished.', self::MOD_TEXT_DOMAIN)
+				),
+
+				'payment_page_type' => array(
+					'title'       => __('Payment page type', self::MOD_TEXT_DOMAIN),
+					'type'        => 'select',
+					'class'       => 'wc-enhanced-select',
+					'desc_tip'    => __('Select how payment page should be display.', self::MOD_TEXT_DOMAIN),
+					'default'     => self::PAYMENT_PAGE_TYPE_EMBEDDED,
+					'options'     => array(
+						self::PAYMENT_PAGE_TYPE_EMBEDDED => __('Embedded Payment Page', self::MOD_TEXT_DOMAIN),
+						self::PAYMENT_PAGE_TYPE_HOSTED   => __('Hosted Payment Page', self::MOD_TEXT_DOMAIN)
+					)
 				),
 
 				'transaction_type' => array(
@@ -1441,32 +1458,32 @@ function woocommerce_kinabank_init() {
             $html = preg_replace('/<!-- kbliframeinnerdivstart([\s\S]*)\/kbliframeinnerdivend -->/', '<div id="kbliframeinnerdiv"><iframe id="kblpaymentiframe" name="kblpaymentiframe"></iframe></div>', $html);
             $url = parse_url(add_query_arg('wc-api', '', home_url('/')));
             $merchant_url = str_replace(array('https:', 'http:'), '', $plugin->kb_merchant_url);
-            $html = preg_replace('/data-kinabank value="' . preg_quote($merchant_url, '/') . '"/', 'data-kinabank value="' . $plugin->kb_merchant_url . '"', $html);
-            $html = preg_replace('/data-kinabank value="\/\//', 'data-kinabank value="' . ($url['scheme'] ? $url['scheme'] : 'http') . '://', $html);
-            return $html;
+                $html = preg_replace('/data-kinabank value="' . preg_quote($merchant_url, '/') . '"/', 'data-kinabank value="' . $plugin->kb_merchant_url . '"', $html);
+                $html = preg_replace('/data-kinabank value="\/\//', 'data-kinabank value="' . ($url['scheme'] ? $url['scheme'] : 'http') . '://', $html);
+                return $html;
+            }
         }
-	}
 
-	//Check if WooCommerce is active
-	if(!WC_KinaBank::is_wc_active())
-		return;
+        //Check if WooCommerce is active
+        if(!WC_KinaBank::is_wc_active())
+            return;
 
-	//Add gateway to WooCommerce
-	add_filter('woocommerce_payment_gateways', array(WC_KinaBank::class, 'add_gateway'));
-    add_filter('embed_oembed_html', array(WC_KinaBank::class, 'embed_oembed_html'), 9999 );
+        //Add gateway to WooCommerce
+        add_filter('woocommerce_payment_gateways', array(WC_KinaBank::class, 'add_gateway'));
+        add_filter('embed_oembed_html', array(WC_KinaBank::class, 'embed_oembed_html'), 9999 );
 
-	#region Admin init
-	if(is_admin()) {
-		add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(WC_KinaBank::class, 'plugin_links'));
+        #region Admin init
+        if(is_admin()) {
+            add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(WC_KinaBank::class, 'plugin_links'));
 
-		//Add WooCommerce order actions
-		add_filter('woocommerce_order_actions', array(WC_KinaBank::class, 'order_actions'));
-		add_action('woocommerce_order_action_kinabank_complete_transaction', array(WC_KinaBank::class, 'action_complete_transaction'));
+            //Add WooCommerce order actions
+            add_filter('woocommerce_order_actions', array(WC_KinaBank::class, 'order_actions'));
+            add_action('woocommerce_order_action_kinabank_complete_transaction', array(WC_KinaBank::class, 'action_complete_transaction'));
 
-		add_action('wp_ajax_kinabank_callback_data_process', array(WC_KinaBank::class, 'callback_data_process'));
-	}
-	#endregion
+            add_action('wp_ajax_kinabank_callback_data_process', array(WC_KinaBank::class, 'callback_data_process'));
+        }
+        #endregion
 
-	//Add WooCommerce email templates actions
-	add_filter('woocommerce_email_order_meta_fields', array(WC_KinaBank::class, 'email_order_meta_fields'), 10, 3);
+        //Add WooCommerce email templates actions
+        add_filter('woocommerce_email_order_meta_fields', array(WC_KinaBank::class, 'email_order_meta_fields'), 10, 3);
 }
