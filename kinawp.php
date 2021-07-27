@@ -729,6 +729,7 @@ function woocommerce_kinabank_init() {
 				->setSslVerify($sslVerify)
 				->setMerchantId($this->kb_merchant_id)
 				->setMerchantTerminal($this->kb_merchant_terminal)
+                ->setPaymentPageType($this->payment_page_type)
 				->setMerchantUrl($this->kb_merchant_url)
 				->setMerchantName($this->kb_merchant_name)
 				->setMerchantAddress($this->kb_merchant_address)
