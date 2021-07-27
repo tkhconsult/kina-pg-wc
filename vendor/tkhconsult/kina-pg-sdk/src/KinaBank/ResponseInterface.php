@@ -9,8 +9,6 @@ namespace TkhConsult\KinaBankGateway\KinaBank;
  */
 interface ResponseInterface
 {
-    const TRX_TYPE = 0;
-
     const TERMINAL = 'TERMINAL';   #Size: 8, Echo from the request
     const TRTYPE   = 'TRTYPE';     #Size: 2, Echo from the request
     const ORDER    = 'ORDER';      #Size: 6-20, Echo from the request
