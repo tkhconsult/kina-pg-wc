@@ -1,19 +1,24 @@
 <?php
-    /**
-     * @var string $formId
-     * @var string $formName
-     * @var string $formMethod
-     * @var string $formAction
-     * @var string $elements
-     * @var string $host
-     * @var bool $autoSubmit
-     * @var string $submitLabel
-     * @var string $acceptUrl
-     * @var bool $isHosted
-     * @var bool $showAccept
-     */
-if(!$isHosted) {
-?>
+/**
+ * @var string $formId
+ * @var string $formName
+ * @var string $formMethod
+ * @var string $formAction
+ * @var string $elements
+ * @var string $host
+ * @var bool $autoSubmit
+ * @var string $submitLabel
+ * @var string $acceptUrl
+ * @var bool $isHosted
+ * @var bool $showAccept
+ */
+if($isHosted) { ?>
+    <style>
+        .hidden{
+            visibility: hidden;
+        }
+    </style>
+<?php } else { ?>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
@@ -34,34 +39,30 @@ if(!$isHosted) {
         }
     </style>
 <?php } ?>
-<form
-    id="<?php echo $formId; ?>"
-    name="<?php echo $formName; ?>"
-    method="<?php echo $formMethod; ?>"
-    action="<?php echo $formAction; ?>"
-    enctype="application/x-www-form-urlencoded"
-    target="kblpaymentiframe"
->
-    <button class="btn btn-primary btn-lg alt" type="button" onclick="submitPaymentForm('card')"><?php echo $submitLabel; ?></button>
-    <?php if(!$isHosted && $showAccept) { ?>
-        <div class="we-accept">
-            <b class="we-accept-text">We accept:-</b>
-            <div class="we-accept-logo">
-                <img class="accept-logo" src="<?php echo $acceptUrl; ?>" />
+    <form
+            id="<?php echo $formId; ?>"
+            name="<?php echo $formName; ?>"
+            method="<?php echo $formMethod; ?>"
+            action="<?php echo $formAction; ?>"
+            enctype="application/x-www-form-urlencoded"
+        <?php if(!$isHosted) echo 'target="kblpaymentiframe"'; ?>
+    >
+        <button class="btn btn-primary btn-lg alt" type="button" onclick="submitPaymentForm('card')"><?php echo $submitLabel; ?></button>
+        <?php if(!$isHosted && $showAccept) { ?>
+            <div class="we-accept">
+                <b class="we-accept-text">We accept:-</b>
+                <div class="we-accept-logo">
+                    <img class="accept-logo" src="<?php echo $acceptUrl; ?>" />
+                </div>
             </div>
-        </div>
-    <?php } ?>
-    <?php /*/ ?><button class="btn btn-primary btn-lg alt" type="button" onclick="submitPaymentForm('bank')">Checkout - Bank Transfer</button><?php //*/ ?>
-    <?php
+        <?php } ?>
+        <?php /*/ ?><button class="btn btn-primary btn-lg alt" type="button" onclick="submitPaymentForm('bank')">Checkout - Bank Transfer</button><?php //*/ ?>
+        <?php
         echo $elements;
-    ?>
-</form>
+        ?>
+    </form>
 <?php if($isHosted) { ?>
-    <style>
-        .hidden{
-            visibility: hidden;
-        }
-    </style>
+    <!-- hosted -->
     <script type="text/javascript">
       +(function(){
         var formNode    = document.getElementById('<?php echo $formId; ?>');
@@ -70,6 +71,7 @@ if(!$isHosted) {
       })();
     </script>
 <?php } else {?>
+    <!-- embedded -->
     <br/>
     <div id="kbliframediv" class="kbliframeoverlay" style="z-index: 9999999;">
         <div id="kbliframeinnerdiv">

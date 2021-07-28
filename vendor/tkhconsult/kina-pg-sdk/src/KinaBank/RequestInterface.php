@@ -14,10 +14,13 @@ interface RequestInterface
      *
      * @param array  $requestParams
      * @param string $gatewayUrl
+     * @param string $pageType
+     * @param string $acceptUrl
+     * @param string $submitButtonLabel
      * @param bool   $debugMode
      * @param bool   $sslVerify
      */
-    public function __construct(array $requestParams, $gatewayUrl, $debugMode = false, $sslVerify = true);
+    public function __construct(array $requestParams, $gatewayUrl, $pageType, $acceptUrl = '', $submitButtonLabel = '', $debugMode = false, $sslVerify = true);
 
     /**
      * @param bool $debugMode
