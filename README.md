@@ -47,11 +47,14 @@ Kinabank currently supports transactions in PGK (Papua New Guinea) only.
 
 ### [Release](../../releases) & Changelog
 
+#### [1.3.7](../../releases/tag/v1.3.7)
+- add support for hosted payment page
+
 #### [1.3.6](../../releases/tag/v1.3.6)
-avoid url scheme affected by wordpress template
+- avoid url scheme affected by wordpress template
 
 #### [1.3.5](../../releases/tag/v1.3.5)
-avoid payment page affected by wordpress template
+- avoid payment page affected by wordpress template
 
 #### [1.3.4](../../releases/tag/v1.3.4)
 - auto close iframe when payment decline
