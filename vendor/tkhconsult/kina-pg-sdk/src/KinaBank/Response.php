@@ -9,6 +9,8 @@ use TkhConsult\KinaBankGateway\KinaBankGateway;
  */
 abstract class Response implements ResponseInterface
 {
+    static public $secretKeyPath;
+    static public $merchant;
     /**
      * @var array
      */

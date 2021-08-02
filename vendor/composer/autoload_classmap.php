@@ -7,17 +7,4 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'TkhConsult\\KinaBankGateway\\KinaBankGateway' => $vendorDir . '/tkhconsult/kina-pg-sdk/src/KinaBankGateway.php',
-    'TkhConsult\\KinaBankGateway\\KinaBank\\Authorization\\AuthorizationRequest' => $vendorDir . '/tkhconsult/kina-pg-sdk/src/KinaBank/Authorization/AuthorizationRequest.php',
-    'TkhConsult\\KinaBankGateway\\KinaBank\\Authorization\\AuthorizationResponse' => $vendorDir . '/tkhconsult/kina-pg-sdk/src/KinaBank/Authorization/AuthorizationResponse.php',
-    'TkhConsult\\KinaBankGateway\\KinaBank\\Completion\\CompletionRequest' => $vendorDir . '/tkhconsult/kina-pg-sdk/src/KinaBank/Completion/CompletionRequest.php',
-    'TkhConsult\\KinaBankGateway\\KinaBank\\Completion\\CompletionResponse' => $vendorDir . '/tkhconsult/kina-pg-sdk/src/KinaBank/Completion/CompletionResponse.php',
-    'TkhConsult\\KinaBankGateway\\KinaBank\\Exception' => $vendorDir . '/tkhconsult/kina-pg-sdk/src/KinaBank/Exception.php',
-    'TkhConsult\\KinaBankGateway\\KinaBank\\Form' => $vendorDir . '/tkhconsult/kina-pg-sdk/src/KinaBank/Form.php',
-    'TkhConsult\\KinaBankGateway\\KinaBank\\Request' => $vendorDir . '/tkhconsult/kina-pg-sdk/src/KinaBank/Request.php',
-    'TkhConsult\\KinaBankGateway\\KinaBank\\RequestInterface' => $vendorDir . '/tkhconsult/kina-pg-sdk/src/KinaBank/RequestInterface.php',
-    'TkhConsult\\KinaBankGateway\\KinaBank\\Response' => $vendorDir . '/tkhconsult/kina-pg-sdk/src/KinaBank/Response.php',
-    'TkhConsult\\KinaBankGateway\\KinaBank\\ResponseInterface' => $vendorDir . '/tkhconsult/kina-pg-sdk/src/KinaBank/ResponseInterface.php',
-    'TkhConsult\\KinaBankGateway\\KinaBank\\Reversal\\ReversalRequest' => $vendorDir . '/tkhconsult/kina-pg-sdk/src/KinaBank/Reversal/ReversalRequest.php',
-    'TkhConsult\\KinaBankGateway\\KinaBank\\Reversal\\ReversalResponse' => $vendorDir . '/tkhconsult/kina-pg-sdk/src/KinaBank/Reversal/ReversalResponse.php',
 );

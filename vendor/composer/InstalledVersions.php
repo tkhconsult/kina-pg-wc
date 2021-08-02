@@ -30,28 +30,19 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '379cbd65f6644627f36e52c9a800333f72cef42f',
+    'reference' => '1c96373b86f38cfcd4b3e6d343f996f3c188ce1c',
     'name' => 'tkhconsult/kinawp',
   ),
   'versions' => 
   array (
-    'tkhconsult/kina-bank-gateway' => 
-    array (
-      'pretty_version' => '1.1.0',
-      'version' => '1.1.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'afef4aac14f8f3d9f8d2fe3d0152af080588a598',
-    ),
     'tkhconsult/kina-pg-sdk' => 
     array (
-      'pretty_version' => 'v1.0.3',
-      'version' => '1.0.3.0',
+      'pretty_version' => 'v1.0.5',
+      'version' => '1.0.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => '46a695ff49a579796160fe1ef17ad004098175b9',
+      'reference' => '77eb69995c6500c2d2e8ec35004a006ab0795f92',
     ),
     'tkhconsult/kinawp' => 
     array (
@@ -60,7 +51,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '379cbd65f6644627f36e52c9a800333f72cef42f',
+      'reference' => '1c96373b86f38cfcd4b3e6d343f996f3c188ce1c',
     ),
   ),
 );

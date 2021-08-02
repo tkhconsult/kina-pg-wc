@@ -371,6 +371,7 @@ class KinaBankGateway
     public function setMerchantId($id)
     {
         $this->merchant = $id;
+        KinaBank\Response::$merchant = $id;
 
         return $this;
     }
@@ -442,6 +443,7 @@ class KinaBankGateway
     {
         #Request security options
         KinaBank\Request::$secretKeyPath = $secretKeyPath;
+        KinaBank\Response::$secretKeyPath = $secretKeyPath;
 
         return $this;
     }
