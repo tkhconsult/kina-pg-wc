@@ -47,6 +47,9 @@ Kinabank currently supports transactions in PGK (Papua New Guinea) only.
 
 ### [Release](../../releases) & Changelog
 
+#### [1.3.8](../../releases/tag/v1.3.8)
+- add hmac verification for response
+
 #### [1.3.7](../../releases/tag/v1.3.7)
 - add support for hosted payment page
 
