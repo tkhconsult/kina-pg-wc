@@ -11,6 +11,7 @@
  * @var string $acceptUrl
  * @var bool $isHosted
  * @var bool $showAccept
+ * @var bool $testMode
  */
 if($isHosted) { ?>
     <style>
@@ -22,7 +23,7 @@ if($isHosted) { ?>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <script src="<?php echo $host; ?>/kina/js/kbl-ec.js"></script>
+    <script src="<?php echo $host; ?>/kina/js/kbl-ec<?php echo ($testMode) ? '-test': ''; ?>.js"></script>
     <link href="<?php echo $host; ?>/kina/css/kbl-ec.css" rel="stylesheet">
     <style>
         .fg-row #kblpaymentiframe {
