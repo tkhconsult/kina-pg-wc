@@ -119,6 +119,9 @@ function woocommerce_kinabank_init() {
 			$this->icon              = apply_filters('woocommerce_kinabank_icon', $plugin_icon);
 
 			$this->testmode          = 'yes' === $this->get_option('testmode', 'no');
+            $this->dev_url           = $this->get_option('dev_url', self::DEV_URL);
+            $this->prod_url          = $this->get_option('prod_url', self::PROD_URL);
+
 			$this->debug             = 'yes' === $this->get_option('debug', 'no');
 
 			$this->log_context       = array('source' => $this->id);
