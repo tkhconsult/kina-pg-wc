@@ -254,6 +254,18 @@ function woocommerce_kinabank_init() {
 					'desc_tip'    => __('Use Test or Live bank gateway to process the payments. Disable when ready to accept live payments.', self::MOD_TEXT_DOMAIN),
 					'default'     => 'no'
 				),
+                'dev_url'        => array(
+                    'title'       => __('Development URL', self::MOD_TEXT_DOMAIN),
+                    'type'        => 'text',
+                    'desc_tip'    => __('Development URL used when test mode enabled.', self::MOD_TEXT_DOMAIN),
+                    'default'     => self::DEV_URL
+                ),
+                'prod_url'        => array(
+                    'title'       => __('Production URL', self::MOD_TEXT_DOMAIN),
+                    'type'        => 'text',
+                    'desc_tip'    => __('Production URL used when test mode disabled.', self::MOD_TEXT_DOMAIN),
+                    'default'     => self::PROD_URL
+                ),
 				'debug'           => array(
 					'title'       => __('Debug mode', self::MOD_TEXT_DOMAIN),
 					'type'        => 'checkbox',
