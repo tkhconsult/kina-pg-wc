@@ -20,6 +20,11 @@ abstract class Request implements RequestInterface
     /**
      * @var bool
      */
+    protected $_testMode = false;
+
+    /**
+     * @var bool
+     */
     protected $_debugMode = false;
 
     /**
@@ -50,10 +55,11 @@ abstract class Request implements RequestInterface
      * @param string $submitButtonLabel
      * @param bool   $debugMode
      * @param bool   $sslVerify
+     * @param bool   $testMode
      *
      * @throws Exception
      */
-    public function __construct(array $requestParams, $gatewayUrl, $pageType, $acceptUrl = '', $submitButtonLabel = '', $debugMode = false, $sslVerify = true)
+    public function __construct(array $requestParams, $gatewayUrl, $pageType, $acceptUrl = '', $submitButtonLabel = '', $debugMode = false, $sslVerify = true, $testMode = false)
     {
         #Push the request field values
         foreach ($requestParams as $name => $value) {
@@ -68,6 +74,7 @@ abstract class Request implements RequestInterface
         $this->_pageType = $pageType;
         $this->_acceptUrl = $acceptUrl;
         $this->_submitButtonLabel = $submitButtonLabel;
+        $this->_testMode = $testMode;
         #Set debug mode
         $this->_debugMode = $debugMode;
         #Set SSL verify mode

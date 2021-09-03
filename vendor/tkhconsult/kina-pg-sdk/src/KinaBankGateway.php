@@ -26,6 +26,11 @@ class KinaBankGateway
     /**
      * @var bool
      */
+    private $testMode = false;
+
+    /**
+     * @var bool
+     */
     private $sslVerify = true;
 
     /**
@@ -198,6 +203,20 @@ class KinaBankGateway
     public function setDebug($debug)
     {
         $this->debug = (boolean)$debug;
+
+        return $this;
+    }
+
+    /**
+     * Debug mode setter
+     *
+     * @param boolean $testMode
+     *
+     * @return $this
+     */
+    public function setTestMode($testMode)
+    {
+        $this->testMode = (boolean)$testMode;
 
         return $this;
     }
@@ -481,7 +500,7 @@ class KinaBankGateway
                     KinaBank\Authorization\AuthorizationRequest::MERCHANT      => $this->merchant,
                     KinaBank\Authorization\AuthorizationRequest::MERCH_NAME    => $this->merchantName,
                     KinaBank\Authorization\AuthorizationRequest::MERCH_URL     => $this->merchantUrl,
-                ], $this->gatewayUrl, $this->pageType, $this->acceptUrl, $this->submitButtonLabel, $this->debug, $this->sslVerify
+                ], $this->gatewayUrl, $this->pageType, $this->acceptUrl, $this->submitButtonLabel, $this->debug, $this->sslVerify, $this->testMode
             );
             $request->request();
         } catch (KinaBank\Exception $e) {
@@ -518,7 +537,7 @@ class KinaBankGateway
                     KinaBank\Completion\CompletionRequest::NONCE     => $this->generateNonce(),
                     KinaBank\Completion\CompletionRequest::RRN       => $rrn,
                     KinaBank\Completion\CompletionRequest::INT_REF   => $intRef,
-                ], $this->gatewayUrl, $this->pageType, $this->acceptUrl, $this->submitButtonLabel, $this->debug, $this->sslVerify
+                ], $this->gatewayUrl, $this->pageType, $this->acceptUrl, $this->submitButtonLabel, $this->debug, $this->sslVerify, $this->testMode
             );
 
             return $request->request();

@@ -155,7 +155,7 @@ class AuthorizationRequest extends Request
      */
     public function request()
     {
-        $form = new Form('authorization-request');
+        $form = new Form('authorization-request', $this->_testMode);
         if ($this->_debugMode) {
             $constructElementMethod = 'addTextElement';
         } else {

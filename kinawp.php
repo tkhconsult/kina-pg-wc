@@ -763,6 +763,7 @@ function woocommerce_kinabank_init() {
                 ->setSubmitButtonLabel('Click here to pay')
 				->setTimezone(wc_timezone_string())
                 ->setDebug($this->debug)
+                ->setTestMode($this->testmode)
 				->setDefaultLanguage($this->get_language());
 				//->setCountryCode(WC()->countries->get_base_country())
 				//->setDefaultCurrency(get_woocommerce_currency())

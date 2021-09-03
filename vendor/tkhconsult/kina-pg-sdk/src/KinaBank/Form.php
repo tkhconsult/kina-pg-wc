@@ -34,6 +34,7 @@ class Form
      */
     private $_formElements = [];
     
+    private $testMode = false;
     private $showAccept = false;
     private $acceptUrl = '';
     private $submitButtonLabel = 'Checkout - Credit/Debit Cards';
@@ -44,12 +45,13 @@ class Form
      *
      * @param string $formName
      */
-    public function __construct($formName = '')
+    public function __construct($formName = '', $testMode = false)
     {
         if (empty($formName)) {
             $formName = 'form-'.rand();
         }
         $this->_formName = $formName;
+        $this->testMode = $testMode;
         $this->init();
 
         return $this;
@@ -204,6 +206,7 @@ class Form
         $submitLabel = $this->submitButtonLabel;
         $showAccept = $this->showAccept;
         $acceptUrl = $this->acceptUrl;
+        $testMode = $this->testMode;
         $isHosted = $this->pageType == 'hosted';
         $scheme = parse_url($formAction, PHP_URL_SCHEME);
         $host = $scheme . '://' . parse_url($formAction, PHP_URL_HOST);
