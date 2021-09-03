@@ -738,7 +738,7 @@ function woocommerce_kinabank_init() {
 		protected function init_kb_client() {
 			$kinaBankGateway = new KinaBankGateway();
 
-			$gatewayUrl = ($this->testmode ? 'https://devegateway.kinabank.com.pg/cgi-bin/cgi_link' : 'https://prodegateway.kinabank.com.pg/cgi-bin/cgi_link'); #ALT TEST kb19.kinabank.md
+            $gatewayUrl = ($this->testmode ? trim($this->dev_url,'/') . '/cgi-bin/cgi_link' :  trim($this->prod_url,'/') .  '/cgi-bin/cgi_link'); #ALT TEST kb19.kinabank.md
 			$sslVerify  = !$this->testmode;
 
 			//Set basic info
