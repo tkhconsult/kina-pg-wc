@@ -1265,6 +1265,7 @@ function woocommerce_kinabank_init() {
          * @return int
          */
 		protected function get_order_net_total($order) {
+            $order_total = $order->get_total();
 			return $order_total;
 		}
 
