@@ -162,6 +162,7 @@ function woocommerce_kinabank_init() {
 				add_filter('woocommerce_order_status_completed', array($this, 'order_status_completed'));
 				add_filter('woocommerce_order_status_cancelled', array($this, 'order_status_cancelled'));
 			}
+            add_action('admin_enqueue_scripts', array($this, 'admin_scripts'));
 
 			#region Payment listener/API hook
 			add_action('woocommerce_api_wc_' . $this->id, array($this, 'check_response'));
@@ -169,6 +170,13 @@ function woocommerce_kinabank_init() {
             add_action('woocommerce_admin_order_data_after_billing_address', array($this, 'add_customer_admin_order_data'), 0);
 			#endregion
 		}
+
+        function admin_scripts( $hook ) {
+            if( $hook == 'woocommerce_page_wc-settings' ) {
+                wp_register_script('kinawp-script', plugin_dir_url(__FILE__) . '/assets/script.js', array('jquery'));
+                wp_enqueue_script( 'kinawp-script');
+            }
+        }
 
         /**
          * @param WC_Order $order
