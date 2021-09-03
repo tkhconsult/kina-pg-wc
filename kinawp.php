@@ -255,9 +255,9 @@ function woocommerce_kinabank_init() {
 					'default'     => 'no'
 				),
                 'dev_url'        => array(
-                    'title'       => __('Development URL', self::MOD_TEXT_DOMAIN),
+                    'title'       => __('Test URL', self::MOD_TEXT_DOMAIN),
                     'type'        => 'text',
-                    'desc_tip'    => __('Development URL used when test mode enabled.', self::MOD_TEXT_DOMAIN),
+                    'desc_tip'    => __('Test URL used when test mode enabled.', self::MOD_TEXT_DOMAIN),
                     'default'     => self::DEV_URL
                 ),
                 'prod_url'        => array(
