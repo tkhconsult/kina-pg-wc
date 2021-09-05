@@ -743,10 +743,19 @@ function woocommerce_kinabank_init() {
 		}
 		#endregion
 
+        protected function get_host() {
+		    $url = $this->prod_url;
+            if($this->testmode) {
+                $url = $this->dev_url;
+            }
+
+            return trim($url, '/');
+        }
+
 		protected function init_kb_client() {
 			$kinaBankGateway = new KinaBankGateway();
 
-            $gatewayUrl = ($this->testmode ? trim($this->dev_url,'/') . '/cgi-bin/cgi_link' :  trim($this->prod_url,'/') .  '/cgi-bin/cgi_link'); #ALT TEST kb19.kinabank.md
+            $gatewayUrl = $this->get_host() . '/cgi-bin/cgi_link'; #ALT TEST kb19.kinabank.md
 			$sslVerify  = !$this->testmode;
 
 			//Set basic info
