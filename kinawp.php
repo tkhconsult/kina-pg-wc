@@ -591,6 +591,20 @@ function woocommerce_kinabank_init() {
 				$validate_result = false;
 			}
 
+			$url = $this->get_host();
+            $ctx = stream_context_create(array(
+                "ssl" => array(
+                    "verify_peer"=>false,
+                    "verify_peer_name"=>false,
+                ),
+                'http' => array(
+                    'timeout' => 2,  // in second
+                )
+            ));
+			if(!@file_get_contents($url, false, $ctx)) {
+                $this->add_error(sprintf('<strong>%1$s</strong> %2$s', $url, __('is not acessible. Please ensure the domain name is correct.', self::MOD_TEXT_DOMAIN)));
+            }
+
 			return $validate_result;
 		}
 
