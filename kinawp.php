@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Kinabank Payment Gateway
  * Description: WooCommerce Payment Gateway for Kinabank
  * Plugin URI: https://github.com/tkhconsult/kina-pg-wc
- * Version: 1.4.0
+ * Version: 1.4.1
  * Author: tkhconsult
  * Text Domain: kinawp
  * Domain Path: /languages
