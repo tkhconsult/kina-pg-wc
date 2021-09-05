@@ -58,7 +58,7 @@ function woocommerce_kinabank_init() {
 		const MOD_TEXT_DOMAIN = 'kinawp';
 
         const DEV_URL  = 'https://devegateway.kinabank.com.pg';
-        const PROD_URL = 'https://prodegateway.kinabank.com.pg';
+        const PROD_URL = 'https://ipg.kinabank.com.pg';
 
 		const PAYMENT_PAGE_TYPE_HOSTED = 'hosted';
 		const PAYMENT_PAGE_TYPE_EMBEDDED = 'embedded';
