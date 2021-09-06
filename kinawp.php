@@ -262,18 +262,18 @@ function woocommerce_kinabank_init() {
 					'desc_tip'    => __('Use Test or Live bank gateway to process the payments. Disable when ready to accept live payments.', self::MOD_TEXT_DOMAIN),
 					'default'     => 'no'
 				),
-                'static_dev_url'        => array(
+                'dev_url'        => array(
                     'title'       => __('Test URL', self::MOD_TEXT_DOMAIN),
                     'type'        => 'text',
                     'desc_tip'    => __('Test URL used when test mode enabled.', self::MOD_TEXT_DOMAIN),
-                    'default'     => self::DEV_URL,
+                    'value'     => self::DEV_URL,
                     'disabled'    => true,
                 ),
-                'static_prod_url'        => array(
+                'prod_url'        => array(
                     'title'       => __('Production URL', self::MOD_TEXT_DOMAIN),
                     'type'        => 'text',
                     'desc_tip'    => __('Production URL used when test mode disabled.', self::MOD_TEXT_DOMAIN),
-                    'default'     => self::PROD_URL,
+                    'value'     => self::PROD_URL,
                     'disabled'    => true,
                 ),
 				'debug'           => array(
@@ -546,6 +546,8 @@ function woocommerce_kinabank_init() {
 
 		public function process_admin_options() {
 			unset($_POST['woocommerce_kinabank_kb_callback_data']);
+			$_POST['woocommerce_kinabank_dev_url']  = $this->dev_url;
+			$_POST['woocommerce_kinabank_prod_url'] = $this->prod_url;
 
 			$this->process_file_setting('woocommerce_kinabank_kb_prod_key_file', $this->kb_prod_key_file, 'woocommerce_kinabank_kb_prod_key', 'prod.key');
 			$this->process_file_setting('woocommerce_kinabank_kb_test_key_file', $this->kb_test_key_file, 'woocommerce_kinabank_kb_test_key', 'test.key');
