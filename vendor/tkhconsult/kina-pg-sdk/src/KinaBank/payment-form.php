@@ -48,7 +48,7 @@ if($isHosted) { ?>
             enctype="application/x-www-form-urlencoded"
         <?php if(!$isHosted) echo 'target="kblpaymentiframe"'; ?>
     >
-        <button class="btn btn-primary btn-lg alt" type="button" onclick="submitPaymentForm('<?php echo $host; ?>')"><?php echo $submitLabel; ?></button>
+        <button class="btn btn-primary btn-lg alt" type="button" onclick="submitPaymentForm2()"><?php echo $submitLabel; ?></button>
         <?php if(!$isHosted && $showAccept) { ?>
             <div class="we-accept">
                 <b class="we-accept-text">We accept:-</b>

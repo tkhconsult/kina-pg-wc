@@ -1254,7 +1254,7 @@ function woocommerce_kinabank_init() {
 				$order_description,
 				$order_email,
 				$language);
-			if(count($this->notices) == 0) echo '<script>submitPaymentForm("' . $this->get_host() . '")</script>';
+			if(count($this->notices) == 0) echo '<script>submitPaymentForm2()</script>';
 		}
 
 		public function receipt_page($order_id) {
