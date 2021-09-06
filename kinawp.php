@@ -119,8 +119,8 @@ function woocommerce_kinabank_init() {
 			$this->icon              = apply_filters('woocommerce_kinabank_icon', $plugin_icon);
 
 			$this->testmode          = 'yes' === $this->get_option('testmode', 'no');
-            $this->dev_url           = $this->get_option('dev_url', self::DEV_URL);
-            $this->prod_url          = $this->get_option('prod_url', self::PROD_URL);
+            $this->dev_url           = self::DEV_URL;
+            $this->prod_url          = self::PROD_URL;
 
 			$this->debug             = 'yes' === $this->get_option('debug', 'no');
 
@@ -262,18 +262,6 @@ function woocommerce_kinabank_init() {
 					'desc_tip'    => __('Use Test or Live bank gateway to process the payments. Disable when ready to accept live payments.', self::MOD_TEXT_DOMAIN),
 					'default'     => 'no'
 				),
-                'dev_url'        => array(
-                    'title'       => __('Test URL', self::MOD_TEXT_DOMAIN),
-                    'type'        => 'text',
-                    'desc_tip'    => __('Test URL used when test mode enabled.', self::MOD_TEXT_DOMAIN),
-                    'default'     => self::DEV_URL
-                ),
-                'prod_url'        => array(
-                    'title'       => __('Production URL', self::MOD_TEXT_DOMAIN),
-                    'type'        => 'text',
-                    'desc_tip'    => __('Production URL used when test mode disabled.', self::MOD_TEXT_DOMAIN),
-                    'default'     => self::PROD_URL
-                ),
 				'debug'           => array(
 					'title'       => __('Debug mode', self::MOD_TEXT_DOMAIN),
 					'type'        => 'checkbox',
