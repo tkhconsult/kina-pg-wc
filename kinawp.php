@@ -92,8 +92,6 @@ function woocommerce_kinabank_init() {
 
 		public function __construct() {
 			$plugin_dir = plugin_dir_url(__FILE__);
-
-            $this->notices = is_callable('wc_get_notices') ? wc_get_notices() : [];
 			$this->logger = wc_get_logger();
 
 			$this->id                 = self::MOD_ID;
@@ -146,6 +144,9 @@ function woocommerce_kinabank_init() {
 			$this->kb_prod_key           = $this->get_option('kb_prod_key');
 			$this->kb_test_key           = $this->get_option('kb_test_key');
 			#endregion
+            $this->show_notice();
+
+            $this->notices = is_callable('wc_get_notices') ? wc_get_notices() : [];
 
 			$this->initialize_keys();
 
@@ -958,12 +959,40 @@ function woocommerce_kinabank_init() {
 				$this->log($message, WC_Log_Levels::ERROR);
 
 				wc_add_notice($message, 'error');
+                $this->add_notice($message, 'error');
+
 				$this->settings_admin_notice();
 
-				wp_safe_redirect($order->get_checkout_payment_url()); //wc_get_checkout_url()
+				wp_safe_redirect($this->get_failed_redirect_url($order)); //wc_get_checkout_url()
 				return false;
 			}
 		}
+
+		public function add_notice($notice, $type) {
+		    if($this->payment_page_type != self::PAYMENT_PAGE_TYPE_HOSTED) return;
+            update_option( 'woocommerce_kinabank_dev_url_notice_message', $notice, 'no' );
+            update_option( 'woocommerce_kinabank_dev_url_notice_type', $type, 'no' );
+        }
+
+		public function show_notice() {
+            if($this->payment_page_type != self::PAYMENT_PAGE_TYPE_HOSTED) return;
+
+            $notice = get_option( 'woocommerce_kinabank_dev_url_notice_message', false );
+            $type = get_option( 'woocommerce_kinabank_dev_url_notice_type', false );
+            if( $notice ){
+                delete_option( 'woocommerce_kinabank_dev_url_notice_message' );
+                delete_option( 'woocommerce_kinabank_dev_url_notice_type' );
+                wc_add_notice($notice, $type);
+            }
+        }
+
+		public function get_failed_redirect_url($order) {
+		    if($this->payment_page_type == self::PAYMENT_PAGE_TYPE_HOSTED) {
+		        return wc_get_checkout_url();
+            }
+
+		    return $order->get_checkout_payment_url();
+        }
 
 		public function check_response() {
 			$this->log_request(__FUNCTION__);
