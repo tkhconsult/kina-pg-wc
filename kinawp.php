@@ -306,7 +306,6 @@ function woocommerce_kinabank_init() {
 					'default'     => self::TRANSACTION_TYPE_CHARGE,
 					'options'     => array(
 						self::TRANSACTION_TYPE_CHARGE        => __('Charge (Purchase/Sale)', self::MOD_TEXT_DOMAIN),
-						self::TRANSACTION_TYPE_AUTHORIZATION => __('Authorization', self::MOD_TEXT_DOMAIN)
 					)
 				),
 				/*'transaction_auto' => array(
@@ -591,11 +590,6 @@ function woocommerce_kinabank_init() {
 				$validate_result = false;
 			}
 
-			if(ini_get('allow_url_fopen') != 1) {
-				$this->add_error(sprintf('<strong>PHP %1$s</strong>: %2$s', 'allow_url_fopen', __('Current server settings do not allow web requests to the bank payment gateway. See <a href="https://www.php.net/manual/en/filesystem.configuration.php#ini.allow-url-fopen" target="_blank">PHP Runtime Configuration</a> for details.', self::MOD_TEXT_DOMAIN)));
-				$validate_result = false;
-			}
-
 			return $validate_result;
 		}
 
@@ -826,11 +820,6 @@ function woocommerce_kinabank_init() {
 
 			if($order && $order->get_payment_method() === $this->id) {
 				if($order->has_status('completed') && $order->is_paid()) {
-					$transaction_type = get_post_meta($order_id, self::MOD_TRANSACTION_TYPE, true);
-
-					if($transaction_type === self::TRANSACTION_TYPE_AUTHORIZATION) {
-						return $this->complete_transaction($order_id, $order);
-					}
 				}
 			}
 		}
@@ -1088,10 +1077,10 @@ function woocommerce_kinabank_init() {
 
 						switch($this->transaction_type) {
 							case self::TRANSACTION_TYPE_CHARGE:
-								$this->complete_transaction($order_id, $order);
 								break;
 
 							case self::TRANSACTION_TYPE_AUTHORIZATION:
+                                $this->complete_transaction($order_id, $order);
 								break;
 
 							default:
@@ -1450,9 +1439,7 @@ function woocommerce_kinabank_init() {
 			if($transaction_type !== self::TRANSACTION_TYPE_AUTHORIZATION) {
 				return $actions;
 			}
-            /* translators: %1$s: Plugin name */
-			$actions['kinabank_complete_transaction'] = sprintf(__('Complete %1$s transaction', self::MOD_TEXT_DOMAIN), self::MOD_TITLE);
-			//$actions['kinabank_reverse_transaction'] = sprintf(__('Reverse %1$s transaction', self::MOD_TEXT_DOMAIN), self::MOD_TITLE);
+
 			return $actions;
 		}
 
@@ -1549,7 +1536,6 @@ function woocommerce_kinabank_init() {
 
             //Add WooCommerce order actions
             add_filter('woocommerce_order_actions', array(WC_KinaBank::class, 'order_actions'));
-            add_action('woocommerce_order_action_kinabank_complete_transaction', array(WC_KinaBank::class, 'action_complete_transaction'));
 
             add_action('wp_ajax_kinabank_callback_data_process', array(WC_KinaBank::class, 'callback_data_process'));
         }
