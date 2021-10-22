@@ -75,9 +75,11 @@ if($isHosted) { ?>
     <!-- embedded -->
     <br/>
     <div id="kbliframediv" class="kbliframeoverlay" style="z-index: 9999999;">
+        <!-- kbliframeinnerdivstart -->
         <div id="kbliframeinnerdiv">
             <iframe id="kblpaymentiframe" name="kblpaymentiframe"></iframe>
         </div>
+        <!-- /kbliframeinnerdivend -->
     </div>
     <?php if ($autoSubmit) { ?>
         <style>
