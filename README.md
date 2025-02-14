@@ -47,6 +47,9 @@ Kinabank currently supports transactions in PGK (Papua New Guinea) only.
 
 ### [Release](../../releases) & Changelog
 
+#### [1.4.8](../../releases/tag/v1.4.8)
+- update staging url
+
 #### [1.4.7](../../releases/tag/v1.4.7)
 - support woo commerce up to 9.1.2
 
